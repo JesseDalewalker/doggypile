@@ -7,6 +7,7 @@ import NavBar from './components/nav/NavBar';
 
 // Pages
 import LandingPage from './pages/home/LandingPage';
+import Map from './pages/home/Map.js'
 
 function App() {
   // state
@@ -20,7 +21,7 @@ function App() {
           {/* Home */}
           <Route path="/" element={ <LandingPage /> } />
 
-          {/* Map */}
+          <Route path="/map" element={<Map />} />
 
         </Routes>
       </HashRouter>
