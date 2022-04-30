@@ -88,15 +88,15 @@ $ git branch <new-branch>
 $ git checkout <branch-name>
 ```
 5. Start coding!
-6. Run commit commands to your branch
+6. Run commit commands to **your** branch
 ```
 $ git add .
 $ git commit -m "Your message here"
 $ git push origin <branch-name>
 ```
-7. To avoid running into conflicts when creating a pull request, checkout into the main branch and run the `git pull` command.
-8. Checkout into your branch and merge the main branch.
+7. To avoid running into conflicts when creating a pull request, checkout into the local main branch and run:
 ```
-git merge main
+git merge <branch-name>
 ```
-9. Submit a pull request. GitHub will notify you if there are any conflicts you need to resolve within the files before being able to merge the changes.
+8. Submit a pull request. GitHub will notify you if there are any conflicts you need to resolve within the files before being able to merge the changes.
+- If there are any issues, run `$ git status` to pinpoint their location.
