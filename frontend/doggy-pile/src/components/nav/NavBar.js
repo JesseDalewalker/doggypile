@@ -4,7 +4,7 @@ import DoggyPileAPI from '../../api/DoggyPileAPI';
 
 function NavBar(props) {
   const navigate = useNavigate()
-  console.log("USERNAME", props.username)
+  // console.log("USERNAME", props.username)
 
   // helpers
   const logMeOut = async () => {
@@ -34,7 +34,7 @@ function NavBar(props) {
         <Navbar bg="dark" variant="dark">
           <Nav className="justify-content-center">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/map">Map</Nav.Link>
+            <Nav.Link as={Link} to="/mappage">Map</Nav.Link>
             <Nav.Link as={Link} to="#" onClick={logMeOut}><Button variant="outline-secondary">Logout</Button></Nav.Link>
           </Nav>
         </Navbar>
