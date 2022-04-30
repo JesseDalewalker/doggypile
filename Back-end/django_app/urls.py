@@ -10,5 +10,7 @@ router.register("dogs", DogViewset, basename="dog")
 router.register("marker", MarkerViewset, basename="marker")
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path("login/", handle_login),
+    path("logout/", handle_logout)
 ]
