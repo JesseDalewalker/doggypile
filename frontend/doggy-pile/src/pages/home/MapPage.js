@@ -5,7 +5,6 @@ import { Marker, Map } from 'react-map-gl'
 import axios from 'axios'
 import image from '../../assets/map-marker-icon.png'
 
-
 function MapPage() {
 
   // const mapContainer = useRef(null);
