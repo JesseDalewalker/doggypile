@@ -36,6 +36,10 @@ $ pip3 install -r requirements.txt
 ```
 $ createdb group_proj_db
 ```
+- If you get an error like this: `Is the server running locally and accepting connections on that socket?` Run this command:
+```
+$ sudo service postgresql start
+```
 6. Move into `Back-end` directory and migrate the models into your database.
 ```
 $ python manage.py makemigrations
