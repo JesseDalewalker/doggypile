@@ -27,13 +27,8 @@ function App() {
           <Route path="/login" element={ <LoginPage setUsername={ setUsername }/> } />
           {/* Home */}
           <Route path="/" element={ <LandingPage /> } />
-<<<<<<< HEAD
-          {/* Map */}
-          <Route path="/map" element={<Map />} />
-=======
 
           <Route path="/mappage" element={<MapPage />} />
->>>>>>> 80bef2421c54a8fdf71a405932919e6d88539e81
 
         </Routes>
       </HashRouter>
