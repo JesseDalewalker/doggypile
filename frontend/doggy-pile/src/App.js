@@ -11,7 +11,7 @@ import SignUpPage from './pages/authenticate/SignUpPage';
 import LoginPage from './pages/authenticate/LoginPage';
 // home
 import LandingPage from './pages/home/LandingPage';
-import MapPage from './pages/home/MapPage'
+import MapPage from './pages/map/MapPage'
 
 function App() {
   // state
