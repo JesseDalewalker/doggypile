@@ -13,7 +13,7 @@ function MapPage() {
 
 
 
-  mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wya3V0YnAzMDJ2cjNkcG4zdGM3bmoweiJ9.IifArH7eSqtdEvfzaIpxfw';
+  mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { enableHighAccuracy: true })
@@ -43,6 +43,10 @@ function MapPage() {
         
       myMap.current.on("click", (e) => new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(myMap.current))
 
+    // const directions = new mapboxgl.MapboxDirections({
+    //   accessToken: mapboxgl.accessToken
+    // })
+    // myMap.current.addControl(directions, "top-left")
   }
 
 
