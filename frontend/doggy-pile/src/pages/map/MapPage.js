@@ -51,6 +51,308 @@ function MapPage() {
 
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
     myMap.current.addControl(search)
+
+    myMap.current.on('load', () => {
+      myMap.current.addSource('dog-parks' , {
+        type: 'geojson',
+        data: {
+          "type": "FeatureCollection",
+          "features": [
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.300146,
+                          34.88618
+                      ]
+                  },
+                  "properties": {
+                      "title": "Pavilion Recreation Complex Dog Park",
+                      "city": "Taylors"
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.226749,
+                          34.856765
+                      ]
+                  },
+                  "properties": {
+                      "title": "Pelham Mill Dog Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3518508,
+                          34.7782446
+                      ]
+                  },
+                  "properties": {
+                      "title": "Conestee Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.4042238,
+                          34.8451735
+                      ]
+                  },
+                  "properties": {
+                      "title": "Swamp Rabbit Trail",
+                      "city": "Downtown Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3700161,
+                          34.9259714
+                      ]
+                  },
+                  "properties": {
+                      "title": "Paris Mountain State Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.4038844,
+                          34.8449113
+                      ]
+                  },
+                  "properties": {
+                      "title": "Falls Park on the Reedy",
+                      "city": "Downtown Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3669106,
+                          34.7745448
+                      ]
+                  },
+                  "properties": {
+                      "title": "Lake Conestee Nature Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.40596,
+                          34.891952
+                      ]
+                  },
+                  "properties": {
+                      "title": "Red Barn Dog Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3422664,
+                          34.8421238
+                      ]
+                  },
+                  "properties": {
+                      "title": "Plantations Dog Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          82.402577,
+                          34.8415345
+                      ]
+                  },
+                  "properties": {
+                      "title": "Cleveland Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3953416,
+                          34.8427859
+                      ]
+                  },
+                  "properties": {
+                      "title": "Rock Quarry Garden",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.334689,
+                          34.8293486
+                      ]
+                  },
+                  "properties": {
+                      "title": "Legacy Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3965276,
+                          34.8570918
+                      ]
+                  },
+                  "properties": {
+                      "title": "McPherson Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3965276,
+                          34.8570918
+                      ]
+                  },
+                  "properties": {
+                      "title": "Timmons Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3683167,
+                          34.8801117
+                      ]
+                  },
+                  "properties": {
+                      "title": "Holmes Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.4397169,
+                          34.950441
+                      ]
+                  },
+                  "properties": {
+                      "title": "Poinsett Park",
+                      "city": "Travelers Rest "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.3942367,
+                          34.8658488
+                      ]
+                  },
+                  "properties": {
+                      "title": "North Main Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.375516,
+                          34.8975971
+                      ]
+                  },
+                  "properties": {
+                      "title": "Herdklotz Park",
+                      "city": "Greenville "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.6095797,
+                          34.8153148
+                      ]
+                  },
+                  "properties": {
+                      "title": "Hagood Park\/Bark Park ",
+                      "city": "Easley "
+                  }
+              },
+              {
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                          -82.25391,
+                          34.7406366
+                      ]
+                  },
+                  "properties": {
+                      "title": "Simpsonville Dog Spot ",
+                      "city": "Simpsonville "
+                  }
+              }
+          ]
+      }
+      })
+      myMap.current.addLayer({
+        'id': 'dog-parks-greenville-sc',
+        'type': 'circle',
+        'source': 'dog-parks',
+        'paint': {
+          'circle-radius': 8,
+          'circle-stroke-width': 2,
+          'circle-color': 'red',
+          'circle-stroke-color': 'white'
+        }
+      })
+    })
   }
 
 
@@ -58,9 +360,9 @@ function MapPage() {
     axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&limit=20&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data.features)})
   }
 
-  const searchAPI = () => [
-    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchItem}.json`)
-  ]
+  // const searchAPI = () => [
+  //   axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchItem}.json`)
+  // ]
 
 
   return (
