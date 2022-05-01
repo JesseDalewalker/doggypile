@@ -4,6 +4,9 @@ import apiHelpers from "./ApiHelpers"
 const DoggyPileAPI = {}
 const BASE_URL = "http://localhost:8000"
 
+// When making API calls, don't forget the parameters!
+// item refers to the model names (users, user-profile...)
+
 // Authentication methods
 DoggyPileAPI.signup = async (signupData) => {
   return await apiHelpers.tryCatchFetch(
