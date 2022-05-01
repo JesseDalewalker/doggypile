@@ -45,13 +45,13 @@ function EditProfilePage(props) {
   
     if (dataForUser && dataForProfile) {
       console.log("RECEIVED DATA")
-      navigate(`/profile`)
+      navigate(`/profile/props.username.user_id`)
     }
   }
 
   return (
     <div>
-      <ProfileFormRender handleCreateProfile={handleEditProfile} profileDetails={profileDetails}/>
+      <ProfileFormRender handleEditProfile={handleEditProfile} profileDetails={profileDetails} />
     </div>
   )
 }

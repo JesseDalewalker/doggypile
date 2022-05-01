@@ -25,25 +25,14 @@ function CreateProfilePage(props) {
       location: event.target.elements["location"].value,
     }
 
-    const dogData = {
-      user: props.username.user_id,
-      name: event.target.elements["name"].value,
-      gender: event.target.elements["dog-gender"].value,
-      friendly_with: event.target.elements["friendly-with"].value,
-      age: event.target.elements["age"].value,
-      breed: event.target.elements["breed"].value,
-      size: event.target.elements["size"].value,
-      vaccinated: event.target.elements["vaccinated"].value,
-    }
-
     console.log("SENDING DATA...")
     const dataForUser = await DoggyPileAPI.editItems("users", props.username.user_id, userData)
     const dataForProfile = await DoggyPileAPI.createItems("user_profile", userProfileData)
-    const dataForDog = await DoggyPileAPI.createItems("dogs", dogData)
 
+    // If this fails to navigate, use params for userId instead
     if (dataForUser && dataForProfile) {
       console.log("RECEIVED DATA")
-      navigate(`/profile`)
+      navigate(`/profile/props.username.user_id`)
     }
   }
 
