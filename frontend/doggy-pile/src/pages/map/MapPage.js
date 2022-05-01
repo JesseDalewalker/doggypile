@@ -3,13 +3,14 @@ import { useEffect, useState, useRef } from 'react'
 // import { Marker, Map, useMap, NavigationControl } from 'react-map-gl'
 // import image from '../../assets/map-marker-icon.png'
 import axios from 'axios';
-
+import MapboxGeocoder from 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 function MapPage() {
 
   const mapContainer = useRef(null);
   const myMap = useRef(null);
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
+  const [searchItem, setSearchItem] = useState()
 
 
 
@@ -47,6 +48,9 @@ function MapPage() {
     //   accessToken: mapboxgl.accessToken
     // })
     // myMap.current.addControl(directions, "top-left")
+
+    // const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
+    myMap.current.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl }))
   }
 
 
@@ -54,7 +58,9 @@ function MapPage() {
     axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&limit=20&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data.features)})
   }
 
-
+  const searchAPI = () => [
+    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchItem}.json`)
+  ]
 
 
   return (
