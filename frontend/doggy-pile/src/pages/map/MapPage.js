@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 // import { Marker, Map, useMap, NavigationControl } from 'react-map-gl'
 // import image from '../../assets/map-marker-icon.png'
 import axios from 'axios';
-import MapboxGeocoder from 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 function MapPage() {
 
@@ -49,8 +49,8 @@ function MapPage() {
     // })
     // myMap.current.addControl(directions, "top-left")
 
-    // const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
-    myMap.current.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl }))
+    const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
+    myMap.current.addControl(search)
   }
 
 
