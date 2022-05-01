@@ -8,7 +8,7 @@ function ProfileFormRender(props) {
 
   return (
     <div>
-      <Form onSubmit={ props.handleCreateProfile }>
+      <Form onSubmit={ props.handleCreateProfile ? props.handleCreateProfile : props.handleEditProfile }>
         {/* User's name details */}
         <Form.Group as={Row}>
           <Form.Label column sm={2}>First Name:</Form.Label>

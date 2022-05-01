@@ -40,13 +40,13 @@ function App() {
           {/* Map */}
           <Route path="/mappage" element={<MapPage />} />
           {/* Users */}
-          <Route path="/profile" element={<ProfilePage username= { username } />} />
-          <Route path="/profile/create-profile" element={<CreateProfilePage username= { username } />} />
-          <Route path="/profile/edit-profile" element={<EditProfilePage username= { username } />} />
+          <Route path="/profile/:userId" element={<ProfilePage username= { username } />} />
+          <Route path="/profile/:userId/create-profile" element={<CreateProfilePage username= { username } />} />
+          <Route path="/profile/userId/edit-profile" element={<EditProfilePage username= { username } />} />
           {/* Dogs */}
-          <Route path="/dog-profile" element={<DogProfilePage username= { username } />} />
-          <Route path="/dog-profile/create-profile" element={<CreateDogProfile username= { username } />} />
-          <Route path="/dog-profile/edit-profile" element={<EditDogProfile username= { username } />} />
+          <Route path="/dog-profile/:dogId" element={<DogProfilePage username= { username } />} />
+          <Route path="/dog-profile/:dogId/create-profile" element={<CreateDogProfile username= { username } />} />
+          <Route path="/dog-profile/:dogId/edit-profile" element={<EditDogProfile username= { username } />} />
         </Routes>
       </HashRouter>
     </div>
