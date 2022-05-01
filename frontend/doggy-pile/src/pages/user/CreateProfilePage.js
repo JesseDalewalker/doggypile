@@ -2,6 +2,10 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
 import ProfileFormRender from "../../components/users/ProfileFormRender";
 
+// This is for creating the User's profile page
+// We are passing the event handler (handleCreateProfile) to our component to get the value from the form fields
+// ProfileFormRender is how we're rendering the form itself
+
 function CreateProfilePage(props) {
   const navigate = useNavigate()
 
@@ -37,7 +41,7 @@ function CreateProfilePage(props) {
     const dataForProfile = await DoggyPileAPI.createItems("user_profile", userProfileData)
     const dataForDog = await DoggyPileAPI.createItems("dogs", dogData)
 
-    if (dataForUser && dataForProfile && dataForDog) {
+    if (dataForUser && dataForProfile) {
       console.log("RECEIVED DATA")
       navigate(`/profile`)
     }

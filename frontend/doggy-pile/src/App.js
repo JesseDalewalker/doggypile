@@ -6,17 +6,21 @@ import { useState } from 'react';
 import NavBar from './components/nav/NavBar';
 
 // Pages
-// authenticate
+// -authenticate
 import SignUpPage from './pages/authenticate/SignUpPage';
 import LoginPage from './pages/authenticate/LoginPage';
-// home
+// -home
 import LandingPage from './pages/home/LandingPage';
-// map
+// -map
 import MapPage from './pages/map/MapPage'
-// users
+// -users
 import ProfilePage from './pages/user/ProfilePage';
 import CreateProfilePage from './pages/user/CreateProfilePage';
 import EditProfilePage from './pages/user/EditProfilePage';
+// -dogs
+import DogProfilePage from './pages/dogs/DogProfilePage';
+import CreateDogProfile from './pages/dogs/CreateDogProfilePage';
+import EditDogProfile from './pages/dogs/EditDogProfilePage';
 
 function App() {
   // state
@@ -39,6 +43,10 @@ function App() {
           <Route path="/profile" element={<ProfilePage username= { username } />} />
           <Route path="/profile/create-profile" element={<CreateProfilePage username= { username } />} />
           <Route path="/profile/edit-profile" element={<EditProfilePage username= { username } />} />
+          {/* Dogs */}
+          <Route path="/dog-profile" element={<DogProfilePage username= { username } />} />
+          <Route path="/dog-profile/create-profile" element={<CreateDogProfile username= { username } />} />
+          <Route path="/dog-profile/edit-profile" element={<EditDogProfile username= { username } />} />
         </Routes>
       </HashRouter>
     </div>
