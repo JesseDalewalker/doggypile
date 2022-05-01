@@ -18,7 +18,7 @@ function LoginPage(props) {
 
     if (data) {
       props.setUsername(data)
-      navigate("/")
+      navigate("/feed")
     }
   }
 

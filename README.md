@@ -2,7 +2,7 @@
 
 DoggyPile is a pet social app made for dog owners that allows users to set up playdates and check in at local parks. Our interactive map will include features such as filtering dog friendly establishments, lost or found pets, and the ability to create markers. 
 
-## Getting Started
+## Getting Started: Installing The Project
 
 ### **Backend Setup**
 
