@@ -8,6 +8,9 @@ router.register("users", UserViewset, basename="user")
 router.register("user_profile", UserProfileViewset, basename="user_profile")
 router.register("dogs", DogViewset, basename="dog")
 router.register("marker", MarkerViewset, basename="marker")
+router.register("post", PostViewset, basename="post")
+router.register("comment", CommentViewset, basename="comment")
+
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -52,3 +52,13 @@ class DogViewset(ModelViewSet):
 class MarkerViewset(ModelViewSet):
     queryset = Marker.objects.all()
     serializer_class = MarkerSerializer
+
+class PostViewset(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class CommentViewset(ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
