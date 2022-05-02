@@ -30,7 +30,7 @@ DoggyPileAPI.logout = async () => {
 // Get items
 DoggyPileAPI.getAllItems = async (item) => {
   return await apiHelpers.tryCatchFetch(
-    () => axios.get(`${BASE_URL}/doggy-pile/${item}/`, apiHelpers.getCsrfConfig)
+    () => axios.get(`${BASE_URL}/doggy-pile/${item}/`, apiHelpers.getCsrfConfig())
   )
 }
 
@@ -47,7 +47,12 @@ DoggyPileAPI.createItems = async (item, itemData) => {
     () => axios.post(`${BASE_URL}/doggy-pile/${item}/`, itemData, apiHelpers.getCsrfConfig())
   )
 }
-
+// Create Post
+// DoggyPileAPI.createPost = async (postData) => {
+//   return await apiHelpers.tryCatchFetch(
+//     () => axios.post(`${BASE_URL}/doggy-pile/post/`, postData, apiHelpers.getCsrfConfig())
+//   )
+// }
 // Edit items
 DoggyPileAPI.editItems = async (item, itemId, itemData) => {
   return await apiHelpers.tryCatchFetch(
