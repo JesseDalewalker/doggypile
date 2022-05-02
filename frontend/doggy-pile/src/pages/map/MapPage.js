@@ -53,17 +53,19 @@ function MapPage() {
     myMap.current.addControl(search)
 
     myMap.current.on('load', () => {
-      myMap.current.loadImage(
-        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-        (error, image) => {
-          if (error) throw error;
-          myMap.current.addImage('custom-marker', image)
-          myMap.current.addSource('dog-parks' , {
-            type: 'geojson',
-            data: arrayOfDogParks.features
-          })
+      myMap.current.addSource('chicago-dog-parks-source', {
+        type: 'geojson',
+        data: arrayOfDogParks
+      })
+      myMap.current.addLayer({
+        id: 'chicago-dog-parks-layer',
+        source: 'chicago-dog-parks-source',
+        type: 'circle',
+        paint: {
+          'circle-radius': 10,
+          'circle-color': '#007cbf'
         }
-      )
+      })
     })
   }
 
