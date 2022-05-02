@@ -9,20 +9,6 @@ import ProfileFormRender from "../../components/users/ProfileFormRender";
 function EditProfilePage(props) {
   const navigate = useNavigate()
 
-  // states
-  const [profileDetails, setProfileDetails] = useState("")
-
-  // effects
-  useEffect(() => {
-    loadProfile()
-  }, [])
-
-  // Getting existing profile data from user's profile to populate the fields that already have input from before
-  const loadProfile = async () => {
-    const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
-    setProfileDetails(data ? data : null)
-  }
-
   // event handler
   const handleEditProfile = async (event) => {
     event.preventDefault()
@@ -36,7 +22,8 @@ function EditProfilePage(props) {
       user: props.username.user_id,
       about: event.target.elements["about"].value,
       gender: event.target.elements["gender-select"].value,
-      location: event.target.elements["location"].value,
+      state: event.target.elements["state"].value,
+      city: event.target.elements["city"].value
     }
 
     console.log("SENDING DATA...")  
@@ -45,13 +32,13 @@ function EditProfilePage(props) {
   
     if (dataForUser && dataForProfile) {
       console.log("RECEIVED DATA")
-      navigate(`/profile/props.username.user_id`)
+      navigate(`/profile/${props.username.user_id}`)
     }
   }
 
   return (
     <div>
-      <ProfileFormRender handleEditProfile={handleEditProfile} profileDetails={profileDetails} />
+      <ProfileFormRender handleEditProfile={handleEditProfile} username={props.username} />
     </div>
   )
 }

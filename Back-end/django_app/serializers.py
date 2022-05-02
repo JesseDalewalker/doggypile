@@ -19,12 +19,26 @@ class DogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dog
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        user = User.objects.get(pk=data['user'])
+        serialized = UserSerializer(instance=user)
+        data['user'] = serialized.data
+        return data
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        user = User.objects.get(pk=data['user'])
+        serialized = UserSerializer(instance=user)
+        data['user'] = serialized.data
+        return data
 
 class MarkerSerializer(serializers.ModelSerializer):
     class Meta:

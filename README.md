@@ -1,6 +1,11 @@
 # DoggyPile
 
-DoggyPile is a pet social app made for dog owners that allows users to set up playdates and check in at local parks. Our interactive map will include features such as filtering dog friendly establishments, lost or found pets, and the ability to create markers. 
+DoggyPile is a pet social app made for dog owners that allows users to set up playdates and check in at local parks. Our interactive map will include features such as filtering dog friendly establishments, lost or found pets, and the ability to create markers.
+
+## Table of Contents
+* [Backend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#backend-setup)
+* [Frontend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#frontend-setup)
+* [Group Collaboration](https://github.com/quebecplatoon/gp_doggy_pile_app#group-collaboration)
 
 ## Getting Started: Installing The Project
 
@@ -100,3 +105,5 @@ git merge <branch-name>
 ```
 8. Submit a pull request. GitHub will notify you if there are any conflicts you need to resolve within the files before being able to merge the changes.
 - If there are any issues, run `$ git status` to pinpoint their location.
+
+[Back to top](https://github.com/quebecplatoon/gp_doggy_pile_app#doggypile)
