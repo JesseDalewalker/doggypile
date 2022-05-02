@@ -14,6 +14,7 @@ import LandingPage from './pages/home/LandingPage';
 import FeedPage from './pages/home/FeedPage';
 // -map
 import MapPage from './pages/map/MapPage'
+import AlternateMap from './pages/map/AlternateMap';
 // -users
 import ProfilePage from './pages/user/ProfilePage';
 import CreateProfilePage from './pages/user/CreateProfilePage';
@@ -41,6 +42,7 @@ function App() {
           <Route path="/feed" element={ <FeedPage /> } />
           {/* Map */}
           <Route path="/mappage" element={<MapPage />} />
+          <Route path="/alternatemappage" element={<AlternateMap />} />
           {/* Users */}
           <Route path="/profile/:userId" element={<ProfilePage username= { username } />} />
           <Route path="/profile/:userId/create-profile" element={<CreateProfilePage username= { username } />} />
