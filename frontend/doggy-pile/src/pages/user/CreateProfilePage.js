@@ -22,7 +22,8 @@ function CreateProfilePage(props) {
       user: props.username.user_id,
       about: event.target.elements["about"].value,
       gender: event.target.elements["gender-select"].value,
-      location: event.target.elements["location"].value,
+      state: event.target.elements["state"].value,
+      city: event.target.elements["city"].value,
     }
 
     console.log("SENDING DATA...")
@@ -32,7 +33,7 @@ function CreateProfilePage(props) {
     // If this fails to navigate, use params for userId instead
     if (dataForUser && dataForProfile) {
       console.log("RECEIVED DATA")
-      navigate(`/profile/props.username.user_id`)
+      navigate(`/profile/${props.username.user_id}`)
     }
   }
 

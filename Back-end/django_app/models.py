@@ -12,9 +12,9 @@ class Marker(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", primary_key=True)
     about = models.TextField(null=True, blank=True, default=None)
-    gender = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
-
+    gender = models.CharField(max_length=30)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    state = models.CharField(max_length=100, null=True, blank=True)
 
 class Dog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="dog")
