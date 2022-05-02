@@ -1,5 +1,6 @@
+import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {Form, Button, Stack, Row, Col } from 'react-bootstrap'
 import StateCityData from '../../data/StatesCityData.json'
 
@@ -10,6 +11,18 @@ function ProfileFormRender(props) {
 
   // state
   const [cityList, setCityList] = useState([])
+  const [profileDetails, setProfileDetails] = useState("")
+
+  // effects
+  useEffect(() => {
+    loadProfile()
+  }, [])
+
+  // Getting existing profile data from user's profile to populate the fields that already have input from before
+  const loadProfile = async () => {
+    const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
+    setProfileDetails(data ? data : null)
+  }
 
   // render
   // Rendering all the states first
@@ -42,11 +55,11 @@ function ProfileFormRender(props) {
         <Form.Group as={Row}>
           <Form.Label column sm={2}>First Name:</Form.Label>
           <Col>
-            <Form.Control name="first-name" defaultValue={ props.profileDetails && props.profileDetails.user.first_name } />
+            <Form.Control name="first-name" defaultValue={ profileDetails && profileDetails.user.first_name } />
           </Col>
           <Form.Label column sm={2}>Last Name:</Form.Label>
           <Col>
-            <Form.Control name="last-name" defaultValue={ props.profileDetails && props.profileDetails.user.last_name } />
+            <Form.Control name="last-name" defaultValue={ profileDetails && profileDetails.user.last_name } />
           </Col>
         </Form.Group>
         {/* User's gender selection */}
@@ -63,7 +76,7 @@ function ProfileFormRender(props) {
         {/* User about area */}
         <Form.Group as={Row}>
           <Form.Label>About:</Form.Label>
-          <Form.Control name="about" as="textarea" rows={6} defaultValue={ props.profileDetails && props.profileDetails.about } />
+          <Form.Control name="about" as="textarea" rows={6} defaultValue={ profileDetails && profileDetails.about } />
         </Form.Group>
         {/* User's location */}
         <Form.Group as={Row}> 
