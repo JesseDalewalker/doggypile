@@ -29,9 +29,7 @@ function AlternateMap(props) {
     }
     
   };
-  const whenClicked = () => {
-    console.log("clicked")
-  }
+
   
   console.log(arrayOfDogParks)
   return (
@@ -46,7 +44,7 @@ function AlternateMap(props) {
       }} mapStyle='mapbox://styles/mapbox/streets-v11'
       mapboxAccessToken='pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ'
       >
-        <Source id="dog-parks" type="geojson" data={geojson} onClick={whenClicked} >
+        <Source id="dog-parks" type="geojson" data={geojson}  >
           <Layer {...layerStyle} />
         </Source>
         <NavigationControl />
