@@ -40,7 +40,7 @@ function CreateProfilePage(props) {
 
   return (
     <div>
-      <ProfileFormRender handleCreateProfile={handleCreateProfile} />
+      <ProfileFormRender handleCreateProfile={handleCreateProfile} username={props.username} />
     </div>
   )
 }

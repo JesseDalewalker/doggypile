@@ -12,16 +12,23 @@ function ProfileFormRender(props) {
   // state
   const [cityList, setCityList] = useState([])
   const [profileDetails, setProfileDetails] = useState(null)
+  const [userDetails, setUserDetails] = useState(null)
 
   // effects
   useEffect(() => {
     loadProfile()
+    loadUserDetails()
   }, [])
 
   // Getting existing profile data from user's profile to populate the fields that already have input from before
   const loadProfile = async () => {
     const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
     setProfileDetails(data ? data : null)
+  }
+
+  const loadUserDetails = async () => {
+    const data = await DoggyPileAPI.getItemById("users", props.username.user_id)
+    setUserDetails(data ? data : null)
   }
 
   // render
@@ -48,6 +55,7 @@ function ProfileFormRender(props) {
     })
   }
 
+  console.log("USERDETAILS", userDetails)
   return (
     <div>
       <Form onSubmit={ props.handleCreateProfile ? props.handleCreateProfile : props.handleEditProfile }>
@@ -55,11 +63,11 @@ function ProfileFormRender(props) {
         <Form.Group as={Row}>
           <Form.Label column sm={2}>First Name:</Form.Label>
           <Col>
-            <Form.Control name="first-name" defaultValue={ profileDetails && profileDetails.user.first_name } />
+            <Form.Control name="first-name" defaultValue={ userDetails && userDetails.first_name } />
           </Col>
           <Form.Label column sm={2}>Last Name:</Form.Label>
           <Col>
-            <Form.Control name="last-name" defaultValue={ profileDetails && profileDetails.user.last_name } />
+            <Form.Control name="last-name" defaultValue={ userDetails && userDetails.last_name } />
           </Col>
         </Form.Group>
         {/* User's gender selection */}
@@ -83,14 +91,14 @@ function ProfileFormRender(props) {
           <Form.Label column sm={2}>State:</Form.Label>
           <Col>
             <Form.Select name="state" onChange={changeCityList}>
-              <option>Select your state:</option>
+              <option value="null">Select your state:</option>
               { renderStateOptions() }
             </Form.Select>
           </Col>
           <Form.Label column sm={2}>City:</Form.Label>
           <Col>
             <Form.Select name="city">
-              <option>Select your city:</option>
+              <option value="null">Select your city:</option>
               { renderCityList() }
             </Form.Select>
           </Col>

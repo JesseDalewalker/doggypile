@@ -1,8 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import {Form, Button, Stack, Row, Col, Container } from 'react-bootstrap'
+import DogBreeds from '../../data/dog_breeds.json'
 
 function DogProfileFormRender(props) {
   const navigate = useNavigate()
+
+  // Render all dog breed names
+  const renderDogBreeds = () => {
+    return DogBreeds.map((breed, index) => {
+      return <option key={index} value={breed}>{breed}</option>
+    })
+  }
 
   return (
     <div>
@@ -21,7 +29,9 @@ function DogProfileFormRender(props) {
         <Form.Group as={Row}>
           <Form.Label column>Breed:</Form.Label>
           <Col>
-            <Form.Control name="breed" defaultValue={ props.profileDogDetails && props.profileDogDetails.breed } />
+            <Form.Select name="breed">
+              { renderDogBreeds() }
+            </Form.Select>
           </Col>
           <Form.Label column>Gender:</Form.Label>
           <Col>

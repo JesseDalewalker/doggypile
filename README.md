@@ -27,12 +27,12 @@ $ source .venv/bin/activate
 ```
 
 4. Install requirements.txt
-- #### Windows
+- #### Windows/Linux
 ```
 $ pip install -r requirements.txt
 ```
 
-- #### Linux
+- #### Mac
 ```
 $ pip3 install -r requirements.txt
 ```
@@ -42,7 +42,7 @@ $ touch .env
 $ python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 ```
 - Note: You might need to run it with `python3` instead
-- Insert this inside the .env file: `SECRET_KEY = <Paste secret key here>`
+- Insert this inside the .env file: `SECRET_KEY = "Paste secret key here"`
 
 6. Create the database (Postgresql)
 ```

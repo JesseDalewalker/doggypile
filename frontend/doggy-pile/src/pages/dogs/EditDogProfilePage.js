@@ -10,7 +10,7 @@ function EditDogProfile(props) {
   const { dogId } = useParams()
 
   // states
-  const [profileDogDetails, setProfileDogDetails] = useState("")
+  const [profileDogDetails, setProfileDogDetails] = useState(null)
 
   // effects
   useEffect(() => {
