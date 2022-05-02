@@ -23,6 +23,9 @@ import EditProfilePage from './pages/user/EditProfilePage';
 import DogProfilePage from './pages/dogs/DogProfilePage';
 import CreateDogProfile from './pages/dogs/CreateDogProfilePage';
 import EditDogProfile from './pages/dogs/EditDogProfilePage';
+// -posts
+import CreatePostPage from './components/posts/createpost';
+
 
 function App() {
   // state
@@ -51,6 +54,8 @@ function App() {
           <Route path="/dog-profile/:dogId" element={<DogProfilePage username= { username } />} />
           <Route path="/dog-profile/:dogId/create-profile" element={<CreateDogProfile username= { username } />} />
           <Route path="/dog-profile/:dogId/edit-profile" element={<EditDogProfile username= { username } />} />
+          {/*Posts */}
+          <Route path="/post/create-post" element={<CreatePostPage username= { username } />} />
         </Routes>
       </HashRouter>
     </div>
