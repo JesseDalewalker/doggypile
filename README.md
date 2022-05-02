@@ -5,7 +5,7 @@ DoggyPile is a pet social app made for dog owners that allows users to set up pl
 ## Table of Contents
 * [Backend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#backend-setup)
 * [Frontend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#frontend-setup)
-* [Git Workflow](https://github.com/quebecplatoon/gp_doggy_pile_app#group-collaboration)
+* [Git Workflow](https://github.com/quebecplatoon/gp_doggy_pile_app#git-workflow)
 
 ## Getting Started: Installing The Project
 
@@ -90,7 +90,7 @@ $ npm start
 ## Git Workflow
 ### **Important note:** Make sure you are committing your changes on your own branch before merging onto the main branch!
 1. Ensure you're in the main branch by checking with: `$ git branch -a`
-2. Pull from the main branch with this command: `$ git pull origin main`
+2. Pull from the main branch with this command to get the most up to date version (unless you had just cloned the repo): `$ git pull origin main`
 3. Create a new branch and name it after the feature you will be working on. Running the following command will switch you to the branch after specifying the name.
 ```
 $ git checkout -b <new-branch>
