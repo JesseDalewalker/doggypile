@@ -11,7 +11,7 @@ function ProfileFormRender(props) {
 
   // state
   const [cityList, setCityList] = useState([])
-  const [profileDetails, setProfileDetails] = useState("")
+  const [profileDetails, setProfileDetails] = useState(null)
 
   // effects
   useEffect(() => {
