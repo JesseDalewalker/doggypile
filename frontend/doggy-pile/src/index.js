@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import './fonts/Doggy Dog World.otf'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
