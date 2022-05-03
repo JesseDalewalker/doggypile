@@ -1,0 +1,25 @@
+.navbar {
+  background-color: #FCF9F8;
+}
+
+.navbar-item {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.navbar-item:hover {
+  color: #ff7300 !important;
+}
+
+.navbar-item.signup-btn {
+  background-color: #FA9A49;
+  border: 0;
+  border-radius: 25px;
+  width: 8vw;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.logo {
+  width: 50%;
+}
