@@ -38,12 +38,14 @@ function FeedPage(props) {
 
   return (
     <div>
-      <h1 id="welcome" >Welcome, { props.username.username }</h1>
+      <center>
+      <h1 id="welcome" ><br/> Welcome <br/></h1> 
+      <br/><h1> { props.username.username }! </h1>
       <h1>My Posts</h1>
 
       { renderPosts ()}
       <h1>Feed</h1>
-    
+    </center>
     </div>
   )
 }
