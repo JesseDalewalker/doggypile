@@ -19,9 +19,9 @@ function ProfilePage(props) {
   return (
     <div>
       <h1>User's Profile</h1>
-      {userDetails && userDetails.user.first_name}
+      {userDetails && userDetails.id.first_name}
       <br/>
-      {userDetails && userDetails.user.last_name}
+      {userDetails && userDetails.id.last_name}
       <br/>
       {userDetails && userDetails.about}
       <br/>
@@ -29,7 +29,8 @@ function ProfilePage(props) {
       <br/>
       {userDetails && userDetails.city}
       <br/>
-      {userDetails && userDetails.state}    
+      {userDetails && userDetails.state}
+      <img src={userDetails && userDetails.profile_pic} width={250} height={250}/>    
     </div>
   )
 }

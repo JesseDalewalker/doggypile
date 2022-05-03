@@ -35,9 +35,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        user = User.objects.get(pk=data['user'])
+        user = User.objects.get(pk=data['id'])
         serialized = UserSerializer(instance=user)
-        data['user'] = serialized.data
+        data['id'] = serialized.data
         return data
 
 class MarkerSerializer(serializers.ModelSerializer):

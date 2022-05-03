@@ -1,4 +1,5 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
+import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import {Form, Button, Stack, Row, Col } from 'react-bootstrap'
@@ -13,6 +14,8 @@ function ProfileFormRender(props) {
   const [cityList, setCityList] = useState([])
   const [profileDetails, setProfileDetails] = useState(null)
   const [userDetails, setUserDetails] = useState(null)
+  const [imageSelected, setImageSelected] = useState(null)
+  const [imageSrc, setImageSrc] = useState(null)
 
   // effects
   useEffect(() => {
@@ -55,10 +58,37 @@ function ProfileFormRender(props) {
     })
   }
 
-  console.log("USERDETAILS", userDetails)
+  // Uploading profile picture
+  const uploadImage = async (event) => {
+    event.preventDefault()
+
+    const formData = new FormData();
+    formData.append("file", imageSelected)
+    formData.append("upload_preset", "my-uploads")
+
+    axios.post("https://api.cloudinary.com/v1_1/dbi5z0la5/image/upload", formData)
+    .then((response)=>{
+      setImageSrc(response ? response.data.secure_url : null)
+    })
+
+    console.log("IMAGE URL", imageSrc)
+  };
+
+  
   return (
     <div>
+      <Row className="mb-3">
+        <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
+          <Col>
+            <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
+          </Col>
+          <Col><Button onClick={uploadImage}>Upload Image</Button></Col>
+      </Row>
+
       <Form onSubmit={ props.handleCreateProfile ? props.handleCreateProfile : props.handleEditProfile }>
+        <Row>
+          <input type="hidden" name="profile-pic" value={imageSrc && imageSrc} /> 
+        </Row>
         {/* User's name details */}
         <Form.Group as={Row}>
           <Form.Label column sm={2}>First Name:</Form.Label>

@@ -19,6 +19,7 @@ class UserProfile(models.Model):
 
 class Dog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="dog")
+    profile_pic = models.URLField(max_length=255, null=True, blank=True)
     name = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     friendly_with = models.CharField(max_length=255)
