@@ -10,7 +10,7 @@ function MapPage() {
   const mapContainer = useRef(null);
   const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
-  const [dirty, setDirty] = useState(true)
+
 
 
 
@@ -54,7 +54,7 @@ function MapPage() {
       const nav = new mapboxgl.NavigationControl();
       map.addControl(nav);
         
-      map.on("click", (e) => new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map))
+      map.on("click", (e) => new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup( new mapboxgl.Popup().setHTML("<select><option value='agressive dog' className='agro-dog'>Aggressive Dog</option><option value='lost dog'>Lost Dog</option></select>")).addTo(map))
 
       map.on("click", "chicago-dog-parks", (e) => {
         const name = e.features[0].properties.name;
@@ -84,10 +84,6 @@ function MapPage() {
         })
       })
 
-    
-      // map.on('data', () => {
-      //   map.getSource('chicago-dog-parks-source').setData(arrayOfDogParks)
-      // })
   }
 
 
