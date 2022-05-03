@@ -97,15 +97,71 @@ function MapPage() {
       })
     })
     
-    
-
       map.on("click", "chicago-dog-parks", (e) => {
         const name = e.features[0].properties.name;
         const address = e.features[0].properties.address_line2;
 
         new mapboxgl.Popup({ closeOnClick: false}).setLngLat([e.lngLat.lng, e.lngLat.lat]).setHTML(`Park Name: ${name}. Location: ${address}`).addTo(map)
     }) 
+    class MapboxGLButtonControl {
+      constructor({
+        className = "",
+        title = "",
+        eventHandler = ''
+      }) {
+        this._className = className;
+        this._title = title;
+        this._eventHandler = eventHandler;
+      }
+    
+      onAdd(map) {
+        this._btn = document.createElement("button");
+        this._btn.className = "mapboxgl-ctrl-icon" + " " + this._className;
+        this._btn.type = "button";
+        this._btn.title = this._title;
+        this._btn.onclick = this._eventHandler;
+    
+        this._container = document.createElement("div");
+        this._container.className = "mapboxgl-ctrl-group mapboxgl-ctrl";
+        this._container.appendChild(this._btn);
+    
+        return this._container;
+      }
+    
+      onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+      }
+    }
 
+    function one(event) {
+      let visibility = map.getLayoutProperty(
+        'chicago-dog-parks',
+        'visibility'
+        );
+         
+        // Toggle layer visibility by changing the layout object's visibility property.
+        if (visibility === 'visible') {
+        map.setLayoutProperty('chicago-dog-parks', 'visibility', 'none');
+        this.className = '';
+        } else {
+        this.className = 'active';
+        map.setLayoutProperty(
+        'chicago-dog-parks',
+        'visibility',
+        'visible'
+        );
+        }
+       
+    }
+
+    const renderLayer = new MapboxGLButtonControl({
+      className: "mapbox-gl-draw_point",
+      title: "Draw Point",
+      eventHandler: one
+    });
+
+    map.addControl(renderLayer, 'top-left')
 
 
       const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
@@ -137,15 +193,9 @@ function MapPage() {
 
   }
 
-
-
-
-
-  
   const dogParkApiCall = () => {
     axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data)})
   }
-
 
   return (
     <div>
