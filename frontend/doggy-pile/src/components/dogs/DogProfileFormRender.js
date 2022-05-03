@@ -1,10 +1,9 @@
 import axios from "axios"
+import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import {Form, Button, Stack, Row, Col, Container } from 'react-bootstrap'
+import { useState, useEffect } from "react"
+import {Form, Button, Stack, Row, Col } from 'react-bootstrap'
 import DogBreeds from '../../data/dog_breeds.json'
-
-// REMEMBER: load existing dog profile details and set imageSrc to profile_pic if image has been uploaded to avoid overwriting as null
 
 function DogProfileFormRender(props) {
   const navigate = useNavigate()
@@ -12,6 +11,19 @@ function DogProfileFormRender(props) {
   // state
   const [imageSelected, setImageSelected] = useState(null)
   const [imageSrc, setImageSrc] = useState(null)
+  const [profileDogDetails, setProfileDogDetails] = useState(null)
+
+  // effects
+  useEffect(() => {
+    loadDogProfile()
+  }, [])
+
+  // Getting existing profile data from Dog's profile to populate the fields that already have input from before
+  const loadDogProfile = async () => {
+    const data = await DoggyPileAPI.getItemById("dogs", props.dogId)
+    setProfileDogDetails(data ? data : null)
+    setImageSrc(data ? data.profile_pic : null)
+  }
 
   // Render all dog breed names
   const renderDogBreeds = () => {
@@ -39,6 +51,9 @@ function DogProfileFormRender(props) {
 
   return (
     <div>
+      <Row>
+        <img src={ imageSrc && imageSrc } width={250} height={250}/>
+      </Row>
       <Row className="mb-3">
         <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
           <Col>
@@ -54,11 +69,11 @@ function DogProfileFormRender(props) {
         <Form.Group as={Row}>
           <Form.Label column>Name:</Form.Label>
           <Col>
-            <Form.Control name="name" defaultValue={ props.profileDogDetails && props.profileDogDetails.name } />
+            <Form.Control name="name" defaultValue={ profileDogDetails && profileDogDetails.name } />
           </Col>
           <Form.Label column>Age:</Form.Label>
           <Col>
-            <Form.Control name="age" defaultValue={ props.profileDogDetails && props.profileDogDetails.age } />
+            <Form.Control name="age" defaultValue={ profileDogDetails && profileDogDetails.age } />
           </Col>
         </Form.Group>
 
