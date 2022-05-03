@@ -8,31 +8,43 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 function MapPage() {
 
   const mapContainer = useRef(null);
-  const myMap = useRef(null);
+  const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
-  const [searchItem, setSearchItem] = useState()
+
 
 
 
   mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { enableHighAccuracy: true })
     dogParkApiCall()
-  }, [] )
+    
+  }, [])
+
+  useEffect(() => {
+    if (arrayOfDogParks) {
+      navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { enableHighAccuracy: true })
+      
+    }
+
+  }, [arrayOfDogParks] )
 
 
   function successLocation(position) {
-    // console.log(position)
+    
     setUpMap([position.coords.longitude, position.coords.latitude])
+    
   }
 
   function errorLocation() {
     setUpMap([-87.623177, 41.881832])
+    
   }
 
+
+
   function setUpMap(center) {
-    myMap.current = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: center,
@@ -40,45 +52,56 @@ function MapPage() {
       });
     
       const nav = new mapboxgl.NavigationControl();
-      myMap.current.addControl(nav);
+      map.addControl(nav);
         
-      myMap.current.on("click", (e) => new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(myMap.current))
+      map.on("click", (e) => new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup( new mapboxgl.Popup().setHTML("<select><option value='agressive dog' className='agro-dog'>Aggressive Dog</option><option value='lost dog'>Lost Dog</option></select>")).addTo(map))
 
-    // const directions = new mapboxgl.MapboxDirections({
-    //   accessToken: mapboxgl.accessToken
-    // })
-    // myMap.current.addControl(directions, "top-left")
+      map.on("click", "chicago-dog-parks", (e) => {
+        const name = e.features[0].properties.name;
+        const address = e.features[0].properties.address_line2;
 
-    const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
-    myMap.current.addControl(search)
-
-    myMap.current.on('load', () => {
-      myMap.current.addSource('chicago-dog-parks-source', {
-        type: 'geojson',
-        data: arrayOfDogParks
-      })
-      myMap.current.addLayer({
-        id: 'chicago-dog-parks-layer',
-        source: 'chicago-dog-parks-source',
-        type: 'circle',
-        paint: {
-          'circle-radius': 10,
-          'circle-color': '#007cbf'
-        }
-      })
+        new mapboxgl.Popup({ closeOnClick: false}).setLngLat([e.lngLat.lng, e.lngLat.lat]).setHTML(`Park Name: ${name}. Location: ${address}`).addTo(map)
     })
+      
+
+
+      const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
+      map.addControl(search)
+
+      map.on('load', () => {
+        map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Paw-print.svg/1200px-Paw-print.svg.png', (error, image) => {
+          if (error) throw error;
+  
+          map.addImage('paw', image);
+  
+          map.addSource('chicago-dog-parks', {
+            type: 'geojson',
+            data: arrayOfDogParks
+          })
+          map.addLayer({
+            id: 'chicago-dog-parks',
+            source: 'chicago-dog-parks',
+            type: 'symbol',
+            layout: {
+              // Make the layer visible by default.
+              'visibility': 'visible',
+              'icon-image': 'paw', // reference the image
+              'icon-size': 0.02
+              },
+          })
+        });
+      });
+
   }
+
 
 
   const dogParkApiCall = () => {
-    axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&limit=20&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data)})
+    axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data)})
   }
 
-  // const searchAPI = () => [
-  //   axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchItem}.json`)
-  // ]
-
   console.log(arrayOfDogParks)
+
   return (
     <div>
       <div ref={mapContainer} className="map-container" />

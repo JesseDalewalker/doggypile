@@ -52,7 +52,7 @@ function App() {
           <Route path="/profile/:userId/create-profile" element={<CreateProfilePage username= { username } />} />
           <Route path="/profile/:userId/edit-profile" element={<EditProfilePage username= { username } />} />
           {/* Dogs */}
-          <Route path="/dog-profile/:dogId" element={<DogProfilePage username= { username } />} />
+          {/* <Route path="/dog-profile/:dogId" element={<DogProfilePage username= { username } />} /> */}
           <Route path="/dog-profile/:dogId/create-profile" element={<CreateDogProfile username= { username } />} />
           <Route path="/dog-profile/:dogId/edit-profile" element={<EditDogProfile username= { username } />} />
           {/*Posts */}
