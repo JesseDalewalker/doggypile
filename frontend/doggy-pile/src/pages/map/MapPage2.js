@@ -11,11 +11,8 @@ function MapPage() {
   const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
 
-
-
-
   mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
-  
+
   useEffect(() => {
     dogParkApiCall()
     
@@ -41,8 +38,6 @@ function MapPage() {
     
   }
 
-
-
   function setUpMap(center) {
     const map = new mapboxgl.Map({
       container: mapContainer.current,
@@ -61,9 +56,71 @@ function MapPage() {
         const address = e.features[0].properties.address_line2;
 
         new mapboxgl.Popup({ closeOnClick: false}).setLngLat([e.lngLat.lng, e.lngLat.lat]).setHTML(`Park Name: ${name}. Location: ${address}`).addTo(map)
-    }) 
+    })
 
-      const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl })
+    //////////added functionality for hide/show layer
+    class MapboxGLButtonControl {
+      constructor({
+        className = "",
+        title = "",
+        eventHandler = ''
+      }) {
+        this._className = className;
+        this._title = title;
+        this._eventHandler = eventHandler;
+      }
+    
+      onAdd(map) {
+        this._btn = document.createElement("button");
+        this._btn.className = "mapboxgl-ctrl-icon" + " " + this._className;
+        this._btn.type = "button";
+        this._btn.title = this._title;
+        this._btn.onclick = this._eventHandler;
+    
+        this._container = document.createElement("div");
+        this._container.className = "mapboxgl-ctrl-group mapboxgl-ctrl";
+        this._container.appendChild(this._btn);
+    
+        return this._container;
+      }
+    
+      onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+      }
+    }
+
+    function one(event) {
+      let visibility = map.getLayoutProperty(
+        'chicago-dog-parks',
+        'visibility'
+        );
+         
+        // Toggle layer visibility by changing the layout object's visibility property.
+        if (visibility === 'visible') {
+        map.setLayoutProperty('chicago-dog-parks', 'visibility', 'none');
+        this.className = '';
+        } else {
+        this.className = 'active';
+        map.setLayoutProperty(
+        'chicago-dog-parks',
+        'visibility',
+        'visible'
+        );
+        }
+       
+    }
+
+    const renderLayer = new MapboxGLButtonControl({
+      className: "mapbox-gl-draw_point",
+      title: "Draw Point",
+      eventHandler: one
+    });
+
+    map.addControl(renderLayer, 'top-left')
+/////////// end added functionality
+
+      const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
       map.addControl(search)
 
       map.on('load', () => {
