@@ -25,6 +25,7 @@ import CreateDogProfile from './pages/dogs/CreateDogProfilePage';
 import EditDogProfile from './pages/dogs/EditDogProfilePage';
 // -posts
 import CreatePostPage from './components/posts/createpost';
+import EditPostPage from './components/posts/editpost';
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           <Route path="/login" element={ <LoginPage setUsername={ setUsername }/> } />
           {/* Home */}
           <Route path="/" element={ <LandingPage /> } />
-          <Route path="/feed" element={ <FeedPage /> } />
+          <Route path="/feed" element={ <FeedPage username={ username } /> } />
           {/* Map */}
           <Route path="/mappage" element={<MapPage />} />
           <Route path="/alternatemappage" element={<AlternateMap />} />
@@ -56,6 +57,8 @@ function App() {
           <Route path="/dog-profile/:dogId/edit-profile" element={<EditDogProfile username= { username } />} />
           {/*Posts */}
           <Route path="/post/create-post" element={<CreatePostPage username= { username } />} />
+          <Route path="/post/:id" element={<EditPostPage username= { username } />} />
+
         </Routes>
       </HashRouter>
     </div>
