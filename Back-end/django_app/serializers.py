@@ -56,7 +56,7 @@ class MarkerSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ["headline", "content", "user"]
+        fields = '__all__'
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
