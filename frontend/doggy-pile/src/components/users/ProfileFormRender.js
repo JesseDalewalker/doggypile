@@ -35,7 +35,6 @@ function ProfileFormRender(props) {
     setUserDetails(data ? data : null)
   }
 
-  // render
   // Rendering all the states first
   const renderStateOptions = () => {
     let states = []
@@ -74,10 +73,12 @@ function ProfileFormRender(props) {
 
     console.log("IMAGE URL", imageSrc)
   };
-
   
   return (
     <div>
+      <Row>
+        <img src={ imageSrc && imageSrc } width={250} height={250}/>
+      </Row>
       <Row className="mb-3">
         <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
           <Col>
