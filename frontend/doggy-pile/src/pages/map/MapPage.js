@@ -63,7 +63,9 @@ function MapPage() {
         new mapboxgl.Popup({ closeOnClick: false}).setLngLat([e.lngLat.lng, e.lngLat.lat]).setHTML(`Park Name: ${name}. Location: ${address}`).addTo(map)
     }) 
 
-      const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl })
+
+
+      const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken })
       map.addControl(search)
 
       map.on('load', () => {
@@ -89,8 +91,11 @@ function MapPage() {
           })
         });
       });
+
   }
 
+
+  
   const dogParkApiCall = () => {
     axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data)})
   }
