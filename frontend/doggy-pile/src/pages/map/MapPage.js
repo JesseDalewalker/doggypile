@@ -6,11 +6,12 @@ import axios from 'axios';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 function MapPage() {
-
+  
   const mapContainer = useRef(null);
   const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
-
+  const [markerColor, setMarkerColor] = useState("")
+  const [dirty, setDirty] = useState(true)
 
 
 
@@ -30,6 +31,11 @@ function MapPage() {
   }, [arrayOfDogParks] )
 
 
+  useEffect(() => {
+    setDirty(false)
+  }, [markerColor])
+
+
   function successLocation(position) {
     
     setUpMap([position.coords.longitude, position.coords.latitude])
@@ -41,7 +47,17 @@ function MapPage() {
     
   }
 
+  function lostDogMarker(e) {
+    console.log(e)
+  }
 
+  function agressiveDogMarker(e) {
+    console.log(e)
+  }
+
+  function selectChange(e) {
+    console.log(e)
+  }
 
   function setUpMap(center) {
     const map = new mapboxgl.Map({
@@ -53,8 +69,35 @@ function MapPage() {
     
       const nav = new mapboxgl.NavigationControl();
       map.addControl(nav);
-        
-      map.on("click", (e) => new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup( new mapboxgl.Popup().setHTML("<select><option value='agressive dog' className='agro-dog'>Aggressive Dog</option><option value='lost dog'>Lost Dog</option></select>")).addTo(map))
+      const popup = new mapboxgl.Popup().setHTML(`
+      <select>
+        <option value='agressive dog'>
+          Aggressive Dog
+        </option>
+        <option value='lost dog'>
+          Lost Dog
+        </option>
+      </select>`)
+      map.on("dblclick", (e) => {
+        const marker = new mapboxgl.Marker({
+        color: markerColor
+      }).setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map)
+
+      const markerPopup = marker.getPopup()
+      
+      const selectTag = markerPopup._content.children[0]
+      selectTag.addEventListener("change", (e) => {
+        console.log(e.target.value)
+        if (e.target.value === "agressive dog") {
+          setMarkerColor("#ff0000")
+        } else if (e.target.value === "lost dog") {
+          setMarkerColor("#FFD700")
+        }
+        console.log(markerColor)
+      })
+    })
+    
+    
 
       map.on("click", "chicago-dog-parks", (e) => {
         const name = e.features[0].properties.name;
@@ -96,11 +139,12 @@ function MapPage() {
 
 
 
+
+
   const dogParkApiCall = () => {
     axios.get(`https://api.geoapify.com/v2/places?categories=pet.dog_park&filter=rect:-87.80122308044409,42.01504297890354,-87.51437691955522,41.728586465138434&apiKey=1d9fd57fb2b14fb5bfe2315af8475c59`).then((response) => { setArrayOfDogParks(response.data)})
   }
 
-  console.log(arrayOfDogParks)
 
   return (
     <div>
