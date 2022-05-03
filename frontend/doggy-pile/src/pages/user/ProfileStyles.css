@@ -1,0 +1,26 @@
+.user-img {
+  width: 250px;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.gender {
+  width: 25px;
+}
+
+.btn.edit-btn {
+  background-color: #D8E2DC;
+  border: 0;
+  color: #706666;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.btn.edit-btn:hover {
+  background-color: #393f3b;
+  color: #D8E2DC;
+}
+
+.profile.container {
+  margin-top: 2%;
+}
