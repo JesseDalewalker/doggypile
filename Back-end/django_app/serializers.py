@@ -45,14 +45,35 @@ class MarkerSerializer(serializers.ModelSerializer):
         model = Marker
         fields = '__all__'
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        user = User.objects.get(pk=data['user'])
+        serialized = UserSerializer(instance=user)
+        data['user'] = serialized.data
+        return data
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        model: Post
-        fields = '__all__'
+        model = Post
+        fields = ["headline", "content", "user"]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        user = User.objects.get(pk=data['user'])
+        serialized = UserSerializer(instance=user)
+        data['user'] = serialized.data
+        return data
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model: Comment
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        user = User.objects.get(pk=data['user'])
+        serialized = UserSerializer(instance=user)
+        data['user'] = serialized.data
+        return data
 
         
