@@ -10,7 +10,7 @@ function EditDogProfile(props) {
   const { dogId } = useParams()
 
   // states
-  const [profileDogDetails, setProfileDogDetails] = useState("")
+  const [profileDogDetails, setProfileDogDetails] = useState(null)
 
   // effects
   useEffect(() => {
@@ -30,6 +30,7 @@ function EditDogProfile(props) {
     const dogData = {
       user: props.username.user_id,
       name: event.target.elements["name"].value,
+      profile_pic: event.target.elements["profile-pic"].value,
       gender: event.target.elements["dog-gender"].value,
       friendly_with: event.target.elements["friendly-with"].value,
       age: event.target.elements["age"].value,

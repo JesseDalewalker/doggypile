@@ -1,6 +1,7 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
 import ProfileFormRender from "../../components/users/ProfileFormRender";
+import { useState } from "react";
 
 // This is for creating the User's profile page
 // We are passing the event handler (handleCreateProfile) to our component to get the value from the form fields
@@ -8,6 +9,9 @@ import ProfileFormRender from "../../components/users/ProfileFormRender";
 
 function CreateProfilePage(props) {
   const navigate = useNavigate()
+
+  // state
+  const [imageSrc, setImageSrc] = useState(null)
 
   // event handlers
   const handleCreateProfile = async (event) => {
@@ -20,6 +24,7 @@ function CreateProfilePage(props) {
 
     const userProfileData = {
       user: props.username.user_id,
+      profile_pic: event.target.elements["profile-pic"].value,
       about: event.target.elements["about"].value,
       gender: event.target.elements["gender-select"].value,
       state: event.target.elements["state"].value,
@@ -40,7 +45,7 @@ function CreateProfilePage(props) {
 
   return (
     <div>
-      <ProfileFormRender handleCreateProfile={handleCreateProfile} />
+      <ProfileFormRender handleCreateProfile={handleCreateProfile} username={props.username} setImageSrc={setImageSrc}/>
     </div>
   )
 }
