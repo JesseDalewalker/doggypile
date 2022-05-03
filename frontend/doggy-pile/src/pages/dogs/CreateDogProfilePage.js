@@ -14,6 +14,7 @@ function CreateDogProfile(props) {
 
     const dogData = {
       user: props.username.user_id,
+      profile_pic: event.target.elements["profile-pic"].value,
       name: event.target.elements["name"].value,
       gender: event.target.elements["dog-gender"].value,
       friendly_with: event.target.elements["friendly-with"].value,

@@ -1,4 +1,5 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
+import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import {Form, Button, Stack, Row, Col } from 'react-bootstrap'
@@ -12,16 +13,26 @@ function ProfileFormRender(props) {
   // state
   const [cityList, setCityList] = useState([])
   const [profileDetails, setProfileDetails] = useState(null)
+  const [userDetails, setUserDetails] = useState(null)
+  const [imageSelected, setImageSelected] = useState(null)
+  const [imageSrc, setImageSrc] = useState(null)
 
   // effects
   useEffect(() => {
     loadProfile()
+    loadUserDetails()
   }, [])
 
   // Getting existing profile data from user's profile to populate the fields that already have input from before
   const loadProfile = async () => {
     const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
     setProfileDetails(data ? data : null)
+    setImageSrc(data ? data.profile_pic : null )
+  }
+
+  const loadUserDetails = async () => {
+    const data = await DoggyPileAPI.getItemById("users", props.username.user_id)
+    setUserDetails(data ? data : null)
   }
 
   // render
@@ -48,18 +59,46 @@ function ProfileFormRender(props) {
     })
   }
 
+  // Uploading profile picture
+  const uploadImage = async (event) => {
+    event.preventDefault()
+
+    const formData = new FormData();
+    formData.append("file", imageSelected)
+    formData.append("upload_preset", "my-uploads")
+
+    axios.post("https://api.cloudinary.com/v1_1/dbi5z0la5/image/upload", formData)
+    .then((response)=>{
+      setImageSrc(response ? response.data.secure_url : null)
+    })
+
+    console.log("IMAGE URL", imageSrc)
+  };
+
+  
   return (
     <div>
+      <Row className="mb-3">
+        <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
+          <Col>
+            <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
+          </Col>
+          <Col><Button onClick={uploadImage}>Upload Image</Button></Col>
+      </Row>
+
       <Form onSubmit={ props.handleCreateProfile ? props.handleCreateProfile : props.handleEditProfile }>
+        <Row>
+          <input type="hidden" name="profile-pic" value={imageSrc && imageSrc} /> 
+        </Row>
         {/* User's name details */}
         <Form.Group as={Row}>
           <Form.Label column sm={2}>First Name:</Form.Label>
           <Col>
-            <Form.Control name="first-name" defaultValue={ profileDetails && profileDetails.user.first_name } />
+            <Form.Control name="first-name" defaultValue={ userDetails ? userDetails.first_name : profileDetails && profileDetails.id.first_name } />
           </Col>
           <Form.Label column sm={2}>Last Name:</Form.Label>
           <Col>
-            <Form.Control name="last-name" defaultValue={ profileDetails && profileDetails.user.last_name } />
+            <Form.Control name="last-name" defaultValue={ userDetails ? userDetails.last_name : profileDetails && profileDetails.id.last_name } />
           </Col>
         </Form.Group>
         {/* User's gender selection */}
@@ -83,14 +122,14 @@ function ProfileFormRender(props) {
           <Form.Label column sm={2}>State:</Form.Label>
           <Col>
             <Form.Select name="state" onChange={changeCityList}>
-              <option>Select your state:</option>
+              <option value="null">Select your state:</option>
               { renderStateOptions() }
             </Form.Select>
           </Col>
           <Form.Label column sm={2}>City:</Form.Label>
           <Col>
             <Form.Select name="city">
-              <option>Select your city:</option>
+              <option value="null">Select your city:</option>
               { renderCityList() }
             </Form.Select>
           </Col>

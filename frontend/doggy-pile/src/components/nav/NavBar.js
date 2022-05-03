@@ -21,6 +21,7 @@ function NavBar(props) {
         <div>
           <Navbar bg="dark" variant="light">
             <Nav>
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/login"><Button variant="outline-secondary">Login</Button></Nav.Link>
               <Nav.Link as={Link} to="/signup"><Button variant="outline-secondary">Sign Up</Button></Nav.Link>
             </Nav>
