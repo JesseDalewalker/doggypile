@@ -90,6 +90,7 @@ function ProfilePage(props) {
   return (
     <div>
       <h1>User's Profile</h1>
+      <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button>Edit</Button></Link>
       {userDetails && userDetails.id.first_name}
       <br/>
       {userDetails && userDetails.id.last_name}
@@ -104,6 +105,8 @@ function ProfilePage(props) {
       <img src={userDetails && userDetails.profile_pic} width={250} height={250}/>
       <br />
       {renderDogs()}
+      <br />
+      
     </div>
   )
 }

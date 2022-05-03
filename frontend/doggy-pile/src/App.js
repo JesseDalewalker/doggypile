@@ -20,7 +20,7 @@ import ProfilePage from './pages/user/ProfilePage';
 import CreateProfilePage from './pages/user/CreateProfilePage';
 import EditProfilePage from './pages/user/EditProfilePage';
 // -dogs
-import DogProfilePage from './pages/dogs/DogProfilePage';
+// import DogProfilePage from './pages/dogs/DogProfilePage';
 import CreateDogProfile from './pages/dogs/CreateDogProfilePage';
 import EditDogProfile from './pages/dogs/EditDogProfilePage';
 // -posts
@@ -51,8 +51,7 @@ function App() {
           <Route path="/profile/:userId/create-profile" element={<CreateProfilePage username= { username } />} />
           <Route path="/profile/:userId/edit-profile" element={<EditProfilePage username= { username } />} />
           {/* Dogs */}
-          {/* <Route path="/dog-profile/:dogId" element={<DogProfilePage username= { username } />} /> */}
-          <Route path="/dog-profile/:dogId/create-profile" element={<CreateDogProfile username= { username } />} />
+          <Route path="/dog-profile/create-profile" element={<CreateDogProfile username= { username } />} />
           <Route path="/dog-profile/:dogId/edit-profile" element={<EditDogProfile username= { username } />} />
           {/*Posts */}
           <Route path="/post/create-post" element={<CreatePostPage username= { username } />} />
