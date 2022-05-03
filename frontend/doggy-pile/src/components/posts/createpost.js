@@ -12,7 +12,7 @@ function CreatePostPage(props) {
       event.preventDefault()
 
       const postData = {
-          user: props.username.id,
+          user: props.username.user_id,
           headline: event.target.elements["headline"].value,
           content: event.target.elements["content"].value
       }
@@ -23,7 +23,7 @@ function CreatePostPage(props) {
           console.log("Received DATA: ", dataForPost)
           navigate('/feed')
       }
-      console.log("Received~~~~~~~~~~~~~~~~~~: ", dataForPost)
+      console.log("Received~~~~~~~~~~~~~~~~~~: ", props, dataForPost)
   }
 
   // render

@@ -16,45 +16,47 @@ function PostView(props) {
   }
 
 return (
-  
- 
-  <section className="day-events new">
-    <div className="wrapper">
-      <div className="day-card">
-        <input type="checkbox" id={ props.myPost.id } className="more" aria-hidden="true"/>
-            <div className="content">
-                <div className="front">
-                    <div className="inner">
-                       <Link key={ props.myPost.id } to={ `/post/${ props.myPost.id }` }> <h2 className="story-title">{props.myPost.headline}</h2> </Link>
-                            <label htmlFor={ props.myPost.id } className="button" aria-hidden="true">
-                               View
-                           </label>
-                       </div>
-                   </div>
-                   <div className="back" />
-                       <div className="inner">
-                           <div className="info">
-                               <span>{ props.myPost.headline}</span>
-                               <div className="icon">
-                                   <i className="fas fa-users"></i>
-                                   <span>Title</span>
-                               </div>
-                           </div>
-                           <div className="description">
-                               <p>{props.myPost.content}</p>
-                                <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link>
-                               <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
-                           </div>
-                           <label htmlFor={ props.myPost.id } className="button return" aria-hidden="true">
-                               <i className="arrow-left"></i>
-                           </label>
-                       </div>
-                   </div>
-               </div>
-           </div>
-           </section>      
-)
-}
 
+
+<section class="day-events new">
+
+    <div class="wrapper">
+      <div class="day-card">
+        <input type="checkbox" id="card1" class="more" aria-hidden="true"/>
+   <div class="content">
+    <div class="front" >
+     <div class="inner">
+        <h2>{ props.myPost.headline }</h2>
+                        
+         <label for="card1" class="button" aria-hidden="true">
+                               Details
+                           </label>
+                       </div>
+                   </div>
+                   <div class="back">
+                       <div class="inner">
+                           
+                           
+                           <div class="description">
+                               <p>{ props.myPost.content }</p>
+                               <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link><br/>
+                               <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
+                               
+                           </div>
+                           <div class="location">{ props.myPost.headline }</div>
+                           
+                           <label for="card1" class="button return" aria-hidden="true">
+                               <i class="fas fa-arrow-left"></i>
+                           </label>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+
+
+           </section>
+           )
+}
 export default PostView;
            
