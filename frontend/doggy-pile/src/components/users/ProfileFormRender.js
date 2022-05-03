@@ -27,6 +27,7 @@ function ProfileFormRender(props) {
   const loadProfile = async () => {
     const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
     setProfileDetails(data ? data : null)
+    setImageSrc(data ? data.profile_pic : null )
   }
 
   const loadUserDetails = async () => {
@@ -93,11 +94,11 @@ function ProfileFormRender(props) {
         <Form.Group as={Row}>
           <Form.Label column sm={2}>First Name:</Form.Label>
           <Col>
-            <Form.Control name="first-name" defaultValue={ userDetails && userDetails.first_name } />
+            <Form.Control name="first-name" defaultValue={ userDetails ? userDetails.first_name : profileDetails && profileDetails.id.first_name } />
           </Col>
           <Form.Label column sm={2}>Last Name:</Form.Label>
           <Col>
-            <Form.Control name="last-name" defaultValue={ userDetails && userDetails.last_name } />
+            <Form.Control name="last-name" defaultValue={ userDetails ? userDetails.last_name : profileDetails && profileDetails.id.last_name } />
           </Col>
         </Form.Group>
         {/* User's gender selection */}

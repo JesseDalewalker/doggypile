@@ -24,7 +24,7 @@ function CreateProfilePage(props) {
 
     const userProfileData = {
       user: props.username.user_id,
-      profile_pic: imageSrc,
+      profile_pic: event.target.elements["profile-pic"].value,
       about: event.target.elements["about"].value,
       gender: event.target.elements["gender-select"].value,
       state: event.target.elements["state"].value,

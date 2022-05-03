@@ -1,9 +1,17 @@
+import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import {Form, Button, Stack, Row, Col, Container } from 'react-bootstrap'
 import DogBreeds from '../../data/dog_breeds.json'
 
+// REMEMBER: load existing dog profile details and set imageSrc to profile_pic if image has been uploaded to avoid overwriting as null
+
 function DogProfileFormRender(props) {
   const navigate = useNavigate()
+
+  // state
+  const [imageSelected, setImageSelected] = useState(null)
+  const [imageSrc, setImageSrc] = useState(null)
 
   // Render all dog breed names
   const renderDogBreeds = () => {
@@ -12,9 +20,37 @@ function DogProfileFormRender(props) {
     })
   }
 
+  // Uploading profile picture
+  const uploadImage = async (event) => {
+    event.preventDefault()
+
+    const formData = new FormData();
+    formData.append("file", imageSelected)
+    formData.append("upload_preset", "my-uploads")
+
+    axios.post("https://api.cloudinary.com/v1_1/dbi5z0la5/image/upload", formData)
+    .then((response)=>{
+      setImageSrc(response ? response.data.secure_url : null)
+    })
+
+    console.log("IMAGE URL", imageSrc)
+  };
+  
+
   return (
     <div>
+      <Row className="mb-3">
+        <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
+          <Col>
+            <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
+          </Col>
+          <Col><Button onClick={uploadImage}>Upload Image</Button></Col>
+      </Row>
+
       <Form onSubmit = { props.handleCreateDogProfile ? props.handleCreateDogProfile : props.handleEditDogProfile } >
+        <Row>
+          <input type="hidden" name="profile-pic" value={imageSrc && imageSrc} /> 
+        </Row>
         <Form.Group as={Row}>
           <Form.Label column>Name:</Form.Label>
           <Col>

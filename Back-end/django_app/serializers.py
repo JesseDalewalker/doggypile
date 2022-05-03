@@ -33,6 +33,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
 
+    # If for some reason this is throwing an error, change 'id' to 'user'  
     def to_representation(self, instance):
         data = super().to_representation(instance)
         user = User.objects.get(pk=data['id'])
