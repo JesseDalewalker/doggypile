@@ -69,20 +69,28 @@ function MapPage() {
       map.addControl(search)
 
       map.on('load', () => {
-        map.addSource('chicago-dog-parks', {
-          type: 'geojson',
-          data: arrayOfDogParks
-        })
-        map.addLayer({
-          id: 'chicago-dog-parks',
-          source: 'chicago-dog-parks',
-          type: 'circle',
-          paint: {
-            'circle-radius': 10,
-            'circle-color': '#007cbf'
-          }
-        })
-      })
+        map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Paw-print.svg/1200px-Paw-print.svg.png', (error, image) => {
+          if (error) throw error;
+  
+          map.addImage('paw', image);
+  
+          map.addSource('chicago-dog-parks', {
+            type: 'geojson',
+            data: arrayOfDogParks
+          })
+          map.addLayer({
+            id: 'chicago-dog-parks',
+            source: 'chicago-dog-parks',
+            type: 'symbol',
+            layout: {
+              // Make the layer visible by default.
+              'visibility': 'visible',
+              'icon-image': 'paw', // reference the image
+              'icon-size': 0.02
+              },
+          })
+        });
+      });
 
   }
 
