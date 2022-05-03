@@ -20,7 +20,7 @@ function NavBar(props) {
     if (props.username === "") {
       return (
         <div>
-          <Navbar className='navbar'>
+          <Navbar className='navbar' sticky="top">
             <Navbar.Brand className="justify-content-start">
               <img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/>
             </Navbar.Brand>
@@ -39,7 +39,7 @@ function NavBar(props) {
     } 
     return (
       <div>
-        <Navbar className='navbar'>
+        <Navbar className='navbar' sticky="top">
           <Navbar.Brand className="justify-content-start">
             <img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/>
           </Navbar.Brand>

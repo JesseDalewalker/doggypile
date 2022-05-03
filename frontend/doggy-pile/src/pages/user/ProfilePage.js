@@ -1,7 +1,11 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
+import "./ProfileStyles.css"
+// SVG import
+import maleSign from "../../images/male-sign.svg"
+import femaleSign from "../../images/female-sign.svg"
 
 function ProfilePage(props) {
   // params
@@ -58,7 +62,7 @@ function ProfilePage(props) {
                 <Button onClick={ handleDeleteDog}>Delete</Button>
               </Col>
               <Col>
-                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button>Edit</Button></Link>
+                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link>
               </Col>
             </Row>
           )
@@ -86,11 +90,27 @@ function ProfilePage(props) {
     })
   }
 
+  // Rendering gender SVGs
+  const renderGenderSigns = () => {
+    if (userDetails && userDetails.gender === 'Male') {
+      return <img alt="Gender sign" src={maleSign} className="gender"/>
+    } 
+    else if (userDetails && userDetails.gender === 'Female') {
+      return <img alt="Gender sign" src={femaleSign} className="gender"/>
+    }
+  }
+
+  // Show Edit button if user is logged in
+  const editProfileBtn = () => {
+    if (props.username !== "") {
+      return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link>
+    }
+  }
+
   // Just rendering all the information to make sure it works
   return (
-    <div>
-      <h1>User's Profile</h1>
-      <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button>Edit</Button></Link>
+    <Container className="profile">
+      {/* <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button>Edit</Button></Link>
       {userDetails && userDetails.id.first_name}
       <br/>
       {userDetails && userDetails.id.last_name}
@@ -105,9 +125,25 @@ function ProfilePage(props) {
       <img src={userDetails && userDetails.profile_pic} width={250} height={250}/>
       <br />
       {renderDogs()}
-      <br />
-      
-    </div>
+      <br /> */}
+      <Row>
+        <Col xs={4}>
+          <img src={userDetails && userDetails.profile_pic} className="user-img" alt="User's profile"/>
+        </Col>
+        <Col xs={8}>
+          <Row>
+            <Col>
+            <h3>{userDetails && userDetails.id.first_name} {userDetails && userDetails.id.last_name} { renderGenderSigns() }</h3>
+            <p>{userDetails && userDetails.city}, {userDetails && userDetails.state}, US</p>
+            </Col>
+            <Col>
+             {editProfileBtn()}
+            </Col>
+          </Row>
+          <p>{userDetails && userDetails.about}</p>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
