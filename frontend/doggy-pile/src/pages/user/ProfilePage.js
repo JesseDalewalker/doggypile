@@ -1,7 +1,7 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button, Container } from "react-bootstrap";
+import { Row, Col, Button, Container, Tabs, Tab } from "react-bootstrap";
 import "./ProfileStyles.css"
 // SVG import
 import maleSign from "../../images/male-sign.svg"
@@ -58,35 +58,49 @@ function ProfilePage(props) {
         if (props.username.user_id == userId) {
           return (
             <Row>
-              <Col>
-                <Button onClick={ handleDeleteDog}>Delete</Button>
-              </Col>
-              <Col>
+              <Col xs={4}>
                 <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link>
+              </Col>
+              <Col xs={1}>
+                <Button onClick={ handleDeleteDog} className="edit-btn">Delete</Button>
               </Col>
             </Row>
           )
         }
       }
-      return <div>
-        <img src={ dog && dog.profile_pic } width={250} height={250}/>
-        <br />
-        {dog && dog.name}
-        <br />
-        {dog && dog.gender}
-        <br />
-        {dog && dog.friendly_with}
-        <br />
-        {dog && dog.age}
-        <br />
-        {dog && dog.breed}
-        <br />
-        {dog && dog.size}
-        <br />
-        {dog && dog.vaccinated}
-        <br />
-        {showButtons()}
-      </div>
+      const renderGenderSigns = () => {
+        if (dog && dog.gender === 'Male') {
+          return <img alt="Gender sign" src={maleSign} className="gender"/>
+        } 
+        else if (dog && dog.gender === 'Female') {
+          return <img alt="Gender sign" src={femaleSign} className="gender"/>
+        }
+      }
+      const checkVaccinated = () => {
+        if (dog && dog.vaccinated === true) {
+          return <><span className="dog-field">Vaccinated</span> <span className="dog-text">Yes</span> </>
+        } return <><span className="dog-field">Vaccinated</span> <span className="dog-text">No</span></>
+      }
+      return <Row className="dog-cont">
+        <Col xs={4}>
+          <img src={ dog && dog.profile_pic } alt="Doggo" className="dog-img"/>
+        </Col>
+        <Col xs={5} className="dog-details">
+          <h4 className="dog-name">{dog && dog.name} { renderGenderSigns() }</h4>
+          <span className="dog-field">Breed</span> <span className="dog-text">{dog && dog.breed}</span>
+          <br />
+          <span className="dog-field">Size</span> <span className="dog-text">{dog && dog.size}</span>
+          <br />
+          <span className="dog-field">Age</span> <span className="dog-text">{dog && dog.age}</span>
+          <br />
+          <span className="dog-field">Friendly with</span> <span className="dog-text">{dog && dog.friendly_with}</span>
+          <br />
+          {checkVaccinated()}
+        </Col>
+        <Col>
+          {showButtons()}
+        </Col>
+      </Row>
     })
   }
 
@@ -107,42 +121,39 @@ function ProfilePage(props) {
     }
   }
 
-  // Just rendering all the information to make sure it works
   return (
     <Container className="profile">
-      {/* <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button>Edit</Button></Link>
-      {userDetails && userDetails.id.first_name}
-      <br/>
-      {userDetails && userDetails.id.last_name}
-      <br/>
-      {userDetails && userDetails.about}
-      <br/>
-      {userDetails && userDetails.gender}
-      <br/>
-      {userDetails && userDetails.city}
-      <br/>
-      {userDetails && userDetails.state}
-      <img src={userDetails && userDetails.profile_pic} width={250} height={250}/>
-      <br />
-      {renderDogs()}
-      <br /> */}
       <Row>
         <Col xs={4}>
           <img src={userDetails && userDetails.profile_pic} className="user-img" alt="User's profile"/>
         </Col>
-        <Col xs={8}>
+        <Col xs={7}>
           <Row>
             <Col>
-            <h3>{userDetails && userDetails.id.first_name} {userDetails && userDetails.id.last_name} { renderGenderSigns() }</h3>
-            <p>{userDetails && userDetails.city}, {userDetails && userDetails.state}, US</p>
+            <h3 align="left">{userDetails && userDetails.id.first_name} {userDetails && userDetails.id.last_name} { renderGenderSigns() }</h3>
+            <p align="left" className="location-text">{userDetails && userDetails.city}, {userDetails && userDetails.state}, US</p>
             </Col>
-            <Col>
+            <Col align="right">
              {editProfileBtn()}
             </Col>
           </Row>
-          <p>{userDetails && userDetails.about}</p>
+          <p align="left">{userDetails && userDetails.about}</p>
         </Col>
       </Row>
+
+      <div className="d-flex justify-content-center mt-5">
+        <Row className="bottom-profile">
+          <Tabs defaultActiveKey="dogs" id="profile-tabs">
+            <Tab eventKey="dogs" title="Dogs">
+              { renderDogs() }
+              <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
+            </Tab>
+            <Tab eventKey="posts" title="Posts">
+              <p>testing one two three</p>
+            </Tab>
+          </Tabs>
+        </Row>
+      </div>
     </Container>
   )
 }

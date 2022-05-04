@@ -6,7 +6,6 @@ import DogProfileFormRender from "../../components/dogs/DogProfileFormRender";
 
 function CreateDogProfile(props) {
   const navigate = useNavigate()
-  const { dogId } = useParams()
 
   // event handlers
   const handleCreateDogProfile = async (event) => {
@@ -29,7 +28,7 @@ function CreateDogProfile(props) {
 
     if (dataForDog) {
       console.log("RECEIVED DATA")
-      navigate(`/dog-profile/${dogId}`)
+      navigate(`/profile/${props.username.user_id}`)
     }
   }
 

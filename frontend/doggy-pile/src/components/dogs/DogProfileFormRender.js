@@ -97,18 +97,18 @@ function DogProfileFormRender(props) {
           <Form.Label column>Size:</Form.Label>
           <Col>
             <Form.Select name="size">
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
             </Form.Select>
           </Col>
           <Form.Label column>Friendly with:</Form.Label>
           <Col>
             <Form.Select name="friendly-with">
-              <option value="humans-dogs" >Everyone</option>
-              <option value="humans">Only humans</option>
-              <option value="large-dogs">Large dogs</option>
-              <option value="small-dogs">Small dogs</option>
+              <option value="Everyone" >Everyone</option>
+              <option value="Humans only">Humans only</option>
+              <option value="Large dogs">Large dogs</option>
+              <option value="Small dogs">Small dogs</option>
             </Form.Select>
           </Col>
           <Col>
