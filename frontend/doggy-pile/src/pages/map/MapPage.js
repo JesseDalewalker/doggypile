@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 // import image from '../../assets/map-marker-icon.png'
 import axios from 'axios';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import Flash from 'mapbox-gl-flash'
 
 function MapPage() {
   
@@ -11,11 +12,16 @@ function MapPage() {
   const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
   const [markerColor, setMarkerColor] = useState("")
-  const [dirty, setDirty] = useState(true)
 
 
 
   mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
+
+  const dispatchEvent = function(eventName, data){
+    var event = document.createEvent('CustomEvent');
+    event.initCustomEvent(eventName, true, false, data);
+    document.dispatchEvent(event);
+  };
   
   useEffect(() => {
     dogParkApiCall()
@@ -32,7 +38,8 @@ function MapPage() {
 
 
   useEffect(() => {
-    setDirty(false)
+    console.log("blah blah blah")
+    
   }, [markerColor])
 
 
@@ -90,13 +97,17 @@ function MapPage() {
         console.log(e.target.value)
         if (e.target.value === "agressive dog") {
           setMarkerColor("#ff0000")
+          dispatchEvent('mapbox.setflash', {message: "agressive dog", error: true, fadeout: 10})
         } else if (e.target.value === "lost dog") {
           setMarkerColor("#FFD700")
+          dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
         }
         console.log(markerColor)
       })
     })
-    
+
+      map.addControl( new Flash())
+
       map.on("click", "chicago-dog-parks", (e) => {
         const name = e.features[0].properties.name;
         const address = e.features[0].properties.address_line2;
