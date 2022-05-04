@@ -112,6 +112,8 @@ function MapPage() {
           new mapboxgl.Marker({
             color: "#FFCC00"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+        } else if (e.target.value === 'delete') {
+          marker.remove()
         }
       })
     })
