@@ -289,3 +289,26 @@ $accent-color: lightcyan;
 // ::-webkit-scrollbar-thumb:hover {
 //   background: $accent-color;
 // }
+
+
+.flash-message {
+  font-family: 'Ubuntu', sans-serif;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  padding: 0.5em;
+  background-color: grey;
+}
+
+.flash-message.info {
+  background-color: DarkSeaGreen;
+}
+
+.flash-message.warn {
+  background-color: Khaki;
+}
+
+.flash-message.error {
+  background-color: LightCoral;
+}
