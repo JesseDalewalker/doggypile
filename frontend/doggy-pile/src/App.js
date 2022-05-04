@@ -26,7 +26,8 @@ import EditDogProfile from './pages/dogs/EditDogProfilePage';
 // -posts
 import CreatePostPage from './components/posts/createpost';
 import EditPostPage from './components/posts/editpost';
-
+// -footer
+import Footer from './components/footer/Footer';
 
 function App() {
   // state
@@ -57,8 +58,8 @@ function App() {
           {/*Posts */}
           <Route path="/post/create-post" element={<CreatePostPage username= { username } />} />
           <Route path="/post/:id" element={<EditPostPage username= { username } />} />
-
         </Routes>
+        <Footer />
       </HashRouter>
     </div>
   );
