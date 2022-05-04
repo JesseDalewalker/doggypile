@@ -1,0 +1,18 @@
+.form-cont {
+  width: 70%;
+  margin: 5%;
+  padding: 2%;
+  background-color: #FCF9F8;
+  border-radius: 5%;
+}
+
+.current-img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.btn.edit-btn.upload {
+  font-size: 16px;
+}
+
