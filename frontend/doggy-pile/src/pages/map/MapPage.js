@@ -77,7 +77,10 @@ function MapPage() {
 
     //search box functionality
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl })
-    map.addControl(search)    
+    map.addControl(search) 
+    
+    //walking route functionality
+    map
 
     //create marker for lost/aggressive dog
     map.on("dblclick", (evt) => {
