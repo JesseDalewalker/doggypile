@@ -124,10 +124,14 @@ function ProfilePage(props) {
 
   // Show Edit button if user is logged in
   const editProfileBtn = () => {
-    if (props.username !== "") {
+    if ( props.username.user_id == userId ) {
       return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link>
+    } else if ( userDetails === null ) {
+      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link>
     }
   }
+
+  console.log("USER DETAILSSSSS", userDetails)
 
   return (
     <Container className="profile">
