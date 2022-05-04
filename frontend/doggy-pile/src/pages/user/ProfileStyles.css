@@ -1,13 +1,4 @@
-.user-img {
-  width: 250px;
-  border-radius: 50%;
-  border: 5px solid white;
-}
-
-.gender {
-  width: 25px;
-}
-
+/* Buttons */
 .btn.edit-btn {
   background-color: #D8E2DC;
   border: 0;
@@ -21,6 +12,86 @@
   color: #D8E2DC;
 }
 
+/* User info */
+.user-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 5px solid white;
+  object-fit: cover;
+}
+
+.gender {
+  width: 25px;
+}
+
 .profile.container {
   margin-top: 2%;
+}
+
+p.location-text {
+  color: #9b9b9b;
+  font-weight: 600;
+}
+
+/* Section for dog profiles */
+.bottom-profile {
+  width: 80%;
+  margin-top: 3%;
+  background-color: #FCF9F8;
+  padding: 2%;
+}
+
+#profile-tabs {
+  background-color: #393f3b;
+}
+
+.tab-content {
+  padding: 5%;
+}
+
+.dog-cont {
+  margin-bottom: 5%;
+
+}
+
+.dog-img {
+  width: 240px;
+  height: 230px;
+  object-fit: cover;
+}
+
+.dog-details {
+  text-align: left;
+}
+
+.dog-name {
+  color: #67584B;
+}
+
+.dog-field {
+  font-size: 18px;
+  font-weight: 600;
+  color: #FA9A49;
+}
+
+.dog-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #534848;
+  margin-left: 8px;
+}
+
+.btn.add-btn {
+  background-color: #FA9A49;
+  border: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.btn.add-btn:hover {
+  background-color: #f3f7f5;
+  color: #FA9A49;
 }
