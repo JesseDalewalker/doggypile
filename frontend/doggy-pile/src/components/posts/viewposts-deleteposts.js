@@ -65,40 +65,40 @@ return (
 
     <div class="wrapper">
       <div class="day-card">
-        <input type="checkbox" id="card1" class="more" aria-hidden="true"/>
+        <input type="checkbox" id={ props.myPost.id} class="more" aria-hidden="true"/>
    <div class="content">
     <div class="front" >
      <div class="inner">
-        <h2>{ props.myPost.headline }</h2>
+        <h1>{ props.myPost.headline }</h1>
+          <p>{ props.myPost.content }</p>
                         
-         <label for="card1" class="button" aria-hidden="true">
-                               Details
+         <label for={ props.myPost.id} class="button" aria-hidden="true">
+                               Go to Comments
                            </label>
                        </div>
                    </div>
                    <div class="back">
                        <div class="inner">
+                              <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link>
+                              <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
+
                            
-                           
-                           <div class="description">
-                               <p>{ props.myPost.content }</p>
-                               <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link><br/>
-                               <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
+                           <div className="description">
                                {/* Rendering existing comments */}
                                <CommentRender commentsList={commentsList} removeComment={removeComment}/>
 
                                {/* Form to write a comment */}
-                               <div>
+                               
                                   <Form onSubmit={ handleCreateComment }>
                                     <Form.Control as="textarea" rows={1} name="comment" />
                                     <Button type="submit" variant="secondary" className="mt-3 mb-3">Submit Comment</Button>
                                   </Form>
-                               </div>
+                               
                            </div>
 
                            <div class="location">{ props.myPost.headline }</div>
                            
-                           <label for="card1" class="button return" aria-hidden="true">
+                           <label for={ props.myPost.id} class="button return" aria-hidden="true">
                                <i class="fas fa-arrow-left"></i>
                            </label>
                        </div>
