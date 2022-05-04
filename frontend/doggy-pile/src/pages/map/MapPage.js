@@ -11,7 +11,7 @@ function MapPage() {
   const mapContainer = useRef(null);
   const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
-  const [markerColor, setMarkerColor] = useState("")
+
 
 
 
@@ -37,10 +37,6 @@ function MapPage() {
   }, [arrayOfDogParks] )
 
 
-  useEffect(() => {
-    console.log("blah blah blah")
-    
-  }, [markerColor])
 
 
   function successLocation(position) {
@@ -54,17 +50,6 @@ function MapPage() {
     
   }
 
-  function lostDogMarker(e) {
-    console.log(e)
-  }
-
-  function agressiveDogMarker(e) {
-    console.log(e)
-  }
-
-  function selectChange(e) {
-    console.log(e)
-  }
 
   function setUpMap(center) {
     const map = new mapboxgl.Map({
@@ -76,37 +61,41 @@ function MapPage() {
     
       const nav = new mapboxgl.NavigationControl();
       map.addControl(nav);
-      const popup = new mapboxgl.Popup().setHTML(`
-      <select>
-        <option value='agressive dog'>
-          Aggressive Dog
-        </option>
-        <option value='lost dog'>
-          Lost Dog
-        </option>
-      </select>`)
-      map.on("dblclick", (e) => {
-        const marker = new mapboxgl.Marker({
-        color: markerColor
-      }).setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map)
-
-      const markerPopup = marker.getPopup()
       
-      const selectTag = markerPopup._content.children[0]
-      selectTag.addEventListener("change", (e) => {
-        console.log(e.target.value)
-        if (e.target.value === "agressive dog") {
-          setMarkerColor("#ff0000")
-          dispatchEvent('mapbox.setflash', {message: "agressive dog", error: true, fadeout: 10})
-          
-        } else if (e.target.value === "lost dog") {
-          setMarkerColor("#FFD700")
-          dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
-          
-        }
-        map.triggerRepaint()
+      map.on("dblclick", (evt) => {
+
+        const popup = new mapboxgl.Popup().setHTML(`
+          <select>
+            <option value='nothing'>
+              nothing
+              </options>
+            <option value='agressive dog'>
+              Aggressive Dog
+            </option>
+            <option value='lost dog'>
+              Lost Dog
+            </option>
+          </select>`)
+
+        let marker = new mapboxgl.Marker().setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+        const selectTag = marker.getPopup()._content.children[0]
+
+        selectTag.addEventListener("change", (e) => {
+          if (e.target.value === "agressive dog") {
+            dispatchEvent('mapbox.setflash', {message: "agressive dog", error: true, fadeout: 10})
+            marker.remove()
+            new mapboxgl.Marker({
+              color: "#DD0000"
+            }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+          } else if (e.target.value === "lost dog") {
+            dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
+            marker.remove()
+            new mapboxgl.Marker({
+              color: "#FFCC00"
+            }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+          }
+        })
       })
-    })
 
     
 
