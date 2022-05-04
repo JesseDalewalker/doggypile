@@ -94,6 +94,9 @@ function MapPage() {
           <option value='lost dog'>
             Lost Dog
           </option>
+          <option value='delete'>
+            Delete
+            </options>
         </select>`)
 
       let marker = new mapboxgl.Marker().setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
@@ -103,13 +106,13 @@ function MapPage() {
         if (e.target.value === "agressive dog") {
           dispatchEvent('mapbox.setflash', {message: "agressive dog", error: true, fadeout: 10})
           marker.remove()
-          new mapboxgl.Marker({
+          marker = new mapboxgl.Marker({
             color: "#DD0000"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
         } else if (e.target.value === "lost dog") {
           dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
           marker.remove()
-          new mapboxgl.Marker({
+          marker = new mapboxgl.Marker({
             color: "#FFCC00"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
         } else if (e.target.value === 'delete') {
