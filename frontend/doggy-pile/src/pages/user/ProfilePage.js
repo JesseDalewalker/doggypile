@@ -1,4 +1,5 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
+import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab } from "react-bootstrap";
@@ -14,12 +15,25 @@ function ProfilePage(props) {
   // state
   const [userDetails, setUserDetails] = useState(null)
   const [dogList, setDogList] = useState([])
+  const [postList, setPostList] = useState([])
 
   // effects
   useEffect(() => {
     loadUserDetails()
     loadDogList()
+    loadPostList()
   }, [])
+
+  const loadPostList = async () => {
+    const posts = []
+    const data = await DoggyPileAPI.getAllItems("post")
+    for (let i=0; i < data.length ; i++) {
+      if (data[i].user.id == userId) {
+        posts.push(data[i])
+      }
+    }
+    setPostList(data ? data : [])
+  }
 
   const loadUserDetails = async () => {
     const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
@@ -37,12 +51,20 @@ function ProfilePage(props) {
     setDogList(dogs ? dogs : [])
   }
 
-  // Deleting doggo from list (don't do it! *sadface* )
+
+  // Deleting doggo/posts from list (don't do it! *sadface* )
   const removeDoggo = (deletedDogId) => {
     const newDogList = dogList.filter((dog) => {
       return dog.id !== deletedDogId
     })
     setDogList(newDogList)
+  }
+  const removePost = (deletedPostId) => {
+    const newposts = postList.filter(() => {
+      return postList.id !== deletedPostId
+    })
+    setPostList(newposts)
+    return loadPostList()
   }
 
   // Renders doggos. There's a lot of functions inside, be warned. 
@@ -54,6 +76,10 @@ function ProfilePage(props) {
           removeDoggo(dog.id)
         }
       }
+
+  
+
+     
       // Checks if currently logged in user matches profile. If so, renders the Edit and Delete button
       const showButtons = () => {
         if (props.username.user_id == userId) {
@@ -131,6 +157,13 @@ function ProfilePage(props) {
 
   console.log("USER DETAILSSSSS", userDetails)
 
+  const renderPosts = () => {
+    return postList.map((myPost) => {
+      console.log(myPost)
+        return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } />
+        })
+      }
+
   return (
     <Container className="profile">
       <Row>
@@ -159,7 +192,8 @@ function ProfilePage(props) {
               <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
             </Tab>
             <Tab eventKey="posts" title="Posts">
-              <p>testing one two three</p>
+              <Link to={`/post/create-post/`}> <button className="btn-create">Write A Post</button></Link><br/>
+              { renderPosts() }
             </Tab>
           </Tabs>
         </Row>
