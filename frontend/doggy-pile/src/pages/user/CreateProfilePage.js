@@ -10,9 +10,6 @@ import { useState } from "react";
 function CreateProfilePage(props) {
   const navigate = useNavigate()
 
-  // state
-  const [imageSrc, setImageSrc] = useState(null)
-
   // event handlers
   const handleCreateProfile = async (event) => {
     event.preventDefault()
@@ -45,7 +42,7 @@ function CreateProfilePage(props) {
 
   return (
     <div>
-      <ProfileFormRender handleCreateProfile={handleCreateProfile} username={props.username} setImageSrc={setImageSrc}/>
+      <ProfileFormRender handleCreateProfile={handleCreateProfile} username={props.username}/>
     </div>
   )
 }

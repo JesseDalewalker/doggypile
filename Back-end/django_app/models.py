@@ -45,6 +45,7 @@ class Post(models.Model):
 
     def __str__(self):
        return f'User: {self.user}, Post: {self.headline}'
+       
 class Comment(models.Model):
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, related_name="comment")
     comment = models.TextField()
