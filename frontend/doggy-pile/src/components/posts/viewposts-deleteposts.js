@@ -37,7 +37,6 @@ function PostView(props) {
 
   const handleCreateComment = async (event) => {
     event.preventDefault()
-
     const commentData = {
       comment: event.target.elements["comment"].value,
       post: props.myPost.id,
@@ -52,7 +51,13 @@ function PostView(props) {
       setCommentsList([...commentsList, commentData])
       loadComments()
     }
+  }
 
+  const removeComment = (deletedCommentId) => {
+    const newCommentsList = commentsList.filter((comment) => {
+      return comment.id !== deletedCommentId
+    })
+    setCommentsList(newCommentsList)
   }
 
 return (
@@ -80,7 +85,7 @@ return (
                                <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link><br/>
                                <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
                                {/* Rendering existing comments */}
-                               <CommentRender commentsList={commentsList} />
+                               <CommentRender commentsList={commentsList} removeComment={removeComment}/>
 
                                {/* Form to write a comment */}
                                <div>
