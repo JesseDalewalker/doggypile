@@ -32,7 +32,7 @@ function FeedPage(props) {
   const renderPosts = () => {
     return postDetails.map((myPost) => {
       console.log(myPost)
-      return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } />
+      return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } username={ props.username } />
     })
   }
 
