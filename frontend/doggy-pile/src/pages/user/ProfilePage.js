@@ -180,7 +180,7 @@ function ProfilePage(props) {
              {editProfileBtn()}
             </Col>
           </Row>
-          <p align="left">{userDetails && userDetails.about}</p>
+          <p className="about-text" align="left">{userDetails && userDetails.about}</p>
         </Col>
       </Row>
 

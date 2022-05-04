@@ -27,30 +27,37 @@ function SignUpPage() {
 
 
   return (
-    <div className="auth-cont">
-      <Form onSubmit={ handleSignUp } method="POST">
-        <h1 className="form-title">Sign Up</h1>
-        <Form.Group as={Row} className="mt-3">
-          <Col>
-            <Form.Control type="text" name="first-name" placeholder="First Name"/>
-          </Col>
-          <Col>
-            <Form.Control type="text" name="last-name" placeholder="Last Name"/>
-          </Col>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control type="text" name="username" placeholder="Username"/>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control type="password" name="password" placeholder="Password"/>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control type="email" name="email" placeholder="Email"/>
-        </Form.Group>
-        <Form.Group className="mt-3">
-        </Form.Group>
-        <Button variant="outline-light" className="submit" type="submit">Create Account</Button>
-      </Form>
+    <div className="d-flex justify-content-center">
+      <Row className="login-cont">
+        <Col>
+          <Form onSubmit={ handleSignUp } method="POST">
+            <h1 className="form-title">Sign Up</h1>
+            <Form.Group as={Row} className="mt-3">
+              <Col>
+                <Form.Control type="text" name="first-name" placeholder="First Name"/>
+              </Col>
+              <Col>
+                <Form.Control type="text" name="last-name" placeholder="Last Name"/>
+              </Col>
+            </Form.Group>
+            <Form.Group className="mt-3">
+              <Form.Control type="text" name="username" placeholder="Username"/>
+            </Form.Group>
+            <Form.Group className="mt-3">
+              <Form.Control type="password" name="password" placeholder="Password"/>
+            </Form.Group>
+            <Form.Group className="mt-3">
+              <Form.Control type="email" name="email" placeholder="Email"/>
+            </Form.Group>
+            <Form.Group className="mt-3">
+            </Form.Group>
+            <Button className="edit-btn submit signup" type="submit">Create Account</Button>
+          </Form>
+        </Col>
+        <Col>
+          <img src={require('../../images/signup-dog.png')} alt="Sign Up doggo" className="signup-doggo"/>
+        </Col>
+      </Row>
     </div>
   )
 }
