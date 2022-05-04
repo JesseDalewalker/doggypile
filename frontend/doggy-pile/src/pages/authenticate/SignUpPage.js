@@ -34,20 +34,20 @@ function SignUpPage() {
             <h1 className="form-title">Sign Up</h1>
             <Form.Group as={Row} className="mt-3">
               <Col>
-                <Form.Control type="text" name="first-name" placeholder="First Name"/>
+                <Form.Control type="text" name="first-name" placeholder="First Name" className="input-field"/>
               </Col>
               <Col>
-                <Form.Control type="text" name="last-name" placeholder="Last Name"/>
+                <Form.Control type="text" name="last-name" placeholder="Last Name" className="input-field"/>
               </Col>
             </Form.Group>
             <Form.Group className="mt-3">
-              <Form.Control type="text" name="username" placeholder="Username"/>
+              <Form.Control type="text" name="username" placeholder="Username" className="input-field"/>
             </Form.Group>
             <Form.Group className="mt-3">
-              <Form.Control type="password" name="password" placeholder="Password"/>
+              <Form.Control type="password" name="password" placeholder="Password" className="input-field"/>
             </Form.Group>
             <Form.Group className="mt-3">
-              <Form.Control type="email" name="email" placeholder="Email"/>
+              <Form.Control type="email" name="email" placeholder="Email" className="input-field"/>
             </Form.Group>
             <Form.Group className="mt-3">
             </Form.Group>

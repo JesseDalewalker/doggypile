@@ -1,0 +1,18 @@
+.header-cont {
+  width: 60%;
+  padding: 2%;
+}
+
+.header-img {
+  width: 500px;
+  height: auto;
+  object-fit: contain;
+}
+
+.header-text {
+  padding-top: 3%;
+}
+
+.action-txt {
+  font-weight: 600;
+}
