@@ -1,0 +1,24 @@
+.row.login-cont {
+  width: 70%;
+  margin: 5%;
+  background-color: #FCF9F8;
+  padding: 5%;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.login-doggo {
+  width: 300px;
+}
+
+.form-title {
+  color: #4B4141;
+}
+
+.sub-text {
+  color: #888888;
+}
+
+.edit-btn.submit {
+  width: 120px;
+  border-radius: 25px;
+}

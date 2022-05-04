@@ -45,7 +45,7 @@ function ProfilePage(props) {
     setDogList(newDogList)
   }
 
-  // Renders doggos
+  // Renders doggos. There's a lot of functions inside, be warned. 
   const renderDogs = () => {
     return dogList.map((dog) => {
       const handleDeleteDog = async () => {
@@ -54,6 +54,7 @@ function ProfilePage(props) {
           removeDoggo(dog.id)
         }
       }
+      // Checks if currently logged in user matches profile. If so, renders the Edit and Delete button
       const showButtons = () => {
         if (props.username.user_id == userId) {
           return (
@@ -68,6 +69,7 @@ function ProfilePage(props) {
           )
         }
       }
+      // Based on the gender value, it will render the gender SVGs that corresponds with it
       const renderGenderSigns = () => {
         if (dog && dog.gender === 'Male') {
           return <img alt="Gender sign" src={maleSign} className="gender"/>
@@ -81,13 +83,19 @@ function ProfilePage(props) {
           return <><span className="dog-field">Vaccinated</span> <span className="dog-text">Yes</span> </>
         } return <><span className="dog-field">Vaccinated</span> <span className="dog-text">No</span></>
       }
+      // Since the JSON file doesn't have the names capitalized, this function takes care of that
+      const capitalizeBreedName = (str) => {
+        return str.replace(/\w\S*/g, function(txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        })
+      }
       return <Row className="dog-cont">
         <Col xs={4}>
           <img src={ dog && dog.profile_pic } alt="Doggo" className="dog-img"/>
         </Col>
         <Col xs={5} className="dog-details">
           <h4 className="dog-name">{dog && dog.name} { renderGenderSigns() }</h4>
-          <span className="dog-field">Breed</span> <span className="dog-text">{dog && dog.breed}</span>
+          <span className="dog-field">Breed</span> <span className="dog-text">{capitalizeBreedName(dog && dog.breed)}</span>
           <br />
           <span className="dog-field">Size</span> <span className="dog-text">{dog && dog.size}</span>
           <br />
