@@ -11,8 +11,8 @@ function CommentRender (props) {
         }
       }
       return <div>
-        {comment && comment.comment}
-        {comment && comment.user.username}
+        {comment && comment.comment}<br/>
+        -{comment && comment.user.username}<br/>
         <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
       </div>
     })
