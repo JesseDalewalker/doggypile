@@ -6,7 +6,7 @@ import Twitter from '../../images/twitter-icon.svg'
 
 function Footer() {
   return (
-    <footer>
+    <footer className="d-flex justify-content-center">
       <Row className="footer-cont">
         <Col className="about-cont">
           <h3 className="footer-text mb-3">About Us</h3>
@@ -16,12 +16,18 @@ function Footer() {
           <h3 className="footer-text mb-3">Getting Started</h3>
           <p align="left">Sign Up</p>
         </Col>
-        <Col>
+        <Col >
           <h3 className="footer-text mb-3">Follow Us</h3>
           <Row>
+            <Col sm={2}>
             <img src={Facebook} alt="Facebook" className="footer-icons"/>
+            </Col>
+            <Col sm={2}>
             <img src={Instagram} alt="Instagram" className="footer-icons"/>
+            </Col>
+            <Col sm={2}>
             <img src={Twitter} alt="Twitter" className="footer-icons"/>
+            </Col>
           </Row>
           <p align="left" className="mt-3">©DoggyPile. All rights reserved.</p>
         </Col>
