@@ -1,0 +1,25 @@
+footer {
+  overflow: hidden;
+  background-color: #FCF9F8;
+  padding: 1%;
+  margin-top: 3%
+}
+
+.footer-text {
+  color: #FA9A49;
+  text-align: start;
+}
+
+.footer-cont {
+  width: 80%;
+  margin: auto 18%;
+}
+
+.about-cont {
+  padding-right: 10%;
+}
+
+.footer-icons {
+  width: 50px;
+  height: 50px;
+}

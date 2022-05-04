@@ -24,6 +24,10 @@
   border-radius: 25px;
 }
 
+.form-control.input-field {
+  border-radius: 40px;
+}
+
 /* Sign up form */
 
 .signup-doggo {

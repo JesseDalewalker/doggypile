@@ -34,10 +34,10 @@ function LoginPage(props) {
           <p className="sub-text">Login to continue to our site</p>
           <Form onSubmit={ handleLogin } method="POST">
             <Form.Group className="my-3">
-              <Form.Control type="text" name="username" placeholder="Username"/>
+              <Form.Control type="text" name="username" placeholder="Username" className="input-field"/>
             </Form.Group>
               <Form.Group className="my-3">
-                <Form.Control type="password" name="password" placeholder="Password"/>
+                <Form.Control type="password" name="password" placeholder="Password" className="input-field"/>
               </Form.Group>
             <Button className="edit-btn submit" type="submit">Submit</Button>
           </Form>
