@@ -11,6 +11,8 @@
 
 .header-text {
   padding-top: 3%;
-  /* padding-left: 22%;
-  padding-right: 22%; */
+}
+
+.action-txt {
+  font-weight: 600;
 }

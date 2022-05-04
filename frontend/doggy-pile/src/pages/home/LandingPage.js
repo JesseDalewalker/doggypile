@@ -7,7 +7,7 @@ function LandingPage() {
     <div className="d-flex justify-content-center">
       <Row className="header-cont">
         <Col className="header-text">
-          <h1 align="left">The perfect website to fulfill your dog's social needs</h1>
+          <h1 align="left" className="action-txt">The perfect website to fulfill your dog's social needs</h1>
           <p align="left">Get connected. Find local dog parks and check in our interactive map.</p>
           <Button>Join Today!</Button>
         </Col>
