@@ -2,7 +2,7 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react'
-import {Form, Button, Stack, Row, Col } from 'react-bootstrap'
+import {Form, Button, Stack, Row, Col, Container } from 'react-bootstrap'
 import StateCityData from '../../data/StatesCityData.json'
 
 // Renders the form for creating/editing User's profile information
@@ -75,13 +75,14 @@ function ProfileFormRender(props) {
   };
   
   return (
-    <div>
-      <Row>
-        <img src={ imageSrc && imageSrc } width={250} height={250}/>
-      </Row>
-      <Row className="mb-3">
-        <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
-          <Col>
+    <Container className="d-flex justify-content-center">
+    <div className="form-cont">
+      <Container>
+        <img src={ imageSrc ? imageSrc : require('../../images/blank-profile-pic.png') } className="current-img"/>
+      </Container>
+      <Row className="my-3">
+        <Form.Label column sm={3}>Upload Profile Picture:</Form.Label>
+          <Col sm={6}>
             <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
           </Col>
           <Col><Button onClick={uploadImage}>Upload Image</Button></Col>
@@ -105,7 +106,7 @@ function ProfileFormRender(props) {
         {/* User's gender selection */}
         <Form.Group as={Row}>
           <Form.Label column sm={2}>Gender:</Form.Label>
-          <Col>
+          <Col sm={4}>
             <Form.Select name="gender-select">
               <option value="Female">Female</option>
               <option value="Male">Male</option>
@@ -141,6 +142,7 @@ function ProfileFormRender(props) {
         </Stack>
       </Form>
     </div>
+    </Container>
   )
 }
 

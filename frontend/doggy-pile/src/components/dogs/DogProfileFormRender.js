@@ -2,8 +2,9 @@ import axios from "axios"
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import {Form, Button, Stack, Row, Col } from 'react-bootstrap'
+import {Form, Button, Stack, Row, Col, Container } from 'react-bootstrap'
 import DogBreeds from '../../data/dog_breeds.json'
+import "./DogFormStyles.css"
 
 function DogProfileFormRender(props) {
   const navigate = useNavigate()
@@ -50,16 +51,17 @@ function DogProfileFormRender(props) {
   
 
   return (
-    <div>
-      <Row>
-        <img src={ imageSrc && imageSrc } width={250} height={250}/>
-      </Row>
-      <Row className="mb-3">
-        <Form.Label column sm={2}>Upload Profile Picture:</Form.Label>
-          <Col>
+    <Container className="d-flex justify-content-center">
+    <div className="form-cont">
+      <Container>
+        <img src={ imageSrc ? imageSrc : require('../../images/corgi.png') } alt="Uploaded image" className="current-img"/>
+      </Container>
+      <Row className="my-3">
+        <Form.Label column sm={3}>Upload Profile Picture:</Form.Label>
+          <Col sm={6}>
             <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
           </Col>
-          <Col><Button onClick={uploadImage}>Upload Image</Button></Col>
+          <Col><Button onClick={uploadImage} className="edit-btn upload">Upload Image</Button></Col>
       </Row>
 
       <Form onSubmit = { props.handleCreateDogProfile ? props.handleCreateDogProfile : props.handleEditDogProfile } >
@@ -94,8 +96,8 @@ function DogProfileFormRender(props) {
         </Form.Group>
 
         <Form.Group as={Row}>
-          <Form.Label column>Size:</Form.Label>
-          <Col>
+          <Form.Label column sm={3}>Size:</Form.Label>
+          <Col sm={3}>
             <Form.Select name="size">
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
@@ -111,16 +113,18 @@ function DogProfileFormRender(props) {
               <option value="Small dogs">Small dogs</option>
             </Form.Select>
           </Col>
-          <Col>
-            <Form.Check inline label="Vaccinated" name="vaccinated" />
-          </Col>
+
         </Form.Group>
+          {/* Need to fix this */}
+          <Form.Check label="Vaccinated" name="vaccinated" id="vaccinated"/>
+
         <Stack gap={2} className="col-md-5 mx-auto mt-3">
           <Button variant="secondary" type="submit">Save Profile</Button>
           <Button variant="outline-secondary" onClick={() => navigate(-1)} >Cancel</Button>
         </Stack>
       </Form>
     </div>
+    </Container>
   )
 }
 
