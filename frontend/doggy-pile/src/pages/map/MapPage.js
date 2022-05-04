@@ -139,7 +139,7 @@ function MapPage() {
         'chicago-dog-parks',
         'visibility'
         );
-         
+        
         // Toggle layer visibility by changing the layout object's visibility property.
         if (visibility === 'visible') {
         map.setLayoutProperty('chicago-dog-parks', 'visibility', 'none');
@@ -152,7 +152,7 @@ function MapPage() {
         'visible'
         );
         }
-       
+      
     }
 
     const renderLayer = new MapboxGLButtonControl({
