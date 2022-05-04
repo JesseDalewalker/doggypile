@@ -1,6 +1,7 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Row, Col, Container } from "react-bootstrap"
+import './AuthenStyles.css'
 
 function LoginPage(props) {
   // router params
@@ -23,20 +24,27 @@ function LoginPage(props) {
   }
 
   return (
-    <div>
-      <h1 className="form-title">Login to your account</h1>
-      <Form onSubmit={ handleLogin } method="POST">
-        <Form.Group className="mt-3">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control type="text" name="username" placeholder="Username"/>
-        </Form.Group>
-          <Form.Group className="mt-3">
-            <Form.Label>Password:</Form.Label>
-            <Form.Control type="password" name="password" placeholder="Password"/>
-          </Form.Group>
-        <Button variant="outline-primary" className="submit" type="submit">Submit</Button>
-      </Form> 
+    <div className="d-flex justify-content-center">
+      <Row className="login-cont">
+        <Col sm={6}>
+          <img src={require('../../images/login-dog.png')} alt="Login doggo" className="login-doggo"/>
+        </Col>
+        <Col sm={4}>
+          <h3 className="form-title">Welcome back!</h3>
+          <p className="sub-text">Login to continue to our site</p>
+          <Form onSubmit={ handleLogin } method="POST">
+            <Form.Group className="my-3">
+              <Form.Control type="text" name="username" placeholder="Username"/>
+            </Form.Group>
+              <Form.Group className="my-3">
+                <Form.Control type="password" name="password" placeholder="Password"/>
+              </Form.Group>
+            <Button className="edit-btn submit" type="submit">Submit</Button>
+          </Form>
+        </Col> 
+      </Row>
     </div>
+    
   )
 }
 
