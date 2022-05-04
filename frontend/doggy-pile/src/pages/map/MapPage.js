@@ -98,13 +98,17 @@ function MapPage() {
         if (e.target.value === "agressive dog") {
           setMarkerColor("#ff0000")
           dispatchEvent('mapbox.setflash', {message: "agressive dog", error: true, fadeout: 10})
+          
         } else if (e.target.value === "lost dog") {
           setMarkerColor("#FFD700")
           dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
+          
         }
-        console.log(markerColor)
+        map.triggerRepaint()
       })
     })
+
+    
 
       map.addControl( new Flash())
 
