@@ -50,7 +50,30 @@
 #welcome {
   font-family: Doggy Dog World;
 }
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100');
 
+@font-face {
+  font-family: Montserrat;
+  font-weight: bold;
+  src: url('https://fonts.googleapis.com/css?family=Montserrat:100');
+}
+.btn-update, .btn-delete, .btn-create {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 520;
+  font-size: 20pt;
+  background-color: rgb(223, 238, 243);
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 500px;
+  border: 0;
+}
+
+.btn-update:hover, .btn-delete:hover, .btn-create:hover {
+  background-color: orange;
+  color: red;
+}
 
 // This is for Posts
 
@@ -59,14 +82,14 @@
   box-sizing: border-box;
 }
 
-// html, body {
-//   padding: 0;
-//   margin: 0;
-//   font-family: 'Montserrat', sans-serif;
-//   color: white;
-//   text-align: center;
-//   background-color: black;
-// }
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+  text-align: center;
+  background-color: white;
+}
 
 $accent-color: lightcyan;
 
@@ -78,8 +101,8 @@ $accent-color: lightcyan;
 }
 
 .day-card {
-  width: 420px;
-  height: 340px;
+  width: 1326px;
+  height: 481px;
   margin: 1em;
   perspective: 1500px;
   .content {
@@ -134,8 +157,8 @@ $accent-color: lightcyan;
     backface-visibility: hidden;
     background: linear-gradient(
       40deg,
-      orange,
-      lightgreen
+      rgb(231, 203, 146),
+      white
     );
   }
   .inner {
@@ -148,7 +171,7 @@ $accent-color: lightcyan;
     margin-bottom: 0.3em;
     text-transform: uppercase;
     letter-spacing: 10px;
-    color: #fff;
+    color: black;
     font-weight: 700;
     text-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   }
@@ -249,8 +272,8 @@ $accent-color: lightcyan;
   min-width: 3em;
   background-color: transparent;
   border: solid 2px #fff;
-  color: #fff;
-  border-radius: 4px;
+  color: black;
+  border-radius: 500px;
   text-align: center;
   left: 50%;
   backface-visibility: hidden;
