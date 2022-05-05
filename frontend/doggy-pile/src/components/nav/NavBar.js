@@ -26,7 +26,7 @@ function NavBar(props) {
             </Navbar.Brand>
             <Nav className='ms-auto'>
                 <Nav.Link as={Link} to="/" className='navbar-item' style={{color:'#797272'}}>Home</Nav.Link>
-                <Nav.Link as={Link} to="/" className='navbar-item' style={{color:'#797272'}}>Features</Nav.Link>
+                <Nav.Link href="#site-features" className='navbar-item' style={{color:'#797272'}}>Features</Nav.Link>
                 <Nav.Link as={Link} to="/" className='navbar-item' style={{color:'#797272'}}>Contact Us</Nav.Link>
             </Nav>
             <Nav className='ms-auto justify-content-end'>

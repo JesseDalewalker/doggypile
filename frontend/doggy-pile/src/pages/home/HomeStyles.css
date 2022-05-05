@@ -7,12 +7,102 @@
   width: 500px;
   height: auto;
   object-fit: contain;
+  animation: fadeIn 2s;
 }
 
 .header-text {
   padding-top: 3%;
 }
 
+/* The perfect website... */
 .action-txt {
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 50px;
+  color: #4B4141;
+  animation: fadeIn 2s;
+}
+
+.header-sub {
+  font-weight: 500;
+  color: #2D2727;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-size: 20px;
+  animation: fadeIn 2s;
+}
+
+.navbar-item.signup-btn.join {
+  width: 170px;
+  height: 50px;
+  animation: fadeIn 2s;
+  animation-delay: 1s;
+  animation-fill-mode: both;
+}
+
+.footprints-right {
+  width: 100px;
+  transform: matrix(0, 1, 1, 0, 0, 0);
+}
+
+.footprints-left {
+  width: 100px;
+  transform: rotate(92deg);
+}
+
+.section-title.col {
+  vertical-align: middle;
+}
+
+/* Our Site Features... */
+.sub-header {
+  font-size: 42px;
+}
+
+.card.feature {
+  border-radius: 25px;
+  height: 350px;
+  width: 320px;
+  padding-top: 10%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #D8E2DC;
+}
+
+.card-img-top.feature-icon {
+  width: 100px;
+  margin: auto 34%;
+}
+
+.carousel-bg {
+  background-color: #FDFDFD;
+  min-height: 520px;
+  width: 70%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-left: 15%;
+}
+
+.carousel-caption {
+  min-height: 200px;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+.carousel-img {
+  width: 220px;
+  border-radius: 50%;
+  margin: 2%;
+}
+
+.carousel-caption > h3 {
+  font-weight: 400;
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
