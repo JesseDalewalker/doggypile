@@ -21,6 +21,8 @@ import AlternateMap from './pages/map/AlternateMap';
 import ProfilePage from './pages/user/ProfilePage';
 import CreateProfilePage from './pages/user/CreateProfilePage';
 import EditProfilePage from './pages/user/EditProfilePage';
+// -calendar
+import BigCalendar from './components/calendar/BigCalendar';
 // -dogs
 // import DogProfilePage from './pages/dogs/DogProfilePage';
 import CreateDogProfile from './pages/dogs/CreateDogProfilePage';
@@ -32,6 +34,7 @@ import EditPostPage from './components/posts/editpost';
 import Doggy101 from './pages/extra-pages/Doggy101';
 // -footer
 import Footer from './components/footer/Footer';
+import { Calendar } from 'react-big-calendar';
 
 function App() {
   // state
@@ -58,6 +61,8 @@ function App() {
           <Route path="/profile/:userId" element={<ProfilePage username= { username } />} />
           <Route path="/profile/:userId/create-profile" element={<CreateProfilePage username= { username } />} />
           <Route path="/profile/:userId/edit-profile" element={<EditProfilePage username= { username } />} />
+          {/* Calendar */}
+          <Route path="/calendar" element={ <BigCalendar/> } />
           {/* Dogs */}
           <Route path="/dog-profile/create-profile" element={<CreateDogProfile username= { username } />} />
           <Route path="/dog-profile/:dogId/edit-profile" element={<EditDogProfile username= { username } />} />
