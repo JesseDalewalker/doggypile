@@ -6,8 +6,9 @@ import axios from 'axios';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import Flash from 'mapbox-gl-flash'
 import './MapPage.scss'
+import DoggyPileAPI from "../../api/DoggyPileAPI";
 
-function MapPage() {
+function MapPage(props) {
   
   const mapContainer = useRef(null);
   const [map, setMap] = useState();
@@ -17,6 +18,7 @@ function MapPage() {
   const [arrayOfServices, setArrayOfServices] = useState()
   const [lat, setLat] = useState('')
   const [long, setLong] = useState('')
+  const [mapMarkers, setMapMarkers] = useState()
 
   mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
 
@@ -29,6 +31,10 @@ function MapPage() {
   //get lat,long of user
   useEffect(() =>{
     navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { enableHighAccuracy: true })
+  }, [])
+
+  useEffect(() => {
+    markerApiCall()
   }, [])
 
   //able to get coordinates
@@ -77,7 +83,20 @@ function MapPage() {
 
     //search box functionality
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl })
-    map.addControl(search)    
+    map.addControl(search)   
+    
+    mapMarkers.map(mark => {
+      console.log(mark)
+      if (mark.name === "aggressive dog") {
+        new mapboxgl.Marker({
+          color: "#DD0000"
+        }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
+      } else if (mark.name === "lost dog") {
+        new mapboxgl.Marker({
+          color: "#FFCC00"
+        }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
+      }
+    })
 
     //create marker for lost/aggressive dog
     map.on("dblclick", (evt) => {
@@ -88,32 +107,67 @@ function MapPage() {
           <option value='nothing'>
             nothing
             </options>
-          <option value='agressive dog'>
+          <option value='aggressive dog'>
             Aggressive Dog
           </option>
           <option value='lost dog'>
             Lost Dog
           </option>
+          <option value='delete'>
+            Delete
+            </options>
         </select>`)
 
       let marker = new mapboxgl.Marker().setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
       const selectTag = marker.getPopup()._content.children[0]
 
       selectTag.addEventListener("change", (e) => {
-        if (e.target.value === "agressive dog") {
-          dispatchEvent('mapbox.setflash', {message: "agressive dog", error: true, fadeout: 10})
+        if (e.target.value === "aggressive dog") {
+          dispatchEvent('mapbox.setflash', {message: "aggressive dog", error: true, fadeout: 10})
+          let lngLat = marker.getLngLat()
           marker.remove()
-          new mapboxgl.Marker({
+          marker = new mapboxgl.Marker({
             color: "#DD0000"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+          lngLat = marker.getLngLat()
+          let markerData = {
+            name : 'aggressive dog',
+            description : 'aggressive dog',
+            lattitude : lngLat.lat,
+            longitude : lngLat.lng, 
+            user : props.username.user_id
+          }
+          addMarkToDatabaset(markerData)
         } else if (e.target.value === "lost dog") {
           dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
+          let lngLat = marker.getLngLat()
           marker.remove()
-          new mapboxgl.Marker({
+          marker = new mapboxgl.Marker({
             color: "#FFCC00"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+          lngLat = marker.getLngLat()
+          let markerData = {
+            name : 'lost dog',
+            description : 'lost dog',
+            lattitude : lngLat.lat,
+            longitude : lngLat.lng, 
+            user : props.username.user_id
+          }
+          addMarkToDatabaset(markerData)
+        } else if (e.target.value === 'delete') {
+          let lngLat = marker.getLngLat()
+          marker.remove()
         }
       })
+
+      const addMarkToDatabaset = async (markerData) => {
+        const data = await DoggyPileAPI.createItems('marker', markerData)
+        if (data){
+          console.log('added to databaset:')
+          markerApiCall()
+        }
+      }
+
     })
 
     //alert for marker
@@ -152,6 +206,19 @@ function MapPage() {
     }) 
 
     map.on('load', () => {
+
+      // mapMarkers.map(mark => {
+      //   console.log(mark)
+      //   if (mark.name === "agressive dog") {
+      //     new mapboxgl.Marker({
+      //       color: "#DD0000"
+      //     }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
+      //   } else if (mark.name === "lost dog") {
+      //     new mapboxgl.Marker({
+      //       color: "#FFCC00"
+      //     }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
+      //   }
+      // })
 
       //dog park layer
       map.loadImage('https://cdn-icons-png.flaticon.com/512/3564/3564555.png', (error, image) => {
@@ -320,6 +387,12 @@ function MapPage() {
   }
 
   //API calls
+
+  //call for dog parks
+  const markerApiCall = async () => {
+    const data = await DoggyPileAPI.getAllItems("marker")
+    setMapMarkers (data ? data : [])
+  }
 
   //call for dog parks
   const dogParkApiCall = () => {
