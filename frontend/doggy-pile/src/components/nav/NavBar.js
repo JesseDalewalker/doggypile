@@ -52,6 +52,7 @@ function NavBar(props) {
                 <Nav.Link as={Link} to="/mappage" className='navbar-item' style={{color:'#797272'}}>Map</Nav.Link>
                 <Nav.Link as={Link} to="/calendar" className='navbar-item' style={{color:'#797272'}}>Calendar</Nav.Link>
                 <Nav.Link as={Link} to="/doggy101" className='navbar-item' style={{color:'#797272'}}>Doggy101</Nav.Link>
+                <Nav.Link as={Link} to="/localUsers" className='navbar-item' style={{color:'#797272'}}>Local Users</Nav.Link>
             </Nav>
           </Container>
           <Nav className='m-auto justify-content-end'>

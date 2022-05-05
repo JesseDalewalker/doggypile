@@ -32,6 +32,7 @@ import CreatePostPage from './components/posts/createpost';
 import EditPostPage from './components/posts/editpost';
 // -extra pages
 import Doggy101 from './pages/extra-pages/Doggy101';
+import LocalUsers from './pages/extra-pages/LocalUsers';
 // -footer
 import Footer from './components/footer/Footer';
 import { Calendar } from 'react-big-calendar';
@@ -71,6 +72,7 @@ function App() {
           <Route path="/post/:id" element={<EditPostPage username= { username } />} />
           {/*extra pages */}
           <Route path="/doggy101" element={<Doggy101 />} />
+          <Route path="/localUsers" element={<LocalUsers />} />
         </Routes>
         <Footer />
       </HashRouter>

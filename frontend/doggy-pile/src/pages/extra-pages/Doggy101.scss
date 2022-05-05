@@ -32,3 +32,14 @@
   padding: 40px;
   margin: auto;
 }
+
+.users {
+  border: solid;
+  padding: 30px;
+  margin: 30px;
+}
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+}
