@@ -60,6 +60,31 @@ function PostView(props) {
     setCommentsList(newCommentsList)
   }
 
+  const showEditAndDeleteButton = () => {
+    if (props.username.user_id === props.myPost.user.id) {
+      return (
+        <div>
+         <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link>
+        <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
+        </div>
+      )
+    }
+  }
+
+  const showRemoveCommentButton = () => {
+    if (props.username.user_id === props.myPost.user.id) {
+      return (
+        <div>
+        <CommentRender commentsList={commentsList} removeComment={removeComment}/>
+        </div>
+      )
+    } else {
+      <div>
+      <CommentRender commentsList={commentsList}/>
+      </div>
+    }
+  }
+console.log("Main USER:", props.username.user_id, "POST USER:", props.myPost.user.id)
 return (
 <section class="day-events new">
 
@@ -79,13 +104,14 @@ return (
                    </div>
                    <div class="back">
                        <div class="inner">
-                              <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link>
-                              <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
+                          { showEditAndDeleteButton() }
+                         
+                              
 
                            
                            <div className="description">
                                {/* Rendering existing comments */}
-                               <CommentRender commentsList={commentsList} removeComment={removeComment}/>
+                               { showRemoveCommentButton() }
 
                                {/* Form to write a comment */}
                                
