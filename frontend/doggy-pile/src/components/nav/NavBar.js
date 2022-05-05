@@ -22,7 +22,7 @@ function NavBar(props) {
         <div>
           <Navbar className='navbar' sticky="top">
             <Navbar.Brand className="justify-content-start">
-              <img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/>
+              <Link to="/"><img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/></Link>
             </Navbar.Brand>
             <Nav className='ms-auto'>
                 <Nav.Link as={Link} to="/" className='navbar-item' style={{color:'#797272'}}>Home</Nav.Link>
@@ -41,7 +41,7 @@ function NavBar(props) {
       <div>
         <Navbar className='navbar' sticky="top">
           <Navbar.Brand className="justify-content-start">
-            <img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/>
+          <Link to="/feed"><img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/></Link>
           </Navbar.Brand>
           <Nav className='ms-auto'>
               <Nav.Link as={Link} to="/feed" className='navbar-item' style={{color:'#797272'}}>Feed</Nav.Link>
