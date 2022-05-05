@@ -7,6 +7,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import Flash from 'mapbox-gl-flash'
 import './MapPage.scss'
 
+
 function MapPage() {
   
   const mapContainer = useRef(null);
@@ -79,8 +80,6 @@ function MapPage() {
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl })
     map.addControl(search) 
     
-    //walking route functionality
-    map
 
     //create marker for lost/aggressive dog
     map.on("dblclick", (evt) => {
@@ -293,6 +292,8 @@ function MapPage() {
           link.href = '#';
           link.textContent = id;
           link.className = 'active';
+        
+        
         
         // Show or hide layer when the toggle is clicked.
         link.onclick = function (e) {
