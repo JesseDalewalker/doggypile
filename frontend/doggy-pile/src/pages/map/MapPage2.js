@@ -7,6 +7,8 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import Flash from 'mapbox-gl-flash'
 import './MapPage.scss'
 import DoggyPileAPI from "../../api/DoggyPileAPI";
+import './MapPage2.scss'
+import '@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css'
 
 function MapPage(props) {
   
@@ -64,7 +66,7 @@ function MapPage(props) {
     if (arrayOfDogParks && arrayOfShops && arrayOfVets && arrayOfServices) {
       setUpMap([long, lat])
     }
-  }, [arrayOfDogParks, arrayOfShops, arrayOfVets, arrayOfServices] )
+  }, [arrayOfDogParks, arrayOfShops, arrayOfVets, arrayOfServices, mapMarkers] )
 
   //setup map
   function setUpMap(center) {
@@ -75,6 +77,7 @@ function MapPage(props) {
       style: 'mapbox://styles/mapbox/streets-v11',
       center: center,
       zoom: 10,
+      doubleClickZoom: false,
     });
     
     //create nav bar
@@ -82,23 +85,156 @@ function MapPage(props) {
     map.addControl(nav);
 
     //search box functionality
-    const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl })
-    map.addControl(search)   
+    const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl, collapsed: true })
+    map.addControl(search, 'top-left')   
+
+    //change cursor for icon hover
+    map.on('mouseenter', 'dog-parks', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'shops', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'vets', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'services', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
     
+    //change cursor back to normal
+    map.on('mouseleave', 'dog-parks', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'shops', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'vets', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'services', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    
+    //create marker for lost/aggressive dog from database
     mapMarkers.map(mark => {
-      console.log(mark)
+
+      // popup for lost/aggressive dog markers
+      const popupDB = new mapboxgl.Popup().setHTML(`
+        <select>
+          <option value='nothing'>
+            nothing
+            </options>
+          <option value='aggressive dog'>
+            Aggressive Dog
+          </option>
+          <option value='lost dog'>
+            Lost Dog
+          </option>
+          <option value='delete'>
+            Delete
+            </options>
+        </select>`)
+
+      let markerDB = ''
+
+      //set marker color if it is aggressive dog or lost dog
       if (mark.name === "aggressive dog") {
-        new mapboxgl.Marker({
+        markerDB = new mapboxgl.Marker({
           color: "#DD0000"
-        }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
+        }).setLngLat([mark.longitude, mark.lattitude]).setPopup(popupDB).addTo(map)
       } else if (mark.name === "lost dog") {
-        new mapboxgl.Marker({
+        markerDB = new mapboxgl.Marker({
           color: "#FFCC00"
-        }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
+        }).setLngLat([mark.longitude, mark.lattitude]).setPopup(popupDB).addTo(map)
+      }
+
+      //get select tag from marker popup
+      const selectTag = markerDB.getPopup()._content.children[0]
+
+      //event listener to change the marker attributes based on selected item
+      selectTag.addEventListener("change", (e) => {
+        //if aggressive dog makes red marker
+        if (e.target.value === "aggressive dog") {
+          //creates red alert banner for aggressive dog
+          dispatchEvent('mapbox.setflash', {message: "aggressive dog", error: true, fadeout: 10})
+          //removes previous default(blue) marker
+          let lngLat = markerDB.getLngLat()
+          removeMarkerFromDataBase(lngLat)
+          markerDB.remove()
+          //creates new red marker
+          markerDB = new mapboxgl.Marker({
+            color: "#DD0000"
+          }).setLngLat([mark.longitude, mark.lattitude]).setPopup(popupDB).addTo(map)
+          //get/set marker data and save to database
+          lngLat = markerDB.getLngLat()
+          let markerDBData = {
+            name : 'aggressive dog',
+            description : 'aggressive dog',
+            lattitude : lngLat.lat,
+            longitude : lngLat.lng, 
+            user : props.username.user_id
+          }
+          addMarkToDatabaset(markerDBData)
+        } 
+        //if lost dog makes marker yellow
+        else if (e.target.value === "lost dog") {
+          //creates yellow alert banner for aggressive dog
+          dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
+          //removes previous default(blue) marker
+          let lngLat = markerDB.getLngLat()
+          removeMarkerFromDataBase(lngLat)
+          markerDB.remove()
+          // create new yellow marker
+          markerDB = new mapboxgl.Marker({
+            color: "#FFCC00"
+          }).setLngLat([mark.longitude, mark.lattitude]).setPopup(popupDB).addTo(map)
+          //get/set marker data and save to database
+          lngLat = markerDB.getLngLat()
+          let markerDBData = {
+            name : 'lost dog',
+            description : 'lost dog',
+            lattitude : lngLat.lat,
+            longitude : lngLat.lng, 
+            user : props.username.user_id
+          }
+          addMarkToDatabaset(markerDBData)
+        } 
+        //removes marker from map and database
+        else if (e.target.value === 'delete') {
+          let lngLat = markerDB.getLngLat()
+          removeMarkerFromDataBase(lngLat)
+          markerDB.remove()
+        }
+      })
+
+      // function with api call to add marker to db
+      const addMarkToDatabaset = async (markerDBData) => {
+        const data = await DoggyPileAPI.createItems('marker', markerDBData)
+        if (data){
+          console.log('added to databaset:')
+          markerApiCall()
+        }
+      }  
+
+      // function with api call to remove marker to db
+      const removeMarkerFromDataBase = async (lngLat) => {
+        //gets the selected marker from the mapMarker list
+        let markerToDelete = mapMarkers.filter(marker => 
+          marker.lattitude === lngLat.lat && marker.longitude === lngLat.lng
+        )
+        //if a marker matches, delete from database
+        for (const deleteMarker of markerToDelete){
+          let id = deleteMarker.id
+          const data = await DoggyPileAPI.deleteItem('marker', id)
+          if (data){
+            console.log('removed marker')
+          }
+        }
       }
     })
 
-    //create marker for lost/aggressive dog
+    //create new marker for lost/aggressive dog
     map.on("dblclick", (evt) => {
 
       //popup for lost/aggressive dog markers
@@ -118,56 +254,93 @@ function MapPage(props) {
             </options>
         </select>`)
 
+      //set initial marker with popup
       let marker = new mapboxgl.Marker().setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+      //get select tag from marker
       const selectTag = marker.getPopup()._content.children[0]
 
+      //event listener for the select tag
       selectTag.addEventListener("change", (e) => {
+        //if aggressive dog makes red marker
         if (e.target.value === "aggressive dog") {
+          //creates red alert banner for aggressive dog
           dispatchEvent('mapbox.setflash', {message: "aggressive dog", error: true, fadeout: 10})
+          //removes previous default(blue) marker
           let lngLat = marker.getLngLat()
+          removeMarkerFromDataBase(lngLat)
           marker.remove()
+          //creates new red marker
           marker = new mapboxgl.Marker({
             color: "#DD0000"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+          //get/set marker data and save to database
           lngLat = marker.getLngLat()
           let markerData = {
             name : 'aggressive dog',
             description : 'aggressive dog',
             lattitude : lngLat.lat,
             longitude : lngLat.lng, 
-            user : props.username.user_id
+            user : props.username['user_id']
           }
           addMarkToDatabaset(markerData)
-        } else if (e.target.value === "lost dog") {
+        } 
+        //if lost dog makes marker yellow
+        else if (e.target.value === "lost dog") {
           dispatchEvent('mapbox.setflash', {message: "lost dog", warn: true, fadeout: 10})
+          //removes previous default(blue) marker
           let lngLat = marker.getLngLat()
+          removeMarkerFromDataBase(lngLat)
           marker.remove()
+          // create new yellow marker
           marker = new mapboxgl.Marker({
             color: "#FFCC00"
           }).setLngLat([evt.lngLat.lng, evt.lngLat.lat]).setPopup(popup).addTo(map)
+          //get/set marker data and save to database
           lngLat = marker.getLngLat()
           let markerData = {
             name : 'lost dog',
             description : 'lost dog',
             lattitude : lngLat.lat,
             longitude : lngLat.lng, 
-            user : props.username.user_id
+            user : props.username['user_id']
           }
           addMarkToDatabaset(markerData)
-        } else if (e.target.value === 'delete') {
+        } 
+        //removes marker from map and database
+        else if (e.target.value === 'delete') {
           let lngLat = marker.getLngLat()
+          removeMarkerFromDataBase(lngLat)
           marker.remove()
         }
       })
 
+      // function with api call to add marker to db
       const addMarkToDatabaset = async (markerData) => {
         const data = await DoggyPileAPI.createItems('marker', markerData)
         if (data){
+          let newMapMarkers = mapMarkers
+          newMapMarkers.push(markerData)
+          setMapMarkers(newMapMarkers)
           console.log('added to databaset:')
           markerApiCall()
         }
+      } 
+      
+      // function with api call to remove marker to db
+      const removeMarkerFromDataBase = async (lngLat) => {
+        //gets the selected marker from the mapMarker list
+        let markerToDelete = mapMarkers.filter(marker => 
+          marker.lattitude === lngLat.lat && marker.longitude === lngLat.lng
+        )
+        //if a marker matches, delete from database
+        for (const deleteMarker of markerToDelete){
+          let id = deleteMarker.id
+          const data = await DoggyPileAPI.deleteItem('marker', id)
+          if (data){
+            console.log('removed marker')
+          }
+        }
       }
-
     })
 
     //alert for marker
@@ -206,19 +379,6 @@ function MapPage(props) {
     }) 
 
     map.on('load', () => {
-
-      // mapMarkers.map(mark => {
-      //   console.log(mark)
-      //   if (mark.name === "agressive dog") {
-      //     new mapboxgl.Marker({
-      //       color: "#DD0000"
-      //     }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
-      //   } else if (mark.name === "lost dog") {
-      //     new mapboxgl.Marker({
-      //       color: "#FFCC00"
-      //     }).setLngLat([mark.longitude, mark.lattitude]).addTo(map)
-      //   }
-      // })
 
       //dog park layer
       map.loadImage('https://cdn-icons-png.flaticon.com/512/3564/3564555.png', (error, image) => {
@@ -391,7 +551,11 @@ function MapPage(props) {
   //call for dog parks
   const markerApiCall = async () => {
     const data = await DoggyPileAPI.getAllItems("marker")
-    setMapMarkers (data ? data : [])
+    if (data){
+      setMapMarkers(data)
+      console.log('made doggy api call')
+    }
+    // setMapMarkers (data ? data : [])
   }
 
   //call for dog parks
