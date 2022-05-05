@@ -49,24 +49,26 @@ console.log("What am I getting?", postDetails)
   // render
 
   return (
-    <div id="editpost">
-      <Form onSubmit={ handleEditPost } method="PATCH">
-        {/* User's post title */}
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>Title:</Form.Label>
-            <Form.Control name="headline" defaultValue={ postDetails.headline } />
-        </Form.Group>
-        {/* User content area */}
-        <Form.Group as={Row}>
-          <Form.Label>Content:</Form.Label>
-          <Form.Control name="content" as="textarea" rows={6} defaultValue={ postDetails.content } />
-        </Form.Group>
-        
-        <Stack gap={2} className="col-md-5 mx-auto mt-3">
-          <Button variant="secondary" type="submit">Update your Bark!</Button>
-          <Button variant="outline-secondary" onClick={() => navigate(-1)} >Cancel</Button>
-        </Stack>
-      </Form>
+    <div className="d-flex justify-content-center">
+      <div id="editpost" className="postform-cont">
+        <Form onSubmit={ handleEditPost } method="PATCH">
+          {/* User's post title */}
+          <Form.Group as={Row}>
+            <Form.Label column>Title:</Form.Label>
+              <Form.Control name="headline" defaultValue={ postDetails.headline } />
+          </Form.Group>
+          {/* User content area */}
+          <Form.Group as={Row}>
+            <Form.Label>Content:</Form.Label>
+            <Form.Control name="content" as="textarea" rows={6} defaultValue={ postDetails.content } />
+          </Form.Group>
+          
+          <Stack gap={2} className="col-md-5 mx-auto mt-3">
+            <Button variant="secondary" type="submit">Update your Bark!</Button>
+            <Button variant="outline-secondary" onClick={() => navigate(-1)} >Cancel</Button>
+          </Stack>
+        </Form>
+      </div>
     </div>
   )
 }
