@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { Link } from "react-router-dom"
-
+import { Button, Row, Col } from "react-bootstrap"
+import "./HomeStyles.css"
 
 
 function FeedPage(props) {
@@ -40,12 +41,20 @@ function FeedPage(props) {
   return (
     <div>
       <center>
-      <h1 id="welcome" ><br/> Welcome <br/></h1> 
-      <br/><h1> { props.username.username } </h1>
-      <Link to={`/post/create-post/`}> <button className="btn-create">Write A Post</button></Link><br/>
-
-      <h1>Feed</h1>
-      
+        <Row className="d-flex justify-content-center feed-cont">
+          <Col sm={3}>
+            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
+          </Col>
+          <Col className="d-flex align-items-center justify-content-center" sm={3}>
+            <h1 className="sub-header feed"> Welcome, { props.username.username }!</h1>
+          </Col>
+          <Col sm={3}>
+            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-right"/>
+          </Col>
+        </Row>
+         
+      <Link to={`/post/create-post/`}> <Button className="write-btn mb-5">Write A Post</Button></Link><br/>
+    
       { renderPosts ()}
     </center>
     </div>

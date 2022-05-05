@@ -106,3 +106,29 @@
   0% {opacity:0;}
   100% {opacity:1;}
 }
+
+/* Feed page */
+
+.btn.write-btn {
+  background-color: #FA9A49;
+  color: #f5efef;
+  border: 0;
+  border-radius: 30px;
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.btn.write-btn:hover {
+  background-color: #fdfefe;
+  color: #FA9A49;
+}
+
+.sub-header.feed {
+  color: #4B4141;
+}
+
+.feed-cont {
+  width: 80%
+}
