@@ -65,7 +65,7 @@ function App() {
           <Route path="/post/create-post" element={<CreatePostPage username= { username } />} />
           <Route path="/post/:id" element={<EditPostPage username= { username } />} />
           {/*extra pages */}
-          <Route path="doggy101" element={<Doggy101 />} />
+          <Route path="/doggy101" element={<Doggy101 />} />
         </Routes>
         <Footer />
       </HashRouter>
