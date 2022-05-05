@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { Link } from "react-router-dom"
-
+import { Button } from "react-bootstrap"
+import "./HomeStyles.css"
 
 
 function FeedPage(props) {
@@ -40,12 +41,10 @@ function FeedPage(props) {
   return (
     <div>
       <center>
-      <h1 id="welcome" ><br/> Welcome <br/></h1> 
-      <br/><h1> { props.username.username } </h1>
-      <Link to={`/post/create-post/`}> <button className="btn-create">Write A Post</button></Link><br/>
-
-      <h1>Feed</h1>
-      
+      <h1><br/> Welcome, { props.username.username }!<br/></h1> 
+      <br/>
+      <Link to={`/post/create-post/`}> <Button className="write-btn mb-5">Write A Post</Button></Link><br/>
+    
       { renderPosts ()}
     </center>
     </div>

@@ -61,55 +61,49 @@ function PostView(props) {
   }
 
 return (
-<section class="day-events new">
+  <section class="day-events new">
 
     <div class="wrapper">
       <div class="day-card">
         <input type="checkbox" id={ props.myPost.id} class="more" aria-hidden="true"/>
-   <div class="content">
-    <div class="front" >
-     <div class="inner">
-        <h1>{ props.myPost.headline }</h1>
-          <p>{ props.myPost.content }</p>
-                        
-         <label for={ props.myPost.id} class="button" aria-hidden="true">
-                               Go to Comments
-                           </label>
-                       </div>
-                   </div>
-                   <div class="back">
-                       <div class="inner">
-                              <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link>
-                              <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
-
-                           
-                           <div className="description">
-                               {/* Rendering existing comments */}
-                               <CommentRender commentsList={commentsList} removeComment={removeComment}/>
-
-                               {/* Form to write a comment */}
-                               
-                                  <Form onSubmit={ handleCreateComment }>
-                                    <Form.Control as="textarea" rows={1} name="comment" />
-                                    <Button type="submit" variant="secondary" className="mt-3 mb-3">Submit Comment</Button>
-                                  </Form>
-                               
-                           </div>
-
-                           <div class="location">{ props.myPost.headline }</div>
-                           
-                           <label for={ props.myPost.id} class="button return" aria-hidden="true">
-                               <i class="fas fa-arrow-left"></i>
-                           </label>
-                       </div>
-                       </div>
-                       </div>
-                       </div>
-                       </div>
-
-
-           </section>
-           )
+        <div class="content">
+          <div class="front" >
+        <div class="inner">
+          <h1>{ props.myPost.headline }</h1>
+          <p>{ props.myPost.content }</p>                
+          <label for={ props.myPost.id} class="button-56 mt-5" aria-hidden="true">
+            Go to Comments
+          </label>
+        </div>
+          </div>
+          <div class="back">
+            <div class="inner">
+              <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">EDIT</button></Link>
+              <button className="btn-delete" onClick={ handleDeletePost }>DELETE</button>
+              <div className="description">
+                {/* Rendering existing comments */}
+                <CommentRender commentsList={commentsList} removeComment={removeComment}/>
+                {/* Form to write a comment */}
+                <Form onSubmit={ handleCreateComment }>
+                  <Form.Control as="textarea" rows={1} name="comment" />
+                  <Button type="submit" variant="secondary" className="mt-3 mb-3">Submit Comment</Button>
+                </Form>    
+              </div>
+              <div class="location">{ props.myPost.headline }</div>        
+              {/* Back to post button */}
+              <label for={ props.myPost.id} class="button-56 return-btn" aria-hidden="true">
+                Back to Post
+              </label>
+              {/* <label for={ props.myPost.id} class="button" aria-hidden="true">
+                  Back to Post
+              </label> */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+  )
 }
 export default PostView;
            

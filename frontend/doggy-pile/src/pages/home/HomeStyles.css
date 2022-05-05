@@ -106,3 +106,19 @@
   0% {opacity:0;}
   100% {opacity:1;}
 }
+
+.btn.write-btn {
+  background-color: #FA9A49;
+  color: #f5efef;
+  border: 0;
+  border-radius: 30px;
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.btn.write-btn:hover {
+  background-color: #fdfefe;
+  color: #FA9A49;
+}
