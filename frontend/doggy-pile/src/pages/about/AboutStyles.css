@@ -1,0 +1,21 @@
+.about-details {
+ width: 40%;
+ margin: 3%;
+ border-bottom: 4px solid rgb(46, 43, 43, 0.4);
+ color: #4B4141;
+}
+
+.about-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 5%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.about.row {
+  width: 40%;
+  margin: 2%;
+  color: rgb(78, 74, 70);
+}
