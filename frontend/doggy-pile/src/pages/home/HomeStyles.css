@@ -107,6 +107,8 @@
   100% {opacity:1;}
 }
 
+/* Feed page */
+
 .btn.write-btn {
   background-color: #FA9A49;
   color: #f5efef;
@@ -121,4 +123,12 @@
 .btn.write-btn:hover {
   background-color: #fdfefe;
   color: #FA9A49;
+}
+
+.sub-header.feed {
+  color: #4B4141;
+}
+
+.feed-cont {
+  width: 80%
 }

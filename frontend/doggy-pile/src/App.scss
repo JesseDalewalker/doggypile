@@ -58,9 +58,9 @@
   src: url('https://fonts.googleapis.com/css?family=Montserrat:100');
 }
 .btn-update, .btn-delete, .btn-create, .delete-btn {
-  font-family: 'Montserrat', sans-serif;
+  // font-family: 'Montserrat', sans-serif;
   font-weight: 520;
-  font-size: 20pt;
+  font-size: 16pt;
   background-color: rgb(223, 238, 243);
   padding-left: 2%;
   padding-right: 2%;
@@ -71,15 +71,25 @@
 }
 
 .btn-update:hover, .btn-delete:hover, .btn-create:hover, .delete-btn:hover, .btn.delete-btn:hover {
-  background-color: orange;
-  color: red;
+  background-color: rgb(80, 77, 70);
+  color: rgb(246, 238, 238);
 }
 
+// Delete comment btn
 .btn.delete-btn {
-  color: black;
+  color: rgb(148, 138, 138);
   font-weight: bold;
 }
 
+.btn-delete {
+  width: 110px;
+  color: #746f6c;
+}
+
+.btn-update {
+  width: 100px;
+  color: #746f6c;
+}
 // This is for Posts
 
 * {
@@ -180,7 +190,6 @@ $accent-color: lightcyan;
     font-weight: 700;
     text-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   }
-
 }
 
 .back {
@@ -382,4 +391,25 @@ $accent-color: lightcyan;
   position: relative;
   top: 680%;
   right: 38%;
+}
+
+.author-txt {
+  font-size: 24px
+}
+
+.post-txt {
+  background-color: #f9f5f3;
+  padding: 3%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.row.comment-cont {
+  width: 80%;
+}
+
+.btn.write-btn.submit-cmt {
+  height: 45px;
+  width: 170px;
+  font-size: 16px;
 }
