@@ -25,7 +25,7 @@ function AboutPage() {
       <div className="d-flex justify-content-center">
       <Row className="about">
         <Col>
-          <img src={require('../../images/jesse.jpg')} alt='' className="about-img"/>
+          <img src={require('../../images/Jesse.jpg')} alt='' className="about-img"/>
           <h4>Jesse Dalewalker</h4>
         </Col>
         <Col>
