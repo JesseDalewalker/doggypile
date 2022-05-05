@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab } from "react-bootstrap";
 import "./ProfileStyles.css"
+
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
@@ -191,7 +192,7 @@ function ProfilePage(props) {
               <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
             </Tab>
             <Tab eventKey="posts" title="Posts">
-              <Link to={`/post/create-post/`}> <button className="btn-create">Write A Post</button></Link><br/>
+              <Link to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
               { renderPosts() }
             </Tab>
           </Tabs>
