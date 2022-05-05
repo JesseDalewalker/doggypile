@@ -54,14 +54,14 @@ function Doggy101() {
           </div>
         </div>
         <div className='links-container'>
-          <div className='info-links-div'>
+          <div className='links-div'>
             <h2>Helpful links!</h2>
               <a href="https://www.rspcapetinsurance.org.au/pet-care/dog-care/what-should-feed-dog#:~:text=It%20is%20entirely%20acceptable%20to,need%20to%20be%20aware%20of.">More information what to feed your dog available here!</a><br/>
               <a href="https://www.campbellrivervet.com/often-take-dog-vet/#:~:text=Annual%20wellness%20exam,any%20concerns%20with%20your%20vet.">More information veterinarian visits available here!</a><br/>
               <a href="https://www.akc.org/expert-advice/health/keep-dog-teeth-clean/">More information on doggy dental care available here!</a><br/>
               <a href="https://www.akc.org/expert-advice/health/how-much-exercise-does-dog-need/">More information on exercising your dog available here!</a><br/>
           </div>
-          <div className='find-a-vet-div'>
+          <div className='links-div'>
           <h2>Find a veterinarian near you</h2>
               <a href="http://www.usa-veterinarians.com/">Click here to find a vet close to you</a>
           </div>
