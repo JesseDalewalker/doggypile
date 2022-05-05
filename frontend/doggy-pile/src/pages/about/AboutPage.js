@@ -13,11 +13,11 @@ function AboutPage() {
       <div className="d-flex justify-content-center">
       <Row className="about">
         <Col>
-          <img src={require('../../images/jenni.JPG')} className="about-img"/>
+          <img src={require('../../images/jenni.JPG')} alt='' className="about-img"/>
           <h4 className="member-name">Jennilee Toctocan</h4>
         </Col>
         <Col>
-          <img src={require('../../images/reeves.jpg')} className="about-img"/>
+          <img src={require('../../images/johnP.jpeg')} alt='' className="about-img"/>
           <h4>John Price</h4>
         </Col>
       </Row>
@@ -25,11 +25,11 @@ function AboutPage() {
       <div className="d-flex justify-content-center">
       <Row className="about">
         <Col>
-          <img src={require('../../images/depp.jpg')} className="about-img"/>
+          <img src={require('../../images/depp.jpg')} alt='' className="about-img"/>
           <h4>Jessi Dalewalker</h4>
         </Col>
         <Col>
-          <img src={require('../../images/corgi.png')} className="about-img"/>
+          <img src={require('../../images/corgi.png')} alt='' className="about-img"/>
           <h4>Jennifer Isobe</h4>
         </Col>
       </Row>
@@ -37,7 +37,7 @@ function AboutPage() {
       <div className="d-flex justify-content-center">
       <Row className="about">
         <Col>
-          <img src={require('../../images/signup-dog.png')} className="about-img"/>
+          <img src={require('../../images/signup-dog.png')} className="about-img" alt='' />
           <h4>Adam Cox</h4>
         </Col>
       </Row>
