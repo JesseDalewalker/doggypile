@@ -28,6 +28,8 @@ import EditDogProfile from './pages/dogs/EditDogProfilePage';
 // -posts
 import CreatePostPage from './components/posts/createpost';
 import EditPostPage from './components/posts/editpost';
+// -extra pages
+import Doggy101 from './pages/extra-pages/Doggy101';
 // -footer
 import Footer from './components/footer/Footer';
 
@@ -62,6 +64,8 @@ function App() {
           {/*Posts */}
           <Route path="/post/create-post" element={<CreatePostPage username= { username } />} />
           <Route path="/post/:id" element={<EditPostPage username= { username } />} />
+          {/*extra pages */}
+          <Route path="doggy101" element={<Doggy101 />} />
         </Routes>
         <Footer />
       </HashRouter>

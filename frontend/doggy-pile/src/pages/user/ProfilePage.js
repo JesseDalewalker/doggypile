@@ -25,17 +25,15 @@ function ProfilePage(props) {
     loadPostList()
   }, [])
 
-  const loadPostList = async () => {
-    const posts = []
-    const data = await DoggyPileAPI.getAllItems("post")
-    for (let i=0; i < data.length ; i++) {
-      if (data[i].user.id == userId) {
-        posts.push(data[i])
-      }
-    }
-    setPostList(data ? data : [])
-  }
 
+  const loadPostList = async () => {
+    
+    const data = await DoggyPileAPI.getAllItems("post")
+    const filteredPosts = data.filter((user) => {
+        return user.user.id == userId
+    })    
+    setPostList(filteredPosts ? filteredPosts : [])
+  }
   const loadUserDetails = async () => {
     const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
     setUserDetails(data ? data : null)
@@ -157,11 +155,12 @@ function ProfilePage(props) {
       return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> }}
 
   console.log("USER DETAILSSSSS", userDetails)
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>", postList)
 
   const renderPosts = () => {
     return postList.map((myPost) => {
       console.log(myPost)
-        return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } />
+        return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } username={ props.username }/>
         })
       }
 
