@@ -47,6 +47,7 @@ function NavBar(props) {
               <Nav.Link as={Link} to="/feed" className='navbar-item' style={{color:'#797272'}}>Feed</Nav.Link>
               <Nav.Link as={Link} to={`/profile/${props.username && props.username.user_id}`} className='navbar-item' style={{color:'#797272'}}>Profile</Nav.Link>
               <Nav.Link as={Link} to="/mappage" className='navbar-item' style={{color:'#797272'}}>Map</Nav.Link>
+              <Nav.Link as={Link} to="/doggy101" className='navbar-item' style={{color:'#797272'}}>Doggy101</Nav.Link>
           </Nav>
           <Nav className='ms-auto justify-content-end'>
             <Nav.Link as={Link} to="#" onClick={logMeOut}><Button className='navbar-item signup-btn' style={{color:'#F8F2F2' }}>Log Out</Button></Nav.Link>

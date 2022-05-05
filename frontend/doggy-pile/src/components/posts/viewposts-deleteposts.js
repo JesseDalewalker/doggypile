@@ -124,9 +124,6 @@ return (
               <label for={ props.myPost.id} class="button-56 return-btn" aria-hidden="true">
                 Back to Post
               </label>
-              {/* <label for={ props.myPost.id} class="button" aria-hidden="true">
-                  Back to Post
-              </label> */}
             </div>
           </div>
         </div>
