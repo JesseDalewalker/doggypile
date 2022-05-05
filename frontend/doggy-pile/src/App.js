@@ -52,7 +52,7 @@ function App() {
           {/* About */}
           <Route path="/about" element={ <AboutPage /> } />
           {/* Map */}
-          <Route path="/mappage" element={<MapPage />} />
+          <Route path="/mappage" element={<MapPage username={ username } />} />
           <Route path="/alternatemappage" element={<AlternateMap />} />
           {/* Users */}
           <Route path="/profile/:userId" element={<ProfilePage username= { username } />} />
