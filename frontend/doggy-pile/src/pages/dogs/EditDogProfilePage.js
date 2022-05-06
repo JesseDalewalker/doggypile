@@ -13,7 +13,7 @@ function EditDogProfile(props) {
     event.preventDefault()
 
     const dogData = {
-      user: props.username.user_id,
+      user_profile: props.username.user_id,
       name: event.target.elements["name"].value,
       profile_pic: event.target.elements["profile-pic"].value,
       gender: event.target.elements["dog-gender"].value,

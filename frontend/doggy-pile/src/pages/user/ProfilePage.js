@@ -43,7 +43,7 @@ function ProfilePage(props) {
     const dogs= []
     const data = await DoggyPileAPI.getAllItems("dogs")
     for (let i=0; i < data.length; i++) {
-      if(data[i].user.id == userId) {
+      if(data[i].user_profile.id.id == userId) {
         dogs.push(data[i])
       }
     }

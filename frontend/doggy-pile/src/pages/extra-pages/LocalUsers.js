@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import DoggyPileAPI from '../../api/DoggyPileAPI'
+import LocalUserDetails from '../../components/extra-pages/LocalUserDetails'
 import './Doggy101.scss'
 
 
@@ -16,7 +17,7 @@ function LocalUsers() {
 
 
   const getUsers = async () => {
-    let data = await DoggyPileAPI.getAllItems('users')
+    let data = await DoggyPileAPI.getAllItems('dogs')
     
     if (data) {
       setUsers(data)
@@ -25,15 +26,12 @@ function LocalUsers() {
 
   function renderUsers() {
     return users.map((item, index) => {
-        return <div className='users'>
-        <p>{item.first_name}</p>
-        <p>{item.last_name}</p>
-        <p>{item.email}</p>
-      </div>
+      // if (item.user_profile.city !== )
+        return <LocalUserDetails item={item} index={index} />
     })
   }
 
-
+  console.log("users", users)
   return (
     <div>
       <div className='users-container'>
