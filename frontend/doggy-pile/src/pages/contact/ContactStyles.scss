@@ -1,0 +1,31 @@
+.contact-header {
+  background-image: url('../../images/paws-contact.png');
+  height: 460px;
+  background-size: contain;
+  // width: 65%;
+  padding-top: 5%;
+  h1 {
+    font-size: 50px;
+  }
+  h5 {
+    margin-top: 20px;
+    font-weight: 400;
+    color: #4B4141;
+  }
+}
+
+.form-contact {
+  width: 35%;
+  background-color: #FDFDFD;
+  padding: 2%;
+  margin: 4%;
+  box-shadow: 5px 5px 5px #888888;
+  border-radius: 25px;
+  h4 {
+    color: #888888;
+  }
+}
+
+.contact-field.form-control {
+  border-radius: 25px;
+}

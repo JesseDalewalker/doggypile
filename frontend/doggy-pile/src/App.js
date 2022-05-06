@@ -14,6 +14,8 @@ import LandingPage from './pages/home/LandingPage';
 import FeedPage from './pages/home/FeedPage';
 // -about
 import AboutPage from './pages/about/AboutPage';
+// -contact us
+import ContactUsPage from './pages/contact/ContactUsPage';
 // -map
 import MapPage from './pages/map/MapPage'
 import AlternateMap from './pages/map/AlternateMap';
@@ -55,6 +57,8 @@ function App() {
           <Route path="/feed" element={ <FeedPage username={ username } /> } />
           {/* About */}
           <Route path="/about" element={ <AboutPage /> } />
+          {/* Contact Us */}
+          <Route path="/contact-us" element={ <ContactUsPage /> } />
           {/* Map */}
           <Route path="/mappage" element={<MapPage username={ username } />} />
           <Route path="/alternatemappage" element={<AlternateMap />} />

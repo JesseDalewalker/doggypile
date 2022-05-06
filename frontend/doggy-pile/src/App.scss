@@ -59,8 +59,8 @@
 }
 .btn-update, .btn-delete, .btn-create, .delete-btn {
   // font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 16pt;
+  font-weight: 500;
+  font-size: 15pt;
   background-color: rgb(223, 238, 243);
   padding-left: 2%;
   padding-right: 2%;
@@ -414,3 +414,6 @@ $accent-color: lightcyan;
   font-size: 16px;
 }
 
+.location.headline-txt {
+  font-size: 24px;
+}
