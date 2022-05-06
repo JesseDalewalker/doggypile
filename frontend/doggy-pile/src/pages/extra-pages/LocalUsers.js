@@ -38,7 +38,7 @@ function LocalUsers(props) {
     return users.map((item, index) => {
       if (item.user_profile.city == activeUser.city)
         return <Carousel.Item>
-            <LocalUserDetails item={item} index={index} />
+            <LocalUserDetails item={item} index={index} id="local-user-details-id"/>
           </Carousel.Item>
     })
   }

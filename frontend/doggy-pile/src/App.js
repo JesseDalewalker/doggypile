@@ -42,6 +42,8 @@ function App() {
   // state
   const [username, setUsername] = useState(localStorage.getItem('username') ? JSON.parse(localStorage.getItem('username')) : '') // returns dict: {username: 'username', user_id: id }
 
+  console.log(username)
+
   return (
     <div className="App">
       <HashRouter>
