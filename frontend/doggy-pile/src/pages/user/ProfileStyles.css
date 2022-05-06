@@ -3,9 +3,11 @@
 .btn.edit-btn {
   background-color: #D8E2DC;
   border: 0;
-  color: #706666;
+  border-radius: 18px;
+  color: #767070;
   font-weight: 600;
   font-size: 18px;
+  width: 80px;
 }
 
 .btn.edit-btn:hover {
@@ -91,7 +93,7 @@ p.location-text {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .btn.add-btn:hover {

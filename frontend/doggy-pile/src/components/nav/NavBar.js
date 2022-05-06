@@ -28,7 +28,8 @@ function NavBar(props) {
             <Nav>
                 <Nav.Link as={Link} to="/" className='navbar-item' style={{color:'#797272'}}>Home</Nav.Link>
                 <Nav.Link as={Link} to="/about" className='navbar-item' style={{color:'#797272'}}>About</Nav.Link>
-                <Nav.Link as={Link} to="/" className='navbar-item' style={{color:'#797272'}}>Contact Us</Nav.Link>
+                <Nav.Link as={Link} to="/doggy101" className='navbar-item' style={{color:'#797272'}}>Doggy101</Nav.Link>
+                <Nav.Link as={Link} to="/contact-us" className='navbar-item' style={{color:'#797272'}}>Contact Us</Nav.Link>
             </Nav>
             </Container>
             <Nav className='m-auto justify-content-end'>
