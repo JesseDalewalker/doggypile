@@ -29,18 +29,21 @@ function BigCalendar(props) {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
   const [allEvents, setAllEvents] = useState()
 
-  console.log()
-
   const getEvents = async () => {
     console.log('rerender')
     const data = await DoggyPileAPI.getItemById('user_profile', props.username.user_id)
     if (data){
-      for (let i = 0; i < data.event.length; i++){
-        data.event[i].start = new Date(data.event[i].start)
-        data.event[i].end = new Date(data.event[i].end)
+      if (data.event){
+        for (let i = 0; i < data.event.length; i++){
+          data.event[i].start = new Date(data.event[i].start)
+          data.event[i].end = new Date(data.event[i].end)
+        }
       }
-      setUserProfile(data)
+      else{
+        data.event = []
+      }
       setAllEvents(data.event)
+      setUserProfile(data)
     }
   }
 
