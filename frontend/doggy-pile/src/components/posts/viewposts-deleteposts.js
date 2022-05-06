@@ -121,7 +121,7 @@ return (
                   </Row>
                 </Form>    
               </div>
-              <div class="location">{ props.myPost.headline }</div>        
+              <div class="location headline-txt">{ props.myPost.headline }</div>        
               {/* Back to post button */}
               <label for={ props.myPost.id} class="button-56 return-btn" aria-hidden="true">
                 Back to Post
