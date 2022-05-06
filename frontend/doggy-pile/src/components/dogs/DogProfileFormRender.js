@@ -114,9 +114,9 @@ function DogProfileFormRender(props) {
             </Form.Select>
           </Col>
         </Form.Group>
-          <Form.Group as={Row}>
+          {/* <Form.Group as={Row}>
           <Form.Check column label="Vaccinated" name="vaccinated" id="vaccinated"/>
-          </Form.Group>
+          </Form.Group> */}
         <Stack gap={2} className="col-md-5 mx-auto mt-3">
           <Button variant="secondary" type="submit">Save Profile</Button>
           <Button variant="outline-secondary" onClick={() => navigate(-1)} >Cancel</Button>
