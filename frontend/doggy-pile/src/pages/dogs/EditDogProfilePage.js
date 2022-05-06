@@ -21,7 +21,7 @@ function EditDogProfile(props) {
       age: event.target.elements["age"].value,
       breed: event.target.elements["breed"].value,
       size: event.target.elements["size"].value,
-      vaccinated: event.target.elements["vaccinated"].value,
+      // vaccinated: event.target.elements["vaccinated"].value,
     }
 
     console.log("SENDING DATA...")

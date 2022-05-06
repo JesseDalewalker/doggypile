@@ -41,12 +41,35 @@
 
 .users-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-
+.local-user-details-item-info {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 300px;
+  margin-left: auto;
+}
 
 .local-user-details-item {
   display: flex;
   padding: 30px;
+  margin: auto;
+}
+
+.local-user-details-item-info-item {
+  margin: 10px auto 10px 10px;
+}
+
+.dog-image {
+  height: 300px;
+  width: 300px;
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.carousel {
+  height: 500px;
 }

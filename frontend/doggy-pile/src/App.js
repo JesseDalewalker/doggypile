@@ -76,7 +76,7 @@ function App() {
           <Route path="/post/:id" element={<EditPostPage username= { username } />} />
           {/*extra pages */}
           <Route path="/doggy101" element={<Doggy101 />} />
-          <Route path="/localUsers" element={<LocalUsers />} />
+          <Route path="/localUsers" element={<LocalUsers username={ username }/>} />
         </Routes>
         <Footer />
       </HashRouter>
