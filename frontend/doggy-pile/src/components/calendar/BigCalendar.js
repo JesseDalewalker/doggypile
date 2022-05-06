@@ -60,14 +60,13 @@ function BigCalendar(props) {
 
   return (
     <div className='container-fluid'>
-      
       <br/>
       <div className='row'>
         <div className='col' style={{marginLeft: "250px"}}>
           <div className='calendar-center'>
             <div className='calendar-bg'>
               <h1 className='calendar-font'>Calendar</h1>
-              <br></br>
+              <br/>
               <Calendar localizer={localizer} events={allEvents} startAccessor='start' endAccessor='end' style={{minHeight: '500px', width: '700px'}}/>
             </div>
           </div>

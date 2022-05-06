@@ -10,6 +10,7 @@ function NavBar(props) {
   const logMeOut = async () => {
     const data = await DoggyPileAPI.logout()
     if (data) {
+      localStorage.setItem('username', '')
       props.setUsername("")
       navigate("/")
     }

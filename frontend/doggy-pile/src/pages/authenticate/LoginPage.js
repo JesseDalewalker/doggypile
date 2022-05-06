@@ -18,6 +18,7 @@ function LoginPage(props) {
     const data = await DoggyPileAPI.login(loginData)
 
     if (data) {
+      localStorage.setItem('username', data)
       props.setUsername(data)
       navigate("/feed")
     }

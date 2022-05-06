@@ -41,7 +41,7 @@ import { Calendar } from 'react-big-calendar';
 
 function App() {
   // state
-  const [username, setUsername] = useState("") // returns dict: {username: 'username', user_id: id }
+  const [username, setUsername] = useState(localStorage.getItem('username')) // returns dict: {username: 'username', user_id: id }
   // console.log("USER DATA",username)
 
   return (
