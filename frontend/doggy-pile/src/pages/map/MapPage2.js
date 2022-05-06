@@ -87,35 +87,8 @@ function MapPage(props) {
     //search box functionality
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl, collapsed: true })
     map.addControl(search, 'top-left')   
-
-    //change cursor for icon hover
-    map.on('mouseenter', 'dog-parks', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
-    map.on('mouseenter', 'shops', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
-    map.on('mouseenter', 'vets', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
-    map.on('mouseenter', 'services', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
     
-    //change cursor back to normal
-    map.on('mouseleave', 'dog-parks', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    map.on('mouseleave', 'shops', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    map.on('mouseleave', 'vets', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    map.on('mouseleave', 'services', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    
+    //--------------------------------------------Markers Start------------------------------------------------------------------------------------------------
     //create marker for lost/aggressive dog from database
     mapMarkers.map(mark => {
 
@@ -345,6 +318,70 @@ function MapPage(props) {
 
     //alert for marker
     map.addControl( new Flash())
+//--------------------------------------------Markers End------------------------------------------------------------------------------------------------
+//--------------------------------------------Layers Start-----------------------------------------------------------------------------------------------
+
+    const distanceContainer = document.getElementById('distance')
+
+    //create GeoJSON object to hold measurments
+    const geojsonRoutes = {
+      'type': 'FeatureCollection',
+      'features': []
+      };
+    
+    //functionality for creating line
+    const linestring = {
+      'type': 'Feature',
+      'geometry': {
+      'type': 'LineString',
+      'coordinates': []
+      }
+      };
+
+    //change cursor for icon hover
+    map.on('mouseenter', 'dog-parks', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'shops', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'vets', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'services', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    // map.on('mouseenter', 'measure-points', () => {
+    //   map.getCanvas().style.cursor = 'pointer'
+    // })
+    
+    //change cursor back to normal
+    map.on('mouseleave', 'dog-parks', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'shops', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'vets', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'services', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    // map.on('mouseleave', 'measure-points', () => {
+    //   map.getCanvas().style.cursor = ''
+    // })
+
+    map.on('mousemove', (e) => {
+      const features = map.queryRenderedFeatures(e.point, {
+      layers: ['measure-points']
+      });
+      // Change the cursor to a pointer when hovering over a point on the map.
+      // Otherwise cursor is a default.
+      map.getCanvas().style.cursor = features.length
+      ? 'pointer'
+      : '';
+      });
 
     //show info for dog parks
     map.on("click", "dog-parks", (e) => {
@@ -379,6 +416,46 @@ function MapPage(props) {
     }) 
 
     map.on('load', () => {
+
+      //routes layer
+
+      //set source to geojson object created earlier
+      map.addSource('geojsonRoutes', {
+        'type': 'geojson',
+        'data': geojsonRoutes
+        });
+      
+      //create layer for points on route
+      map.addLayer({
+        id: 'measure-points',
+        type: 'circle',
+        source: 'geojsonRoutes',
+        layout: {
+          'visibility' : 'none',
+        },
+        paint: {
+        'circle-radius': 4,
+        'circle-color': '#000'
+        },
+        filter: ['in', '$type', 'Point']
+      });
+
+      //create layer for lines on route
+      map.addLayer({
+        id: 'measure-lines',
+        type: 'line',
+        source: 'geojsonRoutes',
+        layout: {
+        'line-cap': 'round',
+        'line-join': 'round',
+        'visibility' : 'none',
+        },
+        paint: {
+        'line-color': '#000',
+        'line-width': 2.5
+        },
+        filter: ['in', '$type', 'LineString']
+      });
 
       //dog park layer
       map.loadImage('https://cdn-icons-png.flaticon.com/512/3564/3564555.png', (error, image) => {
@@ -491,13 +568,84 @@ function MapPage(props) {
 
     //after map is loaded
     map.on('idle', () => {
+
+      //functionality for routing clicks
+      map.on('click', (e) => {
+
+        //get visibility setting for route points and line layers
+        let lineVisibility = map.getLayoutProperty(
+          'measure-lines',
+          'visibility'
+        );
+        let pointVisibility = map.getLayoutProperty(
+          'measure-points',
+          'visibility'
+        );
+        
+        //if the layers are visible continue functionality
+        if (lineVisibility === 'visible' && pointVisibility === 'visible') {
+
+          //get the points features
+          const features = map.queryRenderedFeatures(e.point, {
+            layers: ['measure-points']
+          });
+          
+          // Remove the linestring from the group
+          if (geojsonRoutes.features.length > 1) geojsonRoutes.features.pop();
+          
+          // Clear the distance container to populate it with a new value.
+          distanceContainer.innerHTML = '';
+          
+          // If a feature was clicked, remove it from the map.
+          if (features.length) {
+            const id = features[0].properties.id;
+            geojsonRoutes.features = geojsonRoutes.features.filter(
+              (point) => point.properties.id !== id
+            );
+          } 
+          // else create geojson data for points
+          else {
+            const point = {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [e.lngLat.lng, e.lngLat.lat]
+              },
+              'properties': {
+              'id': String(new Date().getTime())
+              }
+            };
+            geojsonRoutes.features.push(point);
+          }
+          
+          //create coordinates for geojson feature lines
+          if (geojsonRoutes.features.length > 1) {
+            linestring.geometry.coordinates = geojsonRoutes.features.map(
+              (point) => point.geometry.coordinates
+            );
+            
+            geojsonRoutes.features.push(linestring);
+            
+            // Populate the distanceContainer with total distance
+            // const value = document.createElement('pre');
+            // const distance = turf.length(linestring);
+            // value.textContent = `Total distance: ${distance.toLocaleString()}km`;
+            // distanceContainer.appendChild(value);
+          }
+          
+          map.getSource('geojsonRoutes').setData(geojsonRoutes);
+        }
+      });
+
+      //add layer Buttons to menu
+
       // If these layers were not added to the map, abort
-      if (!map.getLayer('dog-parks' || 'shops' || 'vets' || 'service')) {
+      if (!map.getLayer('dog-parks' || 'shops' || 'vets' || 'service' || 'measure-points' || 'measure-lines')) {
         return
       }
       
       // Enumerate ids of the layers.
-      const toggleableLayerIds = ['dog-parks', 'shops', 'vets', 'service'];
+      const toggleableLayerIds = ['dog-parks', 'shops', 'vets', 'service', 'measure-points', 'measure-lines'];
       
       // Set up the corresponding toggle button for each layer.
       for (const id of toggleableLayerIds) {
@@ -545,8 +693,8 @@ function MapPage(props) {
       }
     });
   }
-
-  //API calls
+//--------------------------------------------Layers End-------------------------------------------------------------------------------------------------
+//--------------------------------------------API calls--------------------------------------------------------------------------------------------------
 
   //call for dog parks
   const markerApiCall = async () => {
@@ -581,6 +729,7 @@ function MapPage(props) {
   return (
     <div>
       <nav id="menu"></nav>
+      <div id="distance" class="distance-container"></div>
       <div ref={mapContainer} className="map-container" />
     </div>
   )
