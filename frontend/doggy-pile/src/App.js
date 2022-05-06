@@ -26,7 +26,6 @@ import EditProfilePage from './pages/user/EditProfilePage';
 // -calendar
 import BigCalendar from './components/calendar/BigCalendar';
 // -dogs
-// import DogProfilePage from './pages/dogs/DogProfilePage';
 import CreateDogProfile from './pages/dogs/CreateDogProfilePage';
 import EditDogProfile from './pages/dogs/EditDogProfilePage';
 // -posts
@@ -35,6 +34,8 @@ import EditPostPage from './components/posts/editpost';
 // -extra pages
 import Doggy101 from './pages/extra-pages/Doggy101';
 import LocalUsers from './pages/extra-pages/LocalUsers';
+// -doggo Tinder
+import DoggyTinder from './pages/tinder/DoggyTinder';
 // -footer
 import Footer from './components/footer/Footer';
 import { Calendar } from 'react-big-calendar';
@@ -77,6 +78,8 @@ function App() {
           {/*extra pages */}
           <Route path="/doggy101" element={<Doggy101 />} />
           <Route path="/localUsers" element={<LocalUsers />} />
+          {/* Doggy Tinder */}
+          <Route path="/doggy-tinder" element={<DoggyTinder />} />
         </Routes>
         <Footer />
       </HashRouter>
