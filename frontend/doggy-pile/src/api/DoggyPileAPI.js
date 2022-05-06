@@ -67,4 +67,11 @@ DoggyPileAPI.deleteItem = async (item, itemId) => {
   )
 }
 
+// Get Calendar Events
+DoggyPileAPI.updateItem = async (item, itemId, itemData) => {
+  return await apiHelpers.tryCatchFetch(
+    () => axios.put(`${BASE_URL}/doggy-pile/${item}/${itemId}/`, itemData, apiHelpers.getCsrfConfig())
+  )
+}
+
 export default DoggyPileAPI
