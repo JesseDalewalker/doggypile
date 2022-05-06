@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { Form, Button, Row, Col } from "react-bootstrap"
 import CommentRender from "../comments/CommentRender";
+import CommentRenderNoButton from "../comments/CommentRenderNoButton";
 
 function PostView(props) {
 
@@ -78,11 +79,11 @@ function PostView(props) {
         <CommentRender commentsList={commentsList} removeComment={removeComment}/>
         </div>
       )
-    } else {
+    } return (
       <div>
-      <CommentRender commentsList={commentsList}/>
+        <CommentRenderNoButton commentsList={commentsList} />
       </div>
-    }
+    )
   }
 console.log("Main USER:", props.username.user_id, "POST USER:", props.myPost.user.id)
 return (
@@ -106,7 +107,8 @@ return (
               { showEditAndDeleteButton() }
               <div className="description">
                 {/* Rendering existing comments */}
-                { showRemoveCommentButton() }
+                { showRemoveCommentButton() } 
+
                 {/* Form to write a comment */}
                 <Form onSubmit={ handleCreateComment }>
                   <Row className="comment-cont">
@@ -119,7 +121,7 @@ return (
                   </Row>
                 </Form>    
               </div>
-              <div class="location">{ props.myPost.headline }</div>        
+              <div class="location headline-txt">{ props.myPost.headline }</div>        
               {/* Back to post button */}
               <label for={ props.myPost.id} class="button-56 return-btn" aria-hidden="true">
                 Back to Post

@@ -78,14 +78,14 @@ function ProfileFormRender(props) {
     <Container className="d-flex justify-content-center">
     <div className="form-cont">
       <Container>
-        <img src={ imageSrc ? imageSrc : require('../../images/blank-profile-pic.png') } className="current-img"/>
+        <img src={ imageSrc ? imageSrc : require('../../images/blank-profile-pic.png') } className="current-img" alt="default profile"/>
       </Container>
       <Row className="my-3">
         <Form.Label column sm={3}>Upload Profile Picture:</Form.Label>
           <Col sm={6}>
             <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
           </Col>
-          <Col><Button onClick={uploadImage}>Upload Image</Button></Col>
+          <Col><Button onClick={uploadImage} className="edit-btn upload">Upload Image</Button></Col>
       </Row>
 
       <Form onSubmit={ props.handleCreateProfile ? props.handleCreateProfile : props.handleEditProfile }>

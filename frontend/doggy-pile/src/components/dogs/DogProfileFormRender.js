@@ -54,11 +54,11 @@ function DogProfileFormRender(props) {
     <Container className="d-flex justify-content-center">
     <div className="form-cont">
       <Container>
-        <img src={ imageSrc ? imageSrc : require('../../images/corgi.png') } alt="Uploaded image" className="current-img"/>
+        <img src={ imageSrc ? imageSrc : require('../../images/corgi.png') } alt="Uploaded image" className="current-img "/>
       </Container>
       <Row className="my-3">
         <Form.Label column sm={3}>Upload Profile Picture:</Form.Label>
-          <Col sm={6}>
+          <Col sm={5}>
             <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
           </Col>
           <Col><Button onClick={uploadImage} className="edit-btn upload">Upload Image</Button></Col>
@@ -114,9 +114,9 @@ function DogProfileFormRender(props) {
             </Form.Select>
           </Col>
         </Form.Group>
-          <Form.Group as={Row}>
+          {/* <Form.Group as={Row}>
           <Form.Check column label="Vaccinated" name="vaccinated" id="vaccinated"/>
-          </Form.Group>
+          </Form.Group> */}
         <Stack gap={2} className="col-md-5 mx-auto mt-3">
           <Button variant="secondary" type="submit">Save Profile</Button>
           <Button variant="outline-secondary" onClick={() => navigate(-1)} >Cancel</Button>

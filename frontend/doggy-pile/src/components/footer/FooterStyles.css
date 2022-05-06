@@ -11,12 +11,13 @@ footer {
 }
 
 .footer-cont {
-  width: 80%;
-  margin: auto 18%;
+  width: 90%;
+  /* margin: auto 25%; */
 }
 
 .about-cont.col {
   padding-right: 10%;
+  padding-left: 15%;
 }
 
 .footer-icons {

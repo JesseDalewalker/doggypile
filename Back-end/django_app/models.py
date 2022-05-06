@@ -23,10 +23,10 @@ class UserProfile(models.Model):
     event = models.JSONField(null=True, blank=True)
     
     def __str__(self):
-       return f'User: {self.user}, City: {self.city}'
+        return f'User: {self.user}, City: {self.city}'
 
 class Dog(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="dog")
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="dog")
     profile_pic = models.URLField(max_length=255, null=True, blank=True)
     name = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
@@ -37,7 +37,7 @@ class Dog(models.Model):
     vaccinated = models.BooleanField(default=False)
 
     def __str__(self):
-       return f'User: {self.user}, Dog: {self.name}'
+        return f'User: {self.user_profile}, Dog: {self.name}'
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")

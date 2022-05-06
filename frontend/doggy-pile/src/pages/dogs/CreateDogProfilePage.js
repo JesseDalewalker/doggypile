@@ -12,7 +12,7 @@ function CreateDogProfile(props) {
     event.preventDefault()
 
     const dogData = {
-      user: props.username.user_id,
+      user_profile: props.username.user_id,
       profile_pic: event.target.elements["profile-pic"].value,
       name: event.target.elements["name"].value,
       gender: event.target.elements["dog-gender"].value,
@@ -20,7 +20,7 @@ function CreateDogProfile(props) {
       age: event.target.elements["age"].value,
       breed: event.target.elements["breed"].value,
       size: event.target.elements["size"].value,
-      vaccinated: event.target.elements["vaccinated"].value,
+      // vaccinated: event.target.elements["vaccinated"].value,
     }
 
     console.log("SENDING DATA...")

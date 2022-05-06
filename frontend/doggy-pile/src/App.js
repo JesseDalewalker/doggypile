@@ -14,6 +14,8 @@ import LandingPage from './pages/home/LandingPage';
 import FeedPage from './pages/home/FeedPage';
 // -about
 import AboutPage from './pages/about/AboutPage';
+// -contact us
+import ContactUsPage from './pages/contact/ContactUsPage';
 // -map
 import MapPage from './pages/map/MapPage'
 import AlternateMap from './pages/map/AlternateMap';
@@ -32,6 +34,7 @@ import CreatePostPage from './components/posts/createpost';
 import EditPostPage from './components/posts/editpost';
 // -extra pages
 import Doggy101 from './pages/extra-pages/Doggy101';
+import LocalUsers from './pages/extra-pages/LocalUsers';
 // -footer
 import Footer from './components/footer/Footer';
 import { Calendar } from 'react-big-calendar';
@@ -54,6 +57,8 @@ function App() {
           <Route path="/feed" element={ <FeedPage username={ username } /> } />
           {/* About */}
           <Route path="/about" element={ <AboutPage /> } />
+          {/* Contact Us */}
+          <Route path="/contact-us" element={ <ContactUsPage /> } />
           {/* Map */}
           <Route path="/mappage" element={<MapPage username={ username } />} />
           <Route path="/alternatemappage" element={<AlternateMap />} />
@@ -71,6 +76,7 @@ function App() {
           <Route path="/post/:id" element={<EditPostPage username= { username } />} />
           {/*extra pages */}
           <Route path="/doggy101" element={<Doggy101 />} />
+          <Route path="/localUsers" element={<LocalUsers username={ username }/>} />
         </Routes>
         <Footer />
       </HashRouter>

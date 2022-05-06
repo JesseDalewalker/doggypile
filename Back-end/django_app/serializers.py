@@ -22,9 +22,9 @@ class DogSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        user = User.objects.get(pk=data['user'])
-        serialized = UserSerializer(instance=user)
-        data['user'] = serialized.data
+        user_profile = UserProfile.objects.get(pk=data['user_profile'])
+        serialized = UserProfileSerializer(instance=user_profile)
+        data['user_profile'] = serialized.data
         return data
 
 
