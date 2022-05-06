@@ -37,12 +37,10 @@ import Doggy101 from './pages/extra-pages/Doggy101';
 import LocalUsers from './pages/extra-pages/LocalUsers';
 // -footer
 import Footer from './components/footer/Footer';
-import { Calendar } from 'react-big-calendar';
 
 function App() {
   // state
-  const [username, setUsername] = useState(localStorage.getItem('username')) // returns dict: {username: 'username', user_id: id }
-  // console.log("USER DATA",username)
+  const [username, setUsername] = useState(localStorage.getItem('username') ? JSON.parse(localStorage.getItem('username')) : '') // returns dict: {username: 'username', user_id: id }
 
   return (
     <div className="App">

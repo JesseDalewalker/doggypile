@@ -12,6 +12,7 @@ import femaleSign from "../../images/female-sign.svg"
 function ProfilePage(props) {
   // params
   const { userId } = useParams()
+  console.log("USERNAME:", userId.username)
 
   // state
   const [userDetails, setUserDetails] = useState(null)

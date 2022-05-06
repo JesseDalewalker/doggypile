@@ -29,6 +29,8 @@ function BigCalendar(props) {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
   const [allEvents, setAllEvents] = useState()
 
+  console.log()
+
   const getEvents = async () => {
     console.log('rerender')
     const data = await DoggyPileAPI.getItemById('user_profile', props.username.user_id)
