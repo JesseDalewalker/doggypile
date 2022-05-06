@@ -125,6 +125,22 @@
   font-weight: 600;
 }
 
+.calendar-bg{   //new
+  height: fit-content;
+  width: fit-content;
+  background-color: white;
+  padding: 40px;
+  border-radius: 25px;  
+}
+
+.event-bg{    //new
+  height: fit-content;
+  width: 400px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 25px;
+}
+
 @import './toolbar';
 @import './event';
 @import './month';

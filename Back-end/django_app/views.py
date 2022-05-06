@@ -64,4 +64,8 @@ class CommentViewset(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+def getEvents(username):
+    user = User.objects.get(username=username)
+    object = UserProfile.objects.get(uesr=user)
+    return 
 
