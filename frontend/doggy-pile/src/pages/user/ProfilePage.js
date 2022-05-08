@@ -2,7 +2,7 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button, Container, Tabs, Tab } from "react-bootstrap";
+import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
 import "./ProfileStyles.css"
 
 // SVG import
@@ -18,6 +18,7 @@ function ProfilePage(props) {
   const [userDetails, setUserDetails] = useState(null)
   const [dogList, setDogList] = useState([])
   const [postList, setPostList] = useState([])
+  const [loading, setLoading] = useState(false)
 
   // effects
   useEffect(() => {
@@ -35,9 +36,14 @@ function ProfilePage(props) {
     })    
     setPostList(filteredPosts ? filteredPosts : [])
   }
+
   const loadUserDetails = async () => {
+    setLoading(true)
     const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
+    if (data) {
     setUserDetails(data ? data : null)
+    setLoading(false)
+    } 
   }
 
   const loadDogList = async () => {
@@ -76,10 +82,6 @@ function ProfilePage(props) {
           removeDoggo(dog.id)
         }
       }
-
-  
-
-     
       // Checks if currently logged in user matches profile. If so, renders the Edit and Delete button
       const showButtons = () => {
         if (props.username.user_id == userId) {
@@ -154,10 +156,8 @@ function ProfilePage(props) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
       return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> }}
-
-  console.log("USER DETAILSSSSS", userDetails)
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>", postList)
-
+  
+  // Returns all user's post
   const renderPosts = () => {
     return postList.map((myPost) => {
       console.log(myPost)
@@ -165,7 +165,9 @@ function ProfilePage(props) {
         })
       }
 
-  return (
+  // Rendering the whole profile details
+  const renderProfile = () => {
+    return (
     <Container className="profile">
       <Row>
         <Col xs={4}>
@@ -199,7 +201,13 @@ function ProfilePage(props) {
           </Tabs>
         </Row>
       </div>
-    </Container>
+    </Container> )
+  }
+
+  return (
+    <>
+     { loading ? <Spinner animation="border" variant="secondary" /> : renderProfile() }
+    </>
   )
 }
 
