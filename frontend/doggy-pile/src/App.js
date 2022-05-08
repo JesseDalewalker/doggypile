@@ -35,6 +35,7 @@ import EditPostPage from './components/posts/editpost';
 // -extra pages
 import Doggy101 from './pages/extra-pages/Doggy101';
 import LocalUsers from './pages/extra-pages/LocalUsers';
+import DirectMessaging from './pages/extra-pages/DirectMessaging';
 // -footer
 import Footer from './components/footer/Footer';
 
@@ -77,6 +78,7 @@ function App() {
           {/*extra pages */}
           <Route path="/doggy101" element={<Doggy101 />} />
           <Route path="/localUsers" element={<LocalUsers username={ username }/>} />
+          <Route path="/directMessage" element={<DirectMessaging />} />
         </Routes>
         <Footer />
       </HashRouter>
