@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
 import "./ProfileStyles.css"
-
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
