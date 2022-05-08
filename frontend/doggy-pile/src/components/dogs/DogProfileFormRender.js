@@ -2,7 +2,7 @@ import axios from "axios"
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import {Form, Button, Stack, Row, Col, Container } from 'react-bootstrap'
+import {Form, Button, Stack, Row, Col, Container, Spinner } from 'react-bootstrap'
 import DogBreeds from '../../data/dog_breeds.json'
 import "./DogFormStyles.css"
 
@@ -13,6 +13,7 @@ function DogProfileFormRender(props) {
   const [imageSelected, setImageSelected] = useState(null)
   const [imageSrc, setImageSrc] = useState(null)
   const [profileDogDetails, setProfileDogDetails] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   // effects
   useEffect(() => {
@@ -36,6 +37,7 @@ function DogProfileFormRender(props) {
   // Uploading profile picture
   const uploadImage = async (event) => {
     event.preventDefault()
+    setLoading(true)
 
     const formData = new FormData();
     formData.append("file", imageSelected)
@@ -43,10 +45,9 @@ function DogProfileFormRender(props) {
 
     axios.post("https://api.cloudinary.com/v1_1/dbi5z0la5/image/upload", formData)
     .then((response)=>{
+      setLoading(false)
       setImageSrc(response ? response.data.secure_url : null)
     })
-
-    console.log("IMAGE URL", imageSrc)
   };
   
 
@@ -54,19 +55,19 @@ function DogProfileFormRender(props) {
     <Container className="d-flex justify-content-center">
     <div className="form-cont">
       <Container>
-        <img src={ imageSrc ? imageSrc : require('../../images/corgi.png') } alt="Uploaded image" className="current-img "/>
+        <img src={ imageSrc ? imageSrc : require('../../images/corgi.png') } alt="Uploaded image" className="current-img" />
       </Container>
       <Row className="my-3">
         <Form.Label column sm={3}>Upload Profile Picture:</Form.Label>
           <Col sm={5}>
             <Form.Control type="file" onChange={(event)=> {setImageSelected(event.target.files[0])}}/>
           </Col>
-          <Col><Button onClick={uploadImage} className="edit-btn upload">Upload Image</Button></Col>
+          <Col><Button onClick={uploadImage} className="edit-btn upload">{ loading ? <Spinner animation="border" variant="secondary" /> : 'Upload Image' }</Button></Col>
       </Row>
 
       <Form onSubmit = { props.handleCreateDogProfile ? props.handleCreateDogProfile : props.handleEditDogProfile } >
         <Row>
-          <input type="hidden" name="profile-pic" value={imageSrc && imageSrc} /> 
+          <input type="hidden" name="profile-pic" value={imageSrc ? imageSrc : 'https://res.cloudinary.com/dbi5z0la5/image/upload/v1651866499/my-uploads/jwikzgdeljk1yxzuh4ps.png' } /> 
         </Row>
         <Form.Group as={Row}>
           <Form.Label column>Name:</Form.Label>
