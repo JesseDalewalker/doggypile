@@ -52,7 +52,7 @@ function LocalUsers(props) {
     <div>
       { activeUser ? <h1>Dogs in {activeUser.city}</h1> : null }
       <div className='users-container'>
-        <Carousel>
+        <Carousel >
         { users ? renderUsers() : null }
         </Carousel>
       </div>
