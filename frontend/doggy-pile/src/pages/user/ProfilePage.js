@@ -82,6 +82,7 @@ function ProfilePage(props) {
           removeDoggo(dog.id)
         }
       }
+
       // Checks if currently logged in user matches profile. If so, renders the Edit and Delete button
       const showButtons = () => {
         if (props.username.user_id == userId) {
@@ -166,6 +167,29 @@ function ProfilePage(props) {
         return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } username={ props.username }/>
         })
       }
+  // Render Write Posts to User only
+  const renderWritePost = () => {
+    return postList.map((post)=> {
+      if (props.username.user_id === post.user.id) {
+      return (
+        <>
+      <Link key={post.id} to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
+      </>)
+      }
+    }
+    )
+  }
+
+  //Render Add Dog button or not
+  const renderAddDogButton = () => {
+    if (props.username.user_id === userId) {
+      return (
+        <>
+        <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
+        </>
+      )
+      }
+  }
 
   // Rendering the whole profile details
   const renderProfile = () => {
@@ -197,10 +221,10 @@ function ProfilePage(props) {
           <Tabs defaultActiveKey="dogs" id="profile-tabs">
             <Tab eventKey="dogs" title="Dogs">
               { renderDogs() }
-              <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
+              { renderAddDogButton () }
             </Tab>
             <Tab eventKey="posts" title="Posts">
-              <Link to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
+              { renderWritePost() }
               { renderPosts() }
             </Tab>
           </Tabs>
