@@ -12,10 +12,12 @@ function FeedPage(props) {
   // states
   const [postDetails, setPostDetails] = useState([])
   const [loading, setLoading] = useState(false)
+  const [profileDetails, setProfileDetails] = useState(null)
 
   // effects
   useEffect(() => {
     loadPosts()
+    loadProfile()
   }, [])
 
   const loadPosts = async () => {
@@ -26,6 +28,13 @@ function FeedPage(props) {
       setPostDetails(data ? data : [])
     } else {
       setLoading(false)
+    }
+  }
+
+  const loadProfile = async () => {
+    const data = await DoggyPileAPI.getItemById('user_profile', props.username.user_id)
+    if (data) {
+      setProfileDetails(data ? data : null)
     }
   }
 
@@ -47,7 +56,7 @@ function FeedPage(props) {
 
   return (
     <div>
-        <Row className="d-flex justify-content-center feed-cont">
+        {/* <Row className="d-flex justify-content-center feed-cont">
           <Col sm={3}>
             <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
           </Col>
@@ -57,7 +66,23 @@ function FeedPage(props) {
           <Col sm={3}>
             <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-right"/>
           </Col>
-        </Row>
+        </Row> */}
+
+      <div className="feed-cont">
+        <div className="overlay"> 
+          <Row className="feed-items">
+            <Col>
+              <img src={ profileDetails ? profileDetails.profile_pic : require('../../images/default-avatar.png') } alt="default" className="feed-profile-pic"/>
+            </Col>
+            <Col>
+              <h1>Welcome</h1>
+              <div>
+                <h2>{ props.username.username }</h2>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </div>
          
       <Link to={`/post/create-post/`}> <Button className="write-btn mb-5">Write A Post</Button></Link><br/>
     

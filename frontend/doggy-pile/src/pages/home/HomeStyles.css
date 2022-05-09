@@ -111,6 +111,25 @@
 
 /* Feed page */
 
+.feed-cont {
+  background-image: url('../../images/pattern.png');
+  opacity: 20%;
+}
+
+.overlay {
+  background-color: #EECC99;
+  opacity: 53%;
+}
+
+
+.feed-profile-pic {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
 .btn.write-btn {
   background-color: #FA9A49;
   color: #f5efef;
