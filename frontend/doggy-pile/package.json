@@ -16,6 +16,7 @@
     "js-cookie": "^3.0.1",
     "mapbox-gl": "^2.8.2",
     "mapbox-gl-flash": "^2.0.0",
+    "moment": "^2.29.3",
     "node-sass": "^7.0.1",
     "nodemon": "^2.0.16",
     "react": "^18.1.0",
