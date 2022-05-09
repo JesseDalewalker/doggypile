@@ -21,7 +21,7 @@ function NavBar(props) {
     if (props.username === "") {
       return (
         <div>
-          <Navbar className='navbar' sticky="top">
+          <Navbar className="fixed-top">
             <Navbar.Brand className="m-auto justify-content-start">
               <Link to="/"><img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/></Link>
             </Navbar.Brand>
@@ -43,7 +43,7 @@ function NavBar(props) {
     } 
     return (
       <div>
-        <Navbar className='navbar' sticky="top">
+        <Navbar className="fixed-top" expand="lg">
           <Navbar.Brand className="justify-content-start">
           <Link to="/feed"><img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/></Link>
           </Navbar.Brand>
