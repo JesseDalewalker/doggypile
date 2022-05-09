@@ -185,7 +185,7 @@ function ProfilePage(props) {
     if (props.username.user_id === userId) {
       return (
         <>
-        <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
+        <Link key={props.username.user_id} to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
         </>
       )
       }

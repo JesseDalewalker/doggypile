@@ -1,6 +1,7 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { Row, Col, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function CommentRender (props) {
   // states
@@ -36,7 +37,7 @@ function CommentRender (props) {
             <div className="comment-pic-container">
             <img className="comment-pic" src={userProfile[i] && userProfile[i].profile_pic} alt="" />
             </div>
-            <h3 className="comment-name">{comment && comment.user.username}</h3>
+            <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
             <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
             <hr/>
@@ -46,7 +47,7 @@ function CommentRender (props) {
             <div className="comment-pic-container">
             <img className="comment-pic" src={userProfile[k] && userProfile[k].profile_pic} alt="" />
             </div>
-            <h3 className="comment-name">{comment && comment.user.username}</h3>
+            <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
             <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
             <hr/>
