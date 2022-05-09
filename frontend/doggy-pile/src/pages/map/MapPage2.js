@@ -5,15 +5,16 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import Flash from 'mapbox-gl-flash'
-import './MapPage.scss'
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import './MapPage2.scss'
 import '@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css'
 
 function MapPage(props) {
+
+  let loading = require('../../assets/loading.gif')
   
   const mapContainer = useRef(null);
-  const [map, setMap] = useState();
+  // const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
   const [arrayOfShops, setArrayOfShops] = useState()
   const [arrayOfVets, setArrayOfVets] = useState()
@@ -21,6 +22,7 @@ function MapPage(props) {
   const [lat, setLat] = useState('')
   const [long, setLong] = useState('')
   const [mapMarkers, setMapMarkers] = useState()
+  const [isLoading, setIsLoading] = useState(true)
 
   mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
 
@@ -429,13 +431,13 @@ function MapPage(props) {
       map.addLayer({
         id: 'measure-points',
         type: 'circle',
-        source: 'geojsonRoutes',
+        source: 'geojsonRoutes',//from source above
         layout: {
           'visibility' : 'none',
         },
         paint: {
         'circle-radius': 4,
-        'circle-color': '#000'
+        'circle-color': '#4B4141'
         },
         filter: ['in', '$type', 'Point']
       });
@@ -444,14 +446,14 @@ function MapPage(props) {
       map.addLayer({
         id: 'measure-lines',
         type: 'line',
-        source: 'geojsonRoutes',
+        source: 'geojsonRoutes',//from source above
         layout: {
         'line-cap': 'round',
         'line-join': 'round',
         'visibility' : 'none',
         },
         paint: {
-        'line-color': '#000',
+        'line-color': '#4B4141',
         'line-width': 2.5
         },
         filter: ['in', '$type', 'LineString']
@@ -477,7 +479,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'paw', // reference the image
             'icon-size': 0.06
           },
@@ -504,7 +506,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'cart', // reference the image
             'icon-size': 0.06
           },
@@ -531,7 +533,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'vet', // reference the image
             'icon-size': 0.06
           },
@@ -558,7 +560,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'service', // reference the image
             'icon-size': 0.06
           },
@@ -568,6 +570,8 @@ function MapPage(props) {
 
     //after map is loaded
     map.on('idle', () => {
+
+      setIsLoading(false)
 
       //functionality for routing clicks
       map.on('click', (e) => {
@@ -645,7 +649,8 @@ function MapPage(props) {
       }
       
       // Enumerate ids of the layers.
-      const toggleableLayerIds = ['dog-parks', 'shops', 'vets', 'service', 'measure-points', 'measure-lines'];
+      const toggleableLayerIds = ['dog-parks', 'shops', 'vets', 'service'];
+      const routeLayers = ['measure-points', 'measure-lines'];
       
       // Set up the corresponding toggle button for each layer.
       for (const id of toggleableLayerIds) {
@@ -659,7 +664,7 @@ function MapPage(props) {
           link.id = id;
           link.href = '#';
           link.textContent = id;
-          link.className = 'active';
+          link.className = '';
         
         // Show or hide layer when the toggle is clicked.
         link.onclick = function (e) {
@@ -691,7 +696,39 @@ function MapPage(props) {
         const layers = document.getElementById('menu');
         (link && layers.appendChild(link));        
       }
-    });
+
+      //get single route button for points and lines layers
+      if(!document.getElementById('routes')){
+        var routeLink = document.createElement('a');
+        routeLink.id = 'routes'
+        routeLink.href = '#';
+        routeLink.className = '';
+        routeLink.textContent = "Routes";
+
+        //toggle through layer visibility
+        routeLink.onclick = function (e) {
+            for(var index in routeLayers) {
+              var clickedLayer = routeLayers[index];
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+              if (visibility === 'visible') {
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                  this.className = '';
+              } else {
+                  this.className = 'active';
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+            }
+        };
+
+        //add layer button to map menu/nav
+        var layers = document.getElementById('menu');
+        layers.appendChild(routeLink)        
+      }
+    });    
   }
 //--------------------------------------------Layers End-------------------------------------------------------------------------------------------------
 //--------------------------------------------API calls--------------------------------------------------------------------------------------------------
@@ -728,8 +765,13 @@ function MapPage(props) {
 
   return (
     <div>
-      <nav id="menu"></nav>
+      <nav id="menu"> 
+        <div id='menu-title'>Filters</div> 
+        <hr id='menu-hr'/>
+      </nav>
       <div id="distance" class="distance-container"></div>
+      {isLoading && <img className='center' src={loading} alt="Loading"/>}
+      {/* {isLoading && <div className='center'> Don't worry it's loading</div>} */}
       <div ref={mapContainer} className="map-container" />
     </div>
   )

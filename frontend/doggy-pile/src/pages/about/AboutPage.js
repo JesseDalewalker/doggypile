@@ -29,7 +29,7 @@ function AboutPage() {
           <h4>Jesse Dalewalker</h4>
         </Col>
         <Col>
-          <img src={require('../../images/corgi.png')} alt='' className="about-img"/>
+          <img src={require('../../images/Jen.jpeg')} alt='' className="about-img"/>
           <h4>Jennifer Isobe</h4>
         </Col>
       </Row>

@@ -2,9 +2,8 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button, Container, Tabs, Tab } from "react-bootstrap";
+import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
 import "./ProfileStyles.css"
-
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
@@ -12,20 +11,21 @@ import femaleSign from "../../images/female-sign.svg"
 function ProfilePage(props) {
   // params
   const { userId } = useParams()
-  console.log("USERNAME:", userId.username)
 
   // state
   const [userDetails, setUserDetails] = useState(null)
   const [dogList, setDogList] = useState([])
   const [postList, setPostList] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [inviteArr, setInviteArr] = useState([])
 
   // effects
   useEffect(() => {
     loadUserDetails()
     loadDogList()
     loadPostList()
-  }, [])
-
+    getInvites()
+  }, [userId])
 
   const loadPostList = async () => {
     
@@ -35,9 +35,16 @@ function ProfilePage(props) {
     })    
     setPostList(filteredPosts ? filteredPosts : [])
   }
+
   const loadUserDetails = async () => {
-    const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
+    setLoading(true)
+    const data = await DoggyPileAPI.getItemById("user_profile", userId)
+    if (data) {
     setUserDetails(data ? data : null)
+    setLoading(false)
+    } else {
+      setLoading(false)
+    }
   }
 
   const loadDogList = async () => {
@@ -76,17 +83,13 @@ function ProfilePage(props) {
           removeDoggo(dog.id)
         }
       }
-
-  
-
-     
       // Checks if currently logged in user matches profile. If so, renders the Edit and Delete button
       const showButtons = () => {
         if (props.username.user_id == userId) {
           return (
             <Row>
               <Col xs={4}>
-                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link>
+                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn me-3">Edit</Button></Link>
               </Col>
               <Col xs={1}>
                 <Button onClick={ handleDeleteDog} className="edit-btn">Delete</Button>
@@ -107,7 +110,9 @@ function ProfilePage(props) {
       const checkVaccinated = () => {
         if (dog && dog.vaccinated === true) {
           return <><span className="dog-field">Vaccinated</span> <span className="dog-text">Yes</span> </>
-        } return <><span className="dog-field">Vaccinated</span> <span className="dog-text">No</span></>
+        } else if (dog && dog.vaccinated === false) {
+        return <><span className="dog-field">Vaccinated</span> <span className="dog-text">No</span></>
+        }
       }
       // Since the JSON file doesn't have the names capitalized, this function takes care of that
       const capitalizeBreedName = (str) => {
@@ -153,11 +158,50 @@ function ProfilePage(props) {
     if ( !userDetails ) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
-      return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> }}
+      console.log("inviteArr", inviteArr)
+      return (
+        <div>
+          <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
+          <div>
+            { inviteArr.map((item, index) => {
+              return <p key={ index }>{ item.description }</p>
+            })}
+          </div>
+      </div>
+      )
+    } else if (props.username.user_id !== userId) {
+      return (
+        <Button className="edit-btn" onClick={ playDateInvite }>Invite to play date!</Button>
+        )
+    }
+  }
 
-  console.log("USER DETAILSSSSS", userDetails)
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>", postList)
+  // get invites from database
+  const getInvites = async () => {
+    let data = await DoggyPileAPI.getAllItems("invite")
 
+    if (data) {
+      setInviteArr(data)
+    }
+  }
+
+
+  // onClick function for play date invites
+  const playDateInvite = () => {
+    inviteArr.push("You've been invited to a play date")
+    console.log(userId)
+    console.log(props.username)
+    const inviteData = {
+      user: props.username.user_id,
+      to_user: userId,
+      description: `You've been invited to a play date by ${props.username.username}`
+    }
+    let data = DoggyPileAPI.createItems('invite', inviteData)
+
+
+  }
+  
+  // Returns all user's post
   const renderPosts = () => {
     return postList.map((myPost) => {
       console.log(myPost)
@@ -165,7 +209,12 @@ function ProfilePage(props) {
         })
       }
 
-  return (
+  // Rendering the whole profile details
+  const renderProfile = () => {
+    if (!userDetails) {
+      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
+
+    return (
     <Container className="profile">
       <Row>
         <Col xs={4}>
@@ -199,7 +248,13 @@ function ProfilePage(props) {
           </Tabs>
         </Row>
       </div>
-    </Container>
+    </Container> )
+  }
+
+  return (
+    <>
+     { loading ? <Spinner animation="border" variant="secondary" /> : renderProfile() }
+    </>
   )
 }
 

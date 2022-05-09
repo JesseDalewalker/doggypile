@@ -21,7 +21,7 @@ function NavBar(props) {
     if (props.username === "") {
       return (
         <div>
-          <Navbar className='navbar' sticky="top">
+          <Navbar className="fixed-top">
             <Navbar.Brand className="m-auto justify-content-start">
               <Link to="/"><img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/></Link>
             </Navbar.Brand>
@@ -43,7 +43,7 @@ function NavBar(props) {
     } 
     return (
       <div>
-        <Navbar className='navbar' sticky="top">
+        <Navbar className="fixed-top" expand="lg">
           <Navbar.Brand className="justify-content-start">
           <Link to="/feed"><img alt="logo" src={require("../../images/DoggyPile-logo.png")} className="logo"/></Link>
           </Navbar.Brand>
@@ -53,8 +53,8 @@ function NavBar(props) {
                 <Nav.Link as={Link} to={`/profile/${props.username && props.username.user_id}`} className='navbar-item' style={{color:'#797272'}}>Profile</Nav.Link>
                 <Nav.Link as={Link} to="/mappage" className='navbar-item' style={{color:'#797272'}}>Map</Nav.Link>
                 <Nav.Link as={Link} to="/calendar" className='navbar-item' style={{color:'#797272'}}>Calendar</Nav.Link>
+                <Nav.Link as={Link} to="/localUsers" className='navbar-item' style={{color:'#797272'}}>Local Dogs</Nav.Link>
                 <Nav.Link as={Link} to="/doggy101" className='navbar-item' style={{color:'#797272'}}>Doggy101</Nav.Link>
-                <Nav.Link as={Link} to="/localUsers" className='navbar-item' style={{color:'#797272'}}>Local Users</Nav.Link>
             </Nav>
           </Container>
           <Nav className='m-auto justify-content-end'>

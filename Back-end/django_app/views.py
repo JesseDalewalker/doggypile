@@ -64,8 +64,12 @@ class CommentViewset(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-def getEvents(username):
-    user = User.objects.get(username=username)
-    object = UserProfile.objects.get(uesr=user)
-    return 
-
+class InviteViewset(ModelViewSet):
+    queryset = Invite.objects.all()
+    serializer_class = InviteSerializer
+    
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return (permissions.AllowAny(),)
+        elif self.request.method == "GET":
+            return (permissions.AllowAny(),)

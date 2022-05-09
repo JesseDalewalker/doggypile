@@ -5,15 +5,19 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import Flash from 'mapbox-gl-flash'
-import './MapPage.scss'
 import DoggyPileAPI from "../../api/DoggyPileAPI";
-import './MapPage2.scss'
+import './MapPage.scss'
 import '@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css'
+// import MapboxDirections from '@mapbox/mapbox-gl-directions'
+
 
 function MapPage(props) {
+
+  let loading = require('../../assets/loading.gif')
   
+
+
   const mapContainer = useRef(null);
-  const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
   const [arrayOfShops, setArrayOfShops] = useState()
   const [arrayOfVets, setArrayOfVets] = useState()
@@ -21,6 +25,7 @@ function MapPage(props) {
   const [lat, setLat] = useState('')
   const [long, setLong] = useState('')
   const [mapMarkers, setMapMarkers] = useState()
+  const [isLoading, setIsLoading] = useState(true)
 
   mapboxgl.accessToken = 'pk.eyJ1IjoianByaWNlNDQiLCJhIjoiY2wybWZyZ3hmMDR1bTNrcGszYzV2OGl3MSJ9.ShuHeiSnowF4fYxU9MGVHQ';
 
@@ -88,34 +93,13 @@ function MapPage(props) {
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl, collapsed: true })
     map.addControl(search, 'top-left')   
 
-    //change cursor for icon hover
-    map.on('mouseenter', 'dog-parks', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
-    map.on('mouseenter', 'shops', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
-    map.on('mouseenter', 'vets', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
-    map.on('mouseenter', 'services', () => {
-      map.getCanvas().style.cursor = 'pointer'
-    })
+    // //directions
+    // const directions = new mapboxgl.MapboxDirections({
+    //   accessToken: mapboxgl.accessToken
+    // })
+    // map.addControl(directions)
     
-    //change cursor back to normal
-    map.on('mouseleave', 'dog-parks', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    map.on('mouseleave', 'shops', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    map.on('mouseleave', 'vets', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    map.on('mouseleave', 'services', () => {
-      map.getCanvas().style.cursor = ''
-    })
-    
+    //--------------------------------------------Markers Start------------------------------------------------------------------------------------------------
     //create marker for lost/aggressive dog from database
     mapMarkers.map(mark => {
 
@@ -345,6 +329,70 @@ function MapPage(props) {
 
     //alert for marker
     map.addControl( new Flash())
+//--------------------------------------------Markers End------------------------------------------------------------------------------------------------
+//--------------------------------------------Layers Start-----------------------------------------------------------------------------------------------
+
+    const distanceContainer = document.getElementById('distance')
+
+    //create GeoJSON object to hold measurments
+    const geojsonRoutes = {
+      'type': 'FeatureCollection',
+      'features': []
+      };
+    
+    //functionality for creating line
+    const linestring = {
+      'type': 'Feature',
+      'geometry': {
+      'type': 'LineString',
+      'coordinates': []
+      }
+      };
+
+    //change cursor for icon hover
+    map.on('mouseenter', 'dog-parks', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'shops', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'vets', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseenter', 'services', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    // map.on('mouseenter', 'measure-points', () => {
+    //   map.getCanvas().style.cursor = 'pointer'
+    // })
+    
+    //change cursor back to normal
+    map.on('mouseleave', 'dog-parks', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'shops', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'vets', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    map.on('mouseleave', 'services', () => {
+      map.getCanvas().style.cursor = ''
+    })
+    // map.on('mouseleave', 'measure-points', () => {
+    //   map.getCanvas().style.cursor = ''
+    // })
+
+    map.on('mousemove', (e) => {
+      const features = map.queryRenderedFeatures(e.point, {
+      layers: ['measure-points']
+      });
+      // Change the cursor to a pointer when hovering over a point on the map.
+      // Otherwise cursor is a default.
+      map.getCanvas().style.cursor = features.length
+      ? 'pointer'
+      : '';
+      });
 
     //show info for dog parks
     map.on("click", "dog-parks", (e) => {
@@ -380,6 +428,46 @@ function MapPage(props) {
 
     map.on('load', () => {
 
+      //routes layer
+
+      //set source to geojson object created earlier
+      map.addSource('geojsonRoutes', {
+        'type': 'geojson',
+        'data': geojsonRoutes
+        });
+      
+      //create layer for points on route
+      map.addLayer({
+        id: 'measure-points',
+        type: 'circle',
+        source: 'geojsonRoutes',
+        layout: {
+          'visibility' : 'none',
+        },
+        paint: {
+        'circle-radius': 4,
+        'circle-color': '#4B4141'
+        },
+        filter: ['in', '$type', 'Point']
+      });
+
+      //create layer for lines on route
+      map.addLayer({
+        id: 'measure-lines',
+        type: 'line',
+        source: 'geojsonRoutes',
+        layout: {
+        'line-cap': 'round',
+        'line-join': 'round',
+        'visibility' : 'none',
+        },
+        paint: {
+        'line-color': '#4B4141',
+        'line-width': 2.5
+        },
+        filter: ['in', '$type', 'LineString']
+      });
+
       //dog park layer
       map.loadImage('https://cdn-icons-png.flaticon.com/512/3564/3564555.png', (error, image) => {
         if (error) throw error;
@@ -400,7 +488,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'paw', // reference the image
             'icon-size': 0.06
           },
@@ -427,7 +515,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'cart', // reference the image
             'icon-size': 0.06
           },
@@ -454,7 +542,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'vet', // reference the image
             'icon-size': 0.06
           },
@@ -481,7 +569,7 @@ function MapPage(props) {
           type: 'symbol',
           layout: {
             // Make the layer visible by default.
-            'visibility': 'visible',
+            'visibility': 'none',
             'icon-image': 'service', // reference the image
             'icon-size': 0.06
           },
@@ -491,13 +579,87 @@ function MapPage(props) {
 
     //after map is loaded
     map.on('idle', () => {
+
+      setIsLoading(false)
+
+      //functionality for routing clicks
+      map.on('click', (e) => {
+
+        //get visibility setting for route points and line layers
+        let lineVisibility = map.getLayoutProperty(
+          'measure-lines',
+          'visibility'
+        );
+        let pointVisibility = map.getLayoutProperty(
+          'measure-points',
+          'visibility'
+        );
+        
+        //if the layers are visible continue functionality
+        if (lineVisibility === 'visible' && pointVisibility === 'visible') {
+
+          //get the points features
+          const features = map.queryRenderedFeatures(e.point, {
+            layers: ['measure-points']
+          });
+          
+          // Remove the linestring from the group
+          if (geojsonRoutes.features.length > 1) geojsonRoutes.features.pop();
+          
+          // Clear the distance container to populate it with a new value.
+          distanceContainer.innerHTML = '';
+          
+          // If a feature was clicked, remove it from the map.
+          if (features.length) {
+            const id = features[0].properties.id;
+            geojsonRoutes.features = geojsonRoutes.features.filter(
+              (point) => point.properties.id !== id
+            );
+          } 
+          // else create geojson data for points
+          else {
+            const point = {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [e.lngLat.lng, e.lngLat.lat]
+              },
+              'properties': {
+              'id': String(new Date().getTime())
+              }
+            };
+            geojsonRoutes.features.push(point);
+          }
+          
+          //create coordinates for geojson feature lines
+          if (geojsonRoutes.features.length > 1) {
+            linestring.geometry.coordinates = geojsonRoutes.features.map(
+              (point) => point.geometry.coordinates
+            );
+            
+            geojsonRoutes.features.push(linestring);
+            
+            // Populate the distanceContainer with total distance
+            // const value = document.createElement('pre');
+            // const distance = turf.length(linestring);
+            // value.textContent = `Total distance: ${distance.toLocaleString()}km`;
+            // distanceContainer.appendChild(value);
+          }
+          
+          map.getSource('geojsonRoutes').setData(geojsonRoutes);
+        }
+      });
+
+      //add layer Buttons to menu
+
       // If these layers were not added to the map, abort
-      if (!map.getLayer('dog-parks' || 'shops' || 'vets' || 'service')) {
+      if (!map.getLayer('dog-parks' || 'shops' || 'vets' || 'service' || 'measure-points' || 'measure-lines')) {
         return
       }
       
       // Enumerate ids of the layers.
       const toggleableLayerIds = ['dog-parks', 'shops', 'vets', 'service'];
+      const routeLayers = ['measure-points', 'measure-lines'];
       
       // Set up the corresponding toggle button for each layer.
       for (const id of toggleableLayerIds) {
@@ -511,7 +673,7 @@ function MapPage(props) {
           link.id = id;
           link.href = '#';
           link.textContent = id;
-          link.className = 'active';
+          link.className = '';
         
         // Show or hide layer when the toggle is clicked.
         link.onclick = function (e) {
@@ -543,10 +705,38 @@ function MapPage(props) {
         const layers = document.getElementById('menu');
         (link && layers.appendChild(link));        
       }
-    });
-  }
 
-  //API calls
+      if(!document.getElementById('routes')){
+        // Skip layers that already have a button set up.
+        var routeLink = document.createElement('a');
+        routeLink.id = 'routes'
+        routeLink.href = '#';
+        routeLink.className = '';
+        routeLink.textContent = "Routes";
+        routeLink.onclick = function (e) {
+            for(var index in routeLayers) {
+              var clickedLayer = routeLayers[index];
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+              if (visibility === 'visible') {
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                  this.className = '';
+              } else {
+                  this.className = 'active';
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+            }
+        };
+        var layers = document.getElementById('menu');
+        layers.appendChild(routeLink)        
+      }
+    });    
+  }
+//--------------------------------------------Layers End-------------------------------------------------------------------------------------------------
+//--------------------------------------------API calls--------------------------------------------------------------------------------------------------
 
   //call for dog parks
   const markerApiCall = async () => {
@@ -580,7 +770,13 @@ function MapPage(props) {
 
   return (
     <div>
-      <nav id="menu"></nav>
+      <nav id="menu"> 
+        <div id='menu-title'>Filters</div> 
+        <hr id='menu-hr'/>
+      </nav>
+      <div id="distance" class="distance-container"></div>
+      {isLoading && <img className='center' src={loading} alt="Loading"/>}
+      {/* {isLoading && <div className='center'> Don't worry it's loading</div>} */}
       <div ref={mapContainer} className="map-container" />
     </div>
   )

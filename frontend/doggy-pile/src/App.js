@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 // Components
 import NavBar from './components/nav/NavBar';
-
+import ScrollToTop from './components/nav/ScrollToTop';
 // Pages
 // -authenticate
 import SignUpPage from './pages/authenticate/SignUpPage';
@@ -35,6 +35,7 @@ import EditPostPage from './components/posts/editpost';
 // -extra pages
 import Doggy101 from './pages/extra-pages/Doggy101';
 import LocalUsers from './pages/extra-pages/LocalUsers';
+import DirectMessaging from './pages/extra-pages/DirectMessaging';
 // -footer
 import Footer from './components/footer/Footer';
 
@@ -47,6 +48,7 @@ function App() {
   return (
     <div className="App">
       <HashRouter>
+        <ScrollToTop>
         <NavBar username= { username } setUsername={ setUsername }/>
         <Routes>
           {/* Authenticate */}
@@ -77,8 +79,10 @@ function App() {
           {/*extra pages */}
           <Route path="/doggy101" element={<Doggy101 />} />
           <Route path="/localUsers" element={<LocalUsers username={ username }/>} />
+          <Route path="/directMessage" element={<DirectMessaging />} />
         </Routes>
         <Footer />
+        </ScrollToTop>
       </HashRouter>
     </div>
   );

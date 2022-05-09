@@ -1,3 +1,4 @@
+from pydoc import describe
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -54,4 +55,9 @@ class Comment(models.Model):
 
     def __str__(self):
        return f'User: {self.user}, Post: {self.comment}'
+
+class Invite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+    to_user = models.IntegerField()
+    description = models.TextField(null=True, blank=True, default=None)
 
