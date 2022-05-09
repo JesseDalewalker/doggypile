@@ -41,8 +41,8 @@
 // }
 // Comment Styling
 .comment-pic {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: 5px solid white;
   object-fit: cover;
@@ -103,21 +103,16 @@
 // 	filter: blur(50px);
 // }
 // Test end
-
 .comment-name {
-  display: flex;
-  align-content: left;
-  text-align: left;
-  margin-top: 15px;
-  margin-left: 20px;
+  color: purple;
 }
 
 .comment-content {
   display: flex;
   position: relative;
   text-align: left;
-  margin-left: -63px;
-  margin-top: 50px;
+  left: 0;
+  top: 50px;
   font-size: small;
 }
 
@@ -198,8 +193,8 @@ Button.delete-btn {
 .post-image {
   display: flexbox;
   justify-self: self-start;
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
   border-radius: 50%;
   border: 5px solid white;
   object-fit: cover;
@@ -208,17 +203,23 @@ Button.delete-btn {
 .author-txt {
   display: flexbox;
   position: absolute;
-  top: 80px;
+  top: 20px;
   justify-self: left;
-  margin-left: 200px;
+  margin-left: 170px;
+  color: black;
  
+}
+
+.author-txt:hover, .comment-name:hover {
+  color: #FA9A49;
 }
 
 .headline {
   display: flex;
   position: relative;
-  justify-self: flex-start;
-  padding: 10px;
+  justify-self: left;
+  margin-left: 140px;
+  top: -75px;
  
 }
 
@@ -246,7 +247,7 @@ $accent-color: lightcyan;
 }
 
 .day-card {
-  width: 1326px;
+  width: 1100px;
   height: 481px;
   margin: 1em;
   perspective: 1500px;
@@ -345,7 +346,7 @@ $accent-color: lightcyan;
     height: 100%;
     font-size: 20px;
     // border-radius: 500px;
-    font-weight: 600;
+    font-weight: 60;
     line-height: 1.4em;
     overflow-y: scroll;
     // color: $accent-color;
@@ -528,6 +529,7 @@ $accent-color: lightcyan;
 }
 
 .post-txt {
+  display: flex;
   background-color: #f9f5f3;
   padding: 3%;
   width: 100%;
