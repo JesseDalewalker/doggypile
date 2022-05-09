@@ -23,7 +23,7 @@ function ProfilePage(props) {
     loadUserDetails()
     loadDogList()
     loadPostList()
-  }, [])
+  }, [userId])
 
 
   const loadPostList = async () => {
