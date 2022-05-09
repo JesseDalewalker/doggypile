@@ -8,13 +8,16 @@ import Flash from 'mapbox-gl-flash'
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import './MapPage.scss'
 import '@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css'
+// import MapboxDirections from '@mapbox/mapbox-gl-directions'
+
 
 function MapPage(props) {
 
   let loading = require('../../assets/loading.gif')
   
+
+
   const mapContainer = useRef(null);
-  const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
   const [arrayOfShops, setArrayOfShops] = useState()
   const [arrayOfVets, setArrayOfVets] = useState()
@@ -89,6 +92,12 @@ function MapPage(props) {
     //search box functionality
     const search = new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl : mapboxgl, collapsed: true })
     map.addControl(search, 'top-left')   
+
+    // //directions
+    // const directions = new mapboxgl.MapboxDirections({
+    //   accessToken: mapboxgl.accessToken
+    // })
+    // map.addControl(directions)
     
     //--------------------------------------------Markers Start------------------------------------------------------------------------------------------------
     //create marker for lost/aggressive dog from database
