@@ -56,18 +56,6 @@ function FeedPage(props) {
 
   return (
     <div>
-        {/* <Row className="d-flex justify-content-center feed-cont">
-          <Col sm={3}>
-            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
-          </Col>
-          <Col className="d-flex align-items-center justify-content-center" sm={3}>
-            <h1 className="sub-header feed"> Welcome, { props.username.username }!</h1>
-          </Col>
-          <Col sm={3}>
-            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-right"/>
-          </Col>
-        </Row> */}
-
       <div className="feed-cont">
         <div className="d-flex justify-content-center overlay"> 
           <Row className="feed-items">
