@@ -79,7 +79,7 @@
 }
 
 .local-carousel-bg {
-  height: 460px;
+  height: 470px;
   width: 100%;
   background-color: #FDFDFD;
   padding-top: 5%;
@@ -102,6 +102,12 @@
     margin-bottom: 8px;
     color: #4B4141;
   }
+}
+
+.edit-btn.local {
+  width: 150px;
+  margin-top: 10px;
+  margin-right: 35%;
 }
 
 // .dog-items.row {

@@ -11,7 +11,6 @@ import femaleSign from "../../images/female-sign.svg"
 function ProfilePage(props) {
   // params
   const { userId } = useParams()
-  console.log("USERNAME:", userId.username)
 
   // state
   const [userDetails, setUserDetails] = useState(null)
@@ -38,11 +37,13 @@ function ProfilePage(props) {
 
   const loadUserDetails = async () => {
     setLoading(true)
-    const data = await DoggyPileAPI.getItemById("user_profile", props.username.user_id)
+    const data = await DoggyPileAPI.getItemById("user_profile", userId)
     if (data) {
     setUserDetails(data ? data : null)
     setLoading(false)
-    } 
+    } else {
+      setLoading(false)
+    }
   }
 
   const loadDogList = async () => {
@@ -87,7 +88,7 @@ function ProfilePage(props) {
           return (
             <Row>
               <Col xs={4}>
-                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link>
+                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn me-3">Edit</Button></Link>
               </Col>
               <Col xs={1}>
                 <Button onClick={ handleDeleteDog} className="edit-btn">Delete</Button>
@@ -108,7 +109,9 @@ function ProfilePage(props) {
       const checkVaccinated = () => {
         if (dog && dog.vaccinated === true) {
           return <><span className="dog-field">Vaccinated</span> <span className="dog-text">Yes</span> </>
-        } return <><span className="dog-field">Vaccinated</span> <span className="dog-text">No</span></>
+        } else if (dog && dog.vaccinated === false) {
+        return <><span className="dog-field">Vaccinated</span> <span className="dog-text">No</span></>
+        }
       }
       // Since the JSON file doesn't have the names capitalized, this function takes care of that
       const capitalizeBreedName = (str) => {
@@ -166,6 +169,9 @@ function ProfilePage(props) {
 
   // Rendering the whole profile details
   const renderProfile = () => {
+    if (!userDetails) {
+      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
+
     return (
     <Container className="profile">
       <Row>
