@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 // Components
 import NavBar from './components/nav/NavBar';
-
+import ScrollToTop from './components/nav/ScrollToTop';
 // Pages
 // -authenticate
 import SignUpPage from './pages/authenticate/SignUpPage';
@@ -48,6 +48,7 @@ function App() {
   return (
     <div className="App">
       <HashRouter>
+        <ScrollToTop>
         <NavBar username= { username } setUsername={ setUsername }/>
         <Routes>
           {/* Authenticate */}
@@ -81,6 +82,7 @@ function App() {
           <Route path="/directMessage" element={<DirectMessaging />} />
         </Routes>
         <Footer />
+        </ScrollToTop>
       </HashRouter>
     </div>
   );
