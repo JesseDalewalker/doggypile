@@ -86,6 +86,9 @@ function PostView(props) {
     )
   }
 console.log("Main USER:", props.username.user_id, "POST USER:", props.myPost.user.id)
+
+  
+
 return (
   <section class="day-events new">
 
@@ -131,6 +134,7 @@ return (
         </div>
       </div>
     </div>
+
 </section>
   )
 }

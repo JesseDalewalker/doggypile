@@ -1,5 +1,5 @@
 .header-cont {
-  width: 60%;
+  width: 70%;
   padding: 2%;
 }
 
@@ -72,6 +72,8 @@
   margin: auto 34%;
 }
 
+/* Carousel */
+
 .carousel-bg {
   background-color: #FDFDFD;
   min-height: 520px;
@@ -127,6 +129,7 @@
 
 .sub-header.feed {
   color: #4B4141;
+  animation: fadeIn 2s;
 }
 
 .feed-cont {
