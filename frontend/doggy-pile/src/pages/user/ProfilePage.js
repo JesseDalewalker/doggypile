@@ -25,8 +25,7 @@ function ProfilePage(props) {
     loadDogList()
     loadPostList()
     getInvites()
-  }, [])
-
+  }, [userId])
 
   const loadPostList = async () => {
     
