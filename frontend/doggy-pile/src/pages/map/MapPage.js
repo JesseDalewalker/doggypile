@@ -14,7 +14,6 @@ function MapPage(props) {
   let loading = require('../../assets/loading.gif')
   
   const mapContainer = useRef(null);
-  const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
   const [arrayOfShops, setArrayOfShops] = useState()
   const [arrayOfVets, setArrayOfVets] = useState()
