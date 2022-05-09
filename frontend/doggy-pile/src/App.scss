@@ -39,7 +39,107 @@
 // .agro-dog {
   
 // }
+// Comment Styling
+.comment-pic {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid white;
+  object-fit: cover;
+}
 
+// .comment-pic-container {
+//   display: flex;
+//   background-color: #FA9A49;
+//   justify-content: center;
+//   align-items: center;
+//   width: 200px;
+//   height: 200px;
+//   border-style: ridge;
+//   perspective: 1500px;
+//   border-radius: 50%;
+//   box-shadow: 0 0 9px 9px #111 ;
+//   overflow: hidden;
+//   padding: 30px;
+// }
+
+// Test
+
+// .comment-pic-container {
+// 	position: relative;
+// 	width: 200px;
+// 	height: 200px;
+// 	background: linear-gradient(0deg, #000, #272727);
+// }
+
+// .comment-pic-container:before, .comment-pic-container:after {
+// 	content: '';
+// 	position: absolute;
+// 	left: -2px;
+// 	top: -2px;
+// 	background: linear-gradient(45deg, #FA9A49, white, LightCoral,#ffff00, #ff0000, #FA9A49, 
+//   #FA9A49, #ebcab0,#ffff00, #ff0000);
+// 	background-size: 400%;
+// 	width: calc(100% + 4px);
+// 	height: calc(100% + 4px);
+// 	z-index: -1;
+// 	animation: steam 20s linear infinite;
+// }
+
+// @keyframes steam {
+// 	0% {
+// 		background-position: 0 0;
+// 	}
+// 	50% {
+// 		background-position: 400% 0;
+// 	}
+// 	100% {
+// 		background-position: 0 0;
+// 	}
+// }
+
+// .comment-pic-container:after {
+// 	filter: blur(50px);
+// }
+// Test end
+
+.comment-name {
+  display: flex;
+  align-content: left;
+  text-align: left;
+  margin-top: 15px;
+  margin-left: 20px;
+}
+
+.comment-content {
+  display: flex;
+  position: relative;
+  text-align: left;
+  margin-left: -63px;
+  margin-top: 50px;
+  font-size: small;
+}
+
+.comment {
+  display: flex;
+  position: relative;
+  padding: 20px;
+  
+
+}
+
+
+Button.delete-btn {
+  display: flex;
+  height: fit-content;
+  position: absolute;
+  align-content: right;
+  margin-top: 5px;;
+  text-align: right;
+  font-size: 8pt;
+  margin-top: 25px;
+  right: 0;
+}
 // This is for the edit button and delete button
 @font-face {
   font-family: Doggy Dog World;
@@ -57,6 +157,8 @@
   font-weight: bold;
   src: url('https://fonts.googleapis.com/css?family=Montserrat:100');
 }
+
+
 .btn-update, .btn-delete, .btn-create, .delete-btn {
   // font-family: 'Montserrat', sans-serif;
   font-weight: 500;
