@@ -63,3 +63,13 @@ class PostViewset(ModelViewSet):
 class CommentViewset(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+class InviteViewset(ModelViewSet):
+    queryset = Invite.objects.all()
+    serializer_class = InviteSerializer
+    
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return (permissions.AllowAny(),)
+        elif self.request.method == "GET":
+            return (permissions.AllowAny(),)
