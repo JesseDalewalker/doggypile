@@ -24,6 +24,8 @@ function FeedPage(props) {
     if (data) {
       setLoading(false)
       setPostDetails(data ? data : [])
+    } else {
+      setLoading(false)
     }
   }
 
