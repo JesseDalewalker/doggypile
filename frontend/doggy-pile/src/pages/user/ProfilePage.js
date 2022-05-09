@@ -225,7 +225,7 @@ function ProfilePage(props) {
   // Render Write Posts to User only
   const renderWritePost = () => {
     return postList.map((post)=> {
-      if (props.username.user_id === post.user.id) {
+      if (props.username.user_id == post.user.id) {
       return (
         <>
       <Link key={post.id} to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
@@ -237,13 +237,13 @@ function ProfilePage(props) {
 
   //Render Add Dog button or not
   const renderAddDogButton = () => {
-    if (props.username.user_id === userId) {
+      if (props.username.user_id == userId) {
       return (
         <>
-        <Link key={props.username.user_id} to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
+        <Link key={userId} to={"/dog-profile/create-profile"}><Button className="add-btn mt-3">Add Dog</Button></Link>
         </>
       )
-      }
+      } 
   }
 
   // Rendering the whole profile details
@@ -276,6 +276,7 @@ function ProfilePage(props) {
           <Tabs defaultActiveKey="dogs" id="profile-tabs">
             <Tab eventKey="dogs" title="Dogs">
               { renderDogs() }
+              
               { renderAddDogButton () }
             </Tab>
             <Tab eventKey="posts" title="Posts">
