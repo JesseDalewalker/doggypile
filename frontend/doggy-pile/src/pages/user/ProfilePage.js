@@ -17,14 +17,15 @@ function ProfilePage(props) {
   const [dogList, setDogList] = useState([])
   const [postList, setPostList] = useState([])
   const [loading, setLoading] = useState(false)
+  const [inviteArr, setInviteArr] = useState([])
 
   // effects
   useEffect(() => {
     loadUserDetails()
     loadDogList()
     loadPostList()
-  }, [])
-
+    getInvites()
+  }, [userId])
 
   const loadPostList = async () => {
     
@@ -158,7 +159,48 @@ function ProfilePage(props) {
     if ( !userDetails ) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
-      return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> }}
+      console.log("inviteArr", inviteArr)
+      return (
+        <div>
+          <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
+          <div>
+            { inviteArr.map((item, index) => {
+              return <p key={ index }>{ item.description }</p>
+            })}
+          </div>
+      </div>
+      )
+    } else if (props.username.user_id !== userId) {
+      return (
+        <Button className="edit-btn" onClick={ playDateInvite }>Invite to play date!</Button>
+        )
+    }
+  }
+
+  // get invites from database
+  const getInvites = async () => {
+    let data = await DoggyPileAPI.getAllItems("invite")
+
+    if (data) {
+      setInviteArr(data)
+    }
+  }
+
+
+  // onClick function for play date invites
+  const playDateInvite = () => {
+    inviteArr.push("You've been invited to a play date")
+    console.log(userId)
+    console.log(props.username)
+    const inviteData = {
+      user: props.username.user_id,
+      to_user: userId,
+      description: `You've been invited to a play date by ${props.username.username}`
+    }
+    let data = DoggyPileAPI.createItems('invite', inviteData)
+
+
+  }
   
   // Returns all user's post
   const renderPosts = () => {
