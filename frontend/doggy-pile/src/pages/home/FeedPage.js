@@ -69,23 +69,24 @@ function FeedPage(props) {
         </Row> */}
 
       <div className="feed-cont">
-        <div className="overlay"> 
+        <div className="d-flex justify-content-center overlay"> 
           <Row className="feed-items">
-            <Col>
+            <Col className="d-flex align-items-center justify-content-center">
               <img src={ profileDetails ? profileDetails.profile_pic : require('../../images/default-avatar.png') } alt="default" className="feed-profile-pic"/>
             </Col>
-            <Col>
-              <h1>Welcome</h1>
-              <div>
-                <h2>{ props.username.username }</h2>
+            <Col sm={7} className="feed-header-txt">
+              <h1 align="left" className="feed-welcome">Welcome</h1>
+              <div className="user-div">
+                <h2 align="left" className="user-header">{ props.username.username }<span style={{color: '#3C3434', fontWeight: '600'}}>!</span></h2>
               </div>
+              <Link to={`/post/create-post/`}> <Button className="write-btn">Write A Post</Button></Link><br/>
             </Col>
           </Row>
         </div>
       </div>
-         
-      <Link to={`/post/create-post/`}> <Button className="write-btn mb-5">Write A Post</Button></Link><br/>
-    
+      <div className="d-flex align-items-center justify-content-center feed-bottom-header">
+        <h4>View posts by other users</h4>
+      </div>
       { loading ? <Spinner animation="border" variant="secondary" /> : renderPosts() }
     </div>
   )
