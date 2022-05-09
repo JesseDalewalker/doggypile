@@ -12,10 +12,12 @@ function FeedPage(props) {
   // states
   const [postDetails, setPostDetails] = useState([])
   const [loading, setLoading] = useState(false)
+  const [profileDetails, setProfileDetails] = useState(null)
 
   // effects
   useEffect(() => {
     loadPosts()
+    loadProfile()
   }, [])
 
   const loadPosts = async () => {
@@ -26,6 +28,13 @@ function FeedPage(props) {
       setPostDetails(data ? data : [])
     } else {
       setLoading(false)
+    }
+  }
+
+  const loadProfile = async () => {
+    const data = await DoggyPileAPI.getItemById('user_profile', props.username.user_id)
+    if (data) {
+      setProfileDetails(data ? data : null)
     }
   }
 
@@ -47,20 +56,25 @@ function FeedPage(props) {
 
   return (
     <div>
-        <Row className="d-flex justify-content-center feed-cont">
-          <Col sm={3}>
-            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
-          </Col>
-          <Col className="d-flex align-items-center justify-content-center" sm={3}>
-            <h1 className="sub-header feed"> Welcome, { props.username.username }!</h1>
-          </Col>
-          <Col sm={3}>
-            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-right"/>
-          </Col>
-        </Row>
-         
-      <Link to={`/post/create-post/`}> <Button className="write-btn mb-5">Write A Post</Button></Link><br/>
-    
+      <div className="feed-cont">
+        <div className="d-flex justify-content-center overlay"> 
+          <Row className="feed-items">
+            <Col className="d-flex align-items-center justify-content-center">
+              <img src={ profileDetails ? profileDetails.profile_pic : require('../../images/default-avatar.png') } alt="default" className="feed-profile-pic"/>
+            </Col>
+            <Col sm={7} className="feed-header-txt">
+              <h1 align="left" className="feed-welcome">Welcome</h1>
+              <div className="user-div">
+                <h2 align="left" className="user-header">{ props.username.username }<span style={{color: '#3C3434', fontWeight: '600'}}>!</span></h2>
+              </div>
+              <Link to={`/post/create-post/`}> <Button className="write-btn">Write A Post</Button></Link><br/>
+            </Col>
+          </Row>
+        </div>
+      </div>
+      <div className="d-flex align-items-center justify-content-center feed-bottom-header">
+        <h4>View posts by other users</h4>
+      </div>
       { loading ? <Spinner animation="border" variant="secondary" /> : renderPosts() }
     </div>
   )
