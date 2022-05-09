@@ -1,6 +1,9 @@
 .header-cont {
   width: 70%;
-  padding: 2%;
+}
+
+.header-cont.top {
+  margin-top: 3%;
 }
 
 .header-img {

@@ -12,7 +12,7 @@ function LandingPage() {
     <div>
     <div className="d-flex justify-content-center">
       {/* Header items */}
-      <Row className="header-cont">
+      <Row className="header-cont top">
         <Col className="header-text">
           <h1 align="left" className="action-txt">The perfect website to fulfill your dog's <span style={{ color:'#E96E29'}}>social needs</span></h1>
           <p align="left" className="header-sub">Get connected with other dog owners. Find local dog parks and check in our interactive map.</p>
