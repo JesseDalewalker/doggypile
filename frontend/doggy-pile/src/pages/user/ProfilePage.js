@@ -19,14 +19,17 @@ function ProfilePage(props) {
   const [dogList, setDogList] = useState([])
   const [postList, setPostList] = useState([])
   const [loading, setLoading] = useState(false)
-  const [inviteArr, setInviteArr] = useState([])
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [events, setEvents] = useState()
+  
 
   // effects
   useEffect(() => {
     loadUserDetails()
     loadDogList()
     loadPostList()
-    getInvites()
+    getEvents()
   }, [userId])
 
   const loadPostList = async () => {
@@ -160,14 +163,11 @@ function ProfilePage(props) {
     if ( !userDetails ) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
-      console.log("inviteArr", inviteArr)
       return (
         <div>
           <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
           <div>
-            { inviteArr.map((item, index) => {
-              return <p key={ index }>{ item.description }</p>
-            })}
+            <p>This is where the notifications will go</p>
           </div>
       </div>
       )
@@ -175,17 +175,14 @@ function ProfilePage(props) {
       return (
         <div>
           <form onSubmit={ submitInvite } id="event-invite-form">
-            {/* <label for="event_id" >Id</label><br/>
-            <input type="text" name="event_id" /><br/> */}
-            {/* <label for="event_title" >Title</label><br/>
-            <input type="text" name="event_title" /><br/> */}
             <label for="event_start" >Start Date</label><br/>
-            <DatePicker /><br/>
+            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/><br/>
             <label for="event_end" >End Date</label><br/>
-            <DatePicker /><br/>
+            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} /><br/>
             <label for="event_description" >Description</label><br/>
             <input type="text" name="event_description" /><br/>
             <input type="submit" value="submit" />
+            <hr/>
         </form>
         <Button className="edit-btn invite-btn" onClick={ playDateInvite }>Invite to play date!</Button>
         </div>
@@ -194,13 +191,13 @@ function ProfilePage(props) {
   }
 
   // get invites from database
-  const getInvites = async () => {
-    let data = await DoggyPileAPI.getAllItems("invite")
+  // const getInvites = async () => {
+  //   let data = await DoggyPileAPI.getAllItems("invite")
 
-    if (data) {
-      setInviteArr(data)
-    }
-  }
+  //   if (data) {
+  //     setInviteArr(data)
+  //   }
+  // }
 
   
   // onClick function for play date invites
@@ -216,14 +213,24 @@ function ProfilePage(props) {
   
   const submitInvite = async (e) => {
     e.preventDefault()
-    let inviteData = {}
-    inviteData.id = (userId + 5)
-    inviteData.title = "Play Date"
-    inviteData.start = e.target.elements["event-start"]
-    inviteData.end = e.target.elements["event-end"]
-    inviteData.description = e.target.elements["event_description"]
-
     let data = await DoggyPileAPI.getItemById('user_profile', userId)
+    let id = 0
+    for (let i = 0; i < data.event.length; i++) {
+      if (data.event.length < 1) {
+        
+      } else if (data.event[i].id > id) {
+        id = data.event[i].id 
+      }
+    }
+    let inviteData = {}
+    inviteData.id = id + 1
+    inviteData.title = "Play Date"
+    inviteData.start = startDate
+    inviteData.end = endDate
+    inviteData.description = e.target.elements["event_description"].value
+    
+    
+    
 
     if (data) {
       console.log(data)
@@ -235,6 +242,12 @@ function ProfilePage(props) {
     if (otherData) {
       console.log(otherData)
     }
+  }
+
+  // get events
+  const getEvents = async () => {
+    let data = await DoggyPileAPI.getItemById('user_profile', userId)
+    setEvents(data.event)
   }
 
   // Returns all user's post
@@ -280,6 +293,13 @@ function ProfilePage(props) {
             <Tab eventKey="posts" title="Posts">
               <Link to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
               { renderPosts() }
+            </Tab>
+            <Tab eventKey="events" title="Events">
+              { events ? events.map((item, index) => {
+                return <div>
+                  <p>{item.description}</p>
+                </div>
+              }) : null }
             </Tab>
           </Tabs>
         </Row>
