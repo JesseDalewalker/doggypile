@@ -9,6 +9,7 @@ router.register("dogs", DogViewset, basename="dog")
 router.register("marker", MarkerViewset, basename="marker")
 router.register("post", PostViewset, basename="post")
 router.register("comment", CommentViewset, basename="comment")
+router.register("invite", InviteViewset, basename="invite")
 
 
 urlpatterns = [

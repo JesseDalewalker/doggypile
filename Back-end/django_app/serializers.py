@@ -1,3 +1,4 @@
+from dataclasses import field
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth.hashers import make_password
@@ -77,4 +78,14 @@ class CommentSerializer(serializers.ModelSerializer):
         data['user'] = serialized.data
         return data
 
-        
+class InviteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invite
+        fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        user = User.objects.get(pk=data['user'])
+        serialized = UserSerializer(instance=user)
+        data['user'] = serialized.data
+        return data
