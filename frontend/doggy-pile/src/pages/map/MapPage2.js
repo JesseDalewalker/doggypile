@@ -14,7 +14,7 @@ function MapPage(props) {
   let loading = require('../../assets/loading.gif')
   
   const mapContainer = useRef(null);
-  const [map, setMap] = useState();
+  // const [map, setMap] = useState();
   const [arrayOfDogParks, setArrayOfDogParks] = useState()
   const [arrayOfShops, setArrayOfShops] = useState()
   const [arrayOfVets, setArrayOfVets] = useState()
@@ -431,7 +431,7 @@ function MapPage(props) {
       map.addLayer({
         id: 'measure-points',
         type: 'circle',
-        source: 'geojsonRoutes',
+        source: 'geojsonRoutes',//from source above
         layout: {
           'visibility' : 'none',
         },
@@ -446,7 +446,7 @@ function MapPage(props) {
       map.addLayer({
         id: 'measure-lines',
         type: 'line',
-        source: 'geojsonRoutes',
+        source: 'geojsonRoutes',//from source above
         layout: {
         'line-cap': 'round',
         'line-join': 'round',
@@ -697,13 +697,15 @@ function MapPage(props) {
         (link && layers.appendChild(link));        
       }
 
+      //get single route button for points and lines layers
       if(!document.getElementById('routes')){
-        // Skip layers that already have a button set up.
         var routeLink = document.createElement('a');
         routeLink.id = 'routes'
         routeLink.href = '#';
         routeLink.className = '';
         routeLink.textContent = "Routes";
+
+        //toggle through layer visibility
         routeLink.onclick = function (e) {
             for(var index in routeLayers) {
               var clickedLayer = routeLayers[index];
@@ -721,6 +723,8 @@ function MapPage(props) {
               }
             }
         };
+
+        //add layer button to map menu/nav
         var layers = document.getElementById('menu');
         layers.appendChild(routeLink)        
       }
