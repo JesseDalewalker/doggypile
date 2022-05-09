@@ -26,12 +26,12 @@ class UserProfileViewset(ModelViewSet):
         if self.request.method == "GET":
             return (permissions.AllowAny(),)
         # elif self.request.method == "POST":
-        #     return(permissions.IsAuthenticated(),)
+        #     return (permissions.AllowAny(),)
         elif self.request.method == "DELETE":
             return (permissions.IsAuthenticated(),)
         elif self.request.method == "PATCH":
             return (permissions.IsAuthenticated(),)
-        return (permissions.IsAuthenticatedOrReadOnly(),)  
+        return (permissions.AllowAny(),)
 
 class DogViewset(ModelViewSet):
     queryset = Dog.objects.all()
