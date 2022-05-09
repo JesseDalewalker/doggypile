@@ -48,6 +48,7 @@
   object-fit: cover;
 }
 
+
 // .comment-pic-container {
 //   display: flex;
 //   background-color: #FA9A49;
@@ -193,6 +194,33 @@ Button.delete-btn {
   color: #746f6c;
 }
 // This is for Posts
+
+.post-image {
+  display: flexbox;
+  justify-self: self-start;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid white;
+  object-fit: cover;
+}
+
+.author-txt {
+  display: flexbox;
+  position: absolute;
+  top: 80px;
+  justify-self: left;
+  margin-left: 200px;
+ 
+}
+
+.headline {
+  display: flex;
+  position: relative;
+  justify-self: flex-start;
+  padding: 10px;
+ 
+}
 
 * {
   box-sizing: border-box;

@@ -11,12 +11,21 @@ function PostView(props) {
 
   // state
   const [commentsList, setCommentsList] = useState([])
+  const [userProfile, setUserProfile] = useState([])
 
   // effects
   useEffect(() => {
     loadComments()
+    loadUserProfile()
   }, [])
   
+  const loadUserProfile = async () => {
+    const data = await DoggyPileAPI.getAllItems("user_profile")
+    if (data) {
+      setUserProfile(data ? data : [])
+    }
+  }
+
   const loadComments = async () => {
     const comments = []
     const data = await DoggyPileAPI.getAllItems("comment")
@@ -85,8 +94,22 @@ function PostView(props) {
       </div>
     )
   }
-console.log("Main USER:", props.username.user_id, "POST USER:", props.myPost.user.id)
 
+  const postPicRender = () => {
+      for (let i=0; i < userProfile.length; i++) {
+        for (let k = 1; k < userProfile.length; k++) {
+          if (userProfile[i].id.id === props.myPost.user.id) {
+            return (<>
+               <img className="post-image" src={userProfile[i] && userProfile[i].profile_pic} alt="" />
+            </>)
+  } else if (userProfile[k].id.id === props.myPost.user.id) {
+    return (<>
+      <img className="post-image" src={userProfile[k] && userProfile[k].profile_pic} alt="" />
+   </>)
+  } console.log("CHECK User:", userProfile[k].profile_pic, "CHECK POST:", props.myPost.user.id)
+        }
+      }
+    }
   
 
 return (
@@ -98,7 +121,9 @@ return (
         <div className="content">
           <div className="front" >
         <div className="inner">
-          <h1>{ props.myPost.headline } <span className="author-txt">by {props.myPost.user.username }</span></h1>
+          { postPicRender() }
+          <span className="author-txt">{props.myPost.user.username }</span>
+          <h1 className="headline">{ props.myPost.headline }</h1>
           <p className="post-txt">{ props.myPost.content }</p>                
           <label htmlFor={ props.myPost.id} className="button-56 mt-5" aria-hidden="true">
             Go to Comments
@@ -139,4 +164,3 @@ return (
   )
 }
 export default PostView;
-           
