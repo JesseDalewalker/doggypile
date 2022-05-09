@@ -117,3 +117,11 @@ p.location-text {
   background-color: #fdfefe;
   color: #FA9A49;
 }
+
+#event-invite-form {
+  display: none;
+}
+
+/* .invite-btn {
+
+} */

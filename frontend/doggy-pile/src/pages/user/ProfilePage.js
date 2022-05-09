@@ -4,9 +4,11 @@ import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
 import "./ProfileStyles.css"
+import DatePicker from 'react-datepicker'
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
+
 
 function ProfilePage(props) {
   // params
@@ -171,7 +173,22 @@ function ProfilePage(props) {
       )
     } else if (props.username.user_id !== userId) {
       return (
-        <Button className="edit-btn" onClick={ playDateInvite }>Invite to play date!</Button>
+        <div>
+          <form onSubmit={ submitInvite } id="event-invite-form">
+            {/* <label for="event_id" >Id</label><br/>
+            <input type="text" name="event_id" /><br/> */}
+            {/* <label for="event_title" >Title</label><br/>
+            <input type="text" name="event_title" /><br/> */}
+            <label for="event_start" >Start Date</label><br/>
+            <DatePicker /><br/>
+            <label for="event_end" >End Date</label><br/>
+            <DatePicker /><br/>
+            <label for="event_description" >Description</label><br/>
+            <input type="text" name="event_description" /><br/>
+            <input type="submit" value="submit" />
+        </form>
+        <Button className="edit-btn invite-btn" onClick={ playDateInvite }>Invite to play date!</Button>
+        </div>
         )
     }
   }
@@ -185,35 +202,41 @@ function ProfilePage(props) {
     }
   }
 
-
+  
   // onClick function for play date invites
   const playDateInvite = () => {
-    inviteArr.push("You've been invited to a play date")
-    console.log(userId)
-    console.log(props.username)
-    const inviteData = {
-      user: props.username.user_id,
-      to_user: userId,
-      description: `You've been invited to a play date by ${props.username.username}`
+    const form = document.getElementById('event-invite-form')
+
+    if (form.style.display === 'none') {
+      form.style.display = 'block'
+    } else {
+      form.style.display = 'none'
     }
-    let data = DoggyPileAPI.createItems('invite', inviteData)
-
-    return (
-      <form>
-        <label for="event_id" >Id</label><br/>
-        <input type="text" name="event_id" /><br/>
-        <label for="event_title" >Title</label>
-        <input type="text" name="event_title" />
-        <label for="event_start" >Start Date</label>
-
-        <label for="event_end" >End Date</label>
-
-        <label for="event_description" >Description</label>
-      </form>
-
-    )
   }
   
+  const submitInvite = async (e) => {
+    e.preventDefault()
+    let inviteData = {}
+    inviteData.id = (userId + 5)
+    inviteData.title = "Play Date"
+    inviteData.start = e.target.elements["event-start"]
+    inviteData.end = e.target.elements["event-end"]
+    inviteData.description = e.target.elements["event_description"]
+
+    let data = await DoggyPileAPI.getItemById('user_profile', userId)
+
+    if (data) {
+      console.log(data)
+    }
+    data.event.push(inviteData)
+
+    let otherData = await DoggyPileAPI.editItems('user_profile', userId, data)
+
+    if (otherData) {
+      console.log(otherData)
+    }
+  }
+
   // Returns all user's post
   const renderPosts = () => {
     return postList.map((myPost) => {
