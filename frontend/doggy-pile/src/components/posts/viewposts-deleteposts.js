@@ -144,7 +144,7 @@ return (
                       <Form.Control as="textarea" rows={3} name="comment" className="comment-box"/>
                     </Col>
                     <Col>
-                      <Button type="submit" variant="secondary" className="mt-3 mb-3 write-btn submit-cmt">Submit Comment</Button>
+                      <Button type="submit" variant="secondary" className="mt-3 mb-3 submit-cmt">Submit Comment</Button>
                     </Col>
                   </Row>
                 </Form>    

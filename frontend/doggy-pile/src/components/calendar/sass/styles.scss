@@ -141,6 +141,40 @@
   border-radius: 25px;
 }
 
+.editor-bg{   //new
+  max-height: 400px;
+  width: 400px;
+  background-color: white;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-radius: 25px;
+  // padding: 25px;
+  // padding-left: 35px;
+  // padding-right: 35px;
+}
+
+#inputbox{
+  width: 250px;
+  height: fit-content;
+}
+
+#timeInput{
+  width: 100px;
+}
+
+#editInput{
+  margin-top: 10px;
+}
+
+.navbar-item.signup-btn {
+  background-color: #FA9A49;
+  border: 0;
+  border-radius: 25px;
+  width: 160px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
 @import './toolbar';
 @import './event';
 @import './month';

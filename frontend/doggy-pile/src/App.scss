@@ -228,7 +228,7 @@ Button.delete-btn {
 }
 
 html, body {
-  padding-top: 52px;
+  padding-top: 40px;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   color: black;
@@ -540,10 +540,13 @@ $accent-color: lightcyan;
   width: 80%;
 }
 
-.btn.write-btn.submit-cmt {
-  height: 45px;
-  width: 170px;
-  font-size: 16px;
+.btn.submit-cmt {
+  height: 40px;
+  width: 145px;
+  font-size: 15px;
+  border-radius: 25px;
+  background-color: #FA9A49;
+  border: 0;
 }
 
 .location.headline-txt {

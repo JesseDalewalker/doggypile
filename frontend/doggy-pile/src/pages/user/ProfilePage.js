@@ -199,7 +199,20 @@ function ProfilePage(props) {
     }
     let data = DoggyPileAPI.createItems('invite', inviteData)
 
+    return (
+      <form>
+        <label for="event_id" >Id</label><br/>
+        <input type="text" name="event_id" /><br/>
+        <label for="event_title" >Title</label>
+        <input type="text" name="event_title" />
+        <label for="event_start" >Start Date</label>
 
+        <label for="event_end" >End Date</label>
+
+        <label for="event_description" >Description</label>
+      </form>
+
+    )
   }
   
   // Returns all user's post

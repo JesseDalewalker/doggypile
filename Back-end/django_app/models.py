@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=30)
     city = models.CharField(max_length=100, null=True, blank=True)
     state = models.CharField(max_length=100, null=True, blank=True)
-    event = models.JSONField(null=True, blank=True)
+    event = models.JSONField(default = [])
     
     def __str__(self):
         return f'User: {self.user}, City: {self.city}'
