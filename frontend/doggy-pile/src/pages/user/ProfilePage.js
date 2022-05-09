@@ -36,9 +36,12 @@ function ProfilePage(props) {
     
     const data = await DoggyPileAPI.getAllItems("post")
     const filteredPosts = data.filter((user) => {
+      console.log(">>>>>>>>>>>", user)
+      console.log(">>>>>>>>>>>>>", userId)
         return user.user.id == userId
     })    
     setPostList(filteredPosts ? filteredPosts : [])
+    console.log("fileterfjdslfjd", filteredPosts)
   }
 
   const loadUserDetails = async () => {
@@ -165,11 +168,9 @@ function ProfilePage(props) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
       return (
-        <div>
+        <div className="profile-notifications">
           <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
-          <div>
-            <p>This is where the notifications will go</p>
-          </div>
+            { events ? <p>Events: <div className="notifications">{events.length}</div></p> : null }
       </div>
       )
     } else if (props.username.user_id !== userId) {
@@ -191,14 +192,7 @@ function ProfilePage(props) {
     }
   }
 
-  // get invites from database
-  // const getInvites = async () => {
-  //   let data = await DoggyPileAPI.getAllItems("invite")
 
-  //   if (data) {
-  //     setInviteArr(data)
-  //   }
-  // }
 
   
   // onClick function for play date invites
@@ -243,6 +237,9 @@ function ProfilePage(props) {
     if (otherData) {
       console.log(otherData)
     }
+    const form = document.getElementById('event-invite-form')
+
+    form.style.display = 'none'
   }
 
   // get events
@@ -260,15 +257,13 @@ function ProfilePage(props) {
       }
   // Render Write Posts to User only
   const renderWritePost = () => {
-    return postList.map((post)=> {
-      if (props.username.user_id == post.user.id) {
+    if (props.username.user_id == userId) {
       return (
         <>
-      <Link key={post.id} to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
-      </>)
+        <Link key={ 100 } to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
+        </>
+      )
       }
-    }
-    )
   }
 
   //Render Add Dog button or not
@@ -286,7 +281,7 @@ function ProfilePage(props) {
   const renderProfile = () => {
     if (!userDetails) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
-
+      console.log(postList)
     return (
     <Container className="profile">
       <Row>
@@ -316,13 +311,18 @@ function ProfilePage(props) {
               { renderAddDogButton () }
             </Tab>
             <Tab eventKey="posts" title="Posts">
-              { renderWritePost() }
-              { renderPosts() }
+              { postList ? renderWritePost() : null }
+              { postList ? renderPosts() : null }
             </Tab>
             <Tab eventKey="events" title="Events">
               { events ? events.map((item, index) => {
-                return <div>
+                return <div className="tag-event">
+                  <p>{item.title}</p>
+                  <p>{item.id}</p>
                   <p>{item.description}</p>
+                  <p>{item.start}</p>
+                  <p>{item.end}</p>
+                  <hr/>
                 </div>
               }) : null }
             </Tab>
