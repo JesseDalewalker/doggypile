@@ -1,5 +1,5 @@
 .header-cont {
-  width: 60%;
+  width: 70%;
   padding: 2%;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .header-sub {
-  font-weight: 500;
+  font-weight: 400;
   color: #2D2727;
   margin-top: 5%;
   margin-bottom: 5%;
@@ -71,6 +71,8 @@
   width: 100px;
   margin: auto 34%;
 }
+
+/* Carousel */
 
 .carousel-bg {
   background-color: #FDFDFD;
@@ -127,6 +129,7 @@
 
 .sub-header.feed {
   color: #4B4141;
+  animation: fadeIn 2s;
 }
 
 .feed-cont {

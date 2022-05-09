@@ -11,12 +11,21 @@ function PostView(props) {
 
   // state
   const [commentsList, setCommentsList] = useState([])
+  const [userProfile, setUserProfile] = useState([])
 
   // effects
   useEffect(() => {
     loadComments()
+    loadUserProfile()
   }, [])
   
+  const loadUserProfile = async () => {
+    const data = await DoggyPileAPI.getAllItems("user_profile")
+    if (data) {
+      setUserProfile(data ? data : [])
+    }
+  }
+
   const loadComments = async () => {
     const comments = []
     const data = await DoggyPileAPI.getAllItems("comment")
@@ -85,30 +94,49 @@ function PostView(props) {
       </div>
     )
   }
-console.log("Main USER:", props.username.user_id, "POST USER:", props.myPost.user.id)
-return (
-  <section class="day-events new">
 
-    <div class="wrapper">
-      <div class="day-card">
-        <input type="checkbox" id={ props.myPost.id} class="more" aria-hidden="true"/>
-        <div class="content">
-          <div class="front" >
-        <div class="inner">
-          <h1>{ props.myPost.headline } <span className="author-txt">by {props.myPost.user.username }</span></h1>
+  const postPicRender = () => {
+      for (let i=0; i < userProfile.length; i++) {
+        for (let k = 1; k < userProfile.length; k++) {
+          if (userProfile[i].id.id === props.myPost.user.id) {
+            return (<>
+               <img className="post-image" src={userProfile[i] && userProfile[i].profile_pic} alt="" />
+            </>)
+  } else if (userProfile[k].id.id === props.myPost.user.id) {
+    return (<>
+      <img className="post-image" src={userProfile[k] && userProfile[k].profile_pic} alt="" />
+   </>)
+  } console.log("CHECK User:", userProfile[k].profile_pic, "CHECK POST:", props.myPost.user.id)
+        }
+      }
+    }
+  
+
+return (
+  <section className="day-events new">
+
+    <div className="wrapper">
+      <div className="day-card">
+        <input type="checkbox" id={ props.myPost.id} className="more" aria-hidden="true"/>
+        <div className="content">
+          <div className="front" >
+        <div className="inner">
+          { postPicRender() }
+          <span className="author-txt">{props.myPost.user.username }</span>
+          <h1 className="headline">{ props.myPost.headline }</h1>
           <p className="post-txt">{ props.myPost.content }</p>                
-          <label for={ props.myPost.id} class="button-56 mt-5" aria-hidden="true">
+          <label htmlFor={ props.myPost.id} className="button-56 mt-5" aria-hidden="true">
             Go to Comments
           </label>
         </div>
           </div>
-          <div class="back">
-            <div class="inner">
+          <div className="back">
+            <div className="inner">
               { showEditAndDeleteButton() }
               <div className="description">
                 {/* Rendering existing comments */}
                 { showRemoveCommentButton() } 
-
+                <hr/>
                 {/* Form to write a comment */}
                 <Form onSubmit={ handleCreateComment }>
                   <Row className="comment-cont">
@@ -121,9 +149,9 @@ return (
                   </Row>
                 </Form>    
               </div>
-              <div class="location headline-txt">{ props.myPost.headline }</div>        
+              <div className="location headline-txt">{ props.myPost.headline }</div>        
               {/* Back to post button */}
-              <label for={ props.myPost.id} class="button-56 return-btn" aria-hidden="true">
+              <label htmlFor={ props.myPost.id} className="button-56 return-btn" aria-hidden="true">
                 Back to Post
               </label>
             </div>
@@ -131,8 +159,8 @@ return (
         </div>
       </div>
     </div>
+
 </section>
   )
 }
 export default PostView;
-           

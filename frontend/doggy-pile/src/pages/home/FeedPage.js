@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { Link } from "react-router-dom"
-import { Button, Row, Col } from "react-bootstrap"
+import { Button, Row, Col, Spinner } from "react-bootstrap"
 import "./HomeStyles.css"
 
 
 function FeedPage(props) {
   // states
   const [postDetails, setPostDetails] = useState([])
+  const [loading, setLoading] = useState(false)
 
   // effects
   useEffect(() => {
@@ -18,8 +19,14 @@ function FeedPage(props) {
   }, [])
 
   const loadPosts = async () => {
+    setLoading(true)
     const data = await DoggyPileAPI.getAllItems('post')
-    setPostDetails(data ? data : [])
+    if (data) {
+      setLoading(false)
+      setPostDetails(data ? data : [])
+    } else {
+      setLoading(false)
+    }
   }
 
   const removePost = (deletedPostId) => {
@@ -40,7 +47,6 @@ function FeedPage(props) {
 
   return (
     <div>
-      <center>
         <Row className="d-flex justify-content-center feed-cont">
           <Col sm={3}>
             <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
@@ -55,8 +61,7 @@ function FeedPage(props) {
          
       <Link to={`/post/create-post/`}> <Button className="write-btn mb-5">Write A Post</Button></Link><br/>
     
-      { renderPosts ()}
-    </center>
+      { loading ? <Spinner animation="border" variant="secondary" /> : renderPosts() }
     </div>
   )
 }

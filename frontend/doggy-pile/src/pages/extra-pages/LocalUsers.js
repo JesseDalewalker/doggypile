@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { Carousel } from 'react-bootstrap'
+import { Carousel, Row, Col } from 'react-bootstrap'
 import DoggyPileAPI from '../../api/DoggyPileAPI'
 import LocalUserDetails from '../../components/extra-pages/LocalUserDetails'
 import './Doggy101.scss'
@@ -50,12 +50,27 @@ function LocalUsers(props) {
 
   return (
     <div>
-      { activeUser ? <h1>Dogs in {activeUser.city}</h1> : null }
-      <div className='users-container'>
-        <Carousel >
+      {/* Local dogs header */}
+      <div className='d-flex justify-content-center align-items-center local-header'>
+        <Row className='local-items-cont'>
+          <Col className='local-text'>
+            <h1 align="left" className='action-txt local'>See which dogs are in your <span style={{ color:'#E96E29'}}>area</span></h1>
+            <p align="left" className="header-sub local">Get connected and start setting up playdates</p>
+          </Col>
+          <Col>
+            <img src={require('../../images/labrador-king.png')} alt="Lab Retriever"/>
+          </Col>
+        </Row>
+      </div>
+      <div className='d-flex align-items-center justify-content-center location-cont'>
+        { activeUser ? <h4>Showing dogs in <span style={{ color:'#E96E29'}}>{activeUser.city}</span></h4> : null }
+      </div>
+
+      {/* <div className='users-container'> */}
+        <Carousel className="local" variant="dark">
         { users ? renderUsers() : null }
         </Carousel>
-      </div>
+      {/* </div> */}
     </div>
   )
 }

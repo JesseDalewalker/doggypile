@@ -1,5 +1,4 @@
-import { Row, Col, Button, Card } from "react-bootstrap"
-import Carousel from 'react-bootstrap/Carousel'
+import { Row, Col, Button, Card, Carousel } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import './HomeStyles.css'
 // SVGs
@@ -72,17 +71,17 @@ function LandingPage() {
       </div>
       {/* Testimonials */}
       <div className="d-flex justify-content-center mt-5">
-      <Row className="header-cont">
-          <Col>
-            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
-          </Col>
-          <Col className="d-flex align-items-center justify-content-center">
-            <h1 className="sub-header">Testimonials</h1>
-          </Col>
-          <Col>
-            <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-right"/>
-          </Col>
-        </Row>
+        <Row className="header-cont">
+            <Col>
+              <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-left"/>
+            </Col>
+            <Col className="d-flex align-items-center justify-content-center">
+              <h1 className="sub-header">Testimonials</h1>
+            </Col>
+            <Col>
+              <img src={require('../../images/footprints.png')} alt="Footprints" className="footprints-right"/>
+            </Col>
+          </Row>
       </div>
 
       {/* Carousel testimonials */}
