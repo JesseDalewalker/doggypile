@@ -19,7 +19,7 @@ function EditProfilePage(props) {
     }
 
     const userProfileData = {
-      user: props.username.user_id,
+      id: props.username.user_id,
       profile_pic: event.target.elements["profile-pic"].value,
       about: event.target.elements["about"].value,
       gender: event.target.elements["gender-select"].value,
