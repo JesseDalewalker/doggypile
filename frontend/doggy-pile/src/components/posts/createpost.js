@@ -1,7 +1,7 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { useNavigate } from "react-router-dom"
 import {Form, Button, Stack, Row } from 'react-bootstrap'
-import "./PostFormStyles.css"
+import "./PostFormStyles.scss"
 
 // Renders the form for creating/editing User's profile information
 

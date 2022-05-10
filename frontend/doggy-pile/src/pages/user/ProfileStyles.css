@@ -117,3 +117,19 @@ p.location-text {
   background-color: #fdfefe;
   color: #FA9A49;
 }
+
+#event-invite-form {
+  display: none;
+}
+
+.notifications {
+  background-color: red;
+  text-align: center;
+  border-radius: 50%;
+  width: 25px;
+  color: white;
+}
+
+.tag-event {
+  background-color: #FA9A49;
+}
