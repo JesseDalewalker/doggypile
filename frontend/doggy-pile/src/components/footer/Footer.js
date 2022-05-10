@@ -1,4 +1,5 @@
 import { Row, Col } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import './FooterStyles.css'
 import Facebook from '../../images/facebook-icon.svg'
 import Instagram from '../../images/instagram-icon.svg'
@@ -12,9 +13,9 @@ function Footer() {
           <h3 className="footer-text mb-3">About Us</h3>
           <p align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac odio tempor orci dapibus ultrices in iaculis. Gravida cum sociis natoque penatibus et.</p>
         </Col>
-        <Col>
+        <Col className="getting-started">
           <h3 className="footer-text mb-3">Getting Started</h3>
-          <p align="left">Sign Up</p>
+          <Link to={"/signup"} align="left">Sign Up</Link>
         </Col>
         <Col >
           <h3 className="footer-text mb-3">Follow Us</h3>
