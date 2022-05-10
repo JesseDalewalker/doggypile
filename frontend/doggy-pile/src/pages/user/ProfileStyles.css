@@ -10,6 +10,17 @@
   width: 80px;
 }
 
+.btn.edit-btn.create {
+  margin-top: 80px;
+  margin-bottom: 60px;
+  width: 150px;
+  height: 40px;
+}
+
+.btn.add-btn:hover.create {
+  margin-top: 50%;
+}
+
 .btn.edit-btn:hover {
   background-color: #393f3b;
   color: #D8E2DC;
@@ -22,6 +33,7 @@
   border-radius: 50%;
   border: 5px solid white;
   object-fit: cover;
+  margin-left: 60px;
 }
 
 .gender {
@@ -111,6 +123,7 @@ p.location-text {
   height: 50px;
   font-size: 18px;
   font-weight: 500;
+  margin: auto 40%;
 }
 
 .btn.write-btn:hover {

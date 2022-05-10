@@ -171,7 +171,7 @@ function ProfilePage(props) {
   // Show Edit button if user is logged in
   const editProfileBtn = () => {
     if ( !userDetails ) {
-      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
+      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn create">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
       return (
         <div className="profile-notifications">
@@ -311,7 +311,7 @@ function ProfilePage(props) {
   // Rendering the whole profile details
   const renderProfile = () => {
     if (!userDetails) {
-      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
+      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn create">Create Profile</Button></Link> }
       console.log(postList)
     return (
     <Container className="profile">
