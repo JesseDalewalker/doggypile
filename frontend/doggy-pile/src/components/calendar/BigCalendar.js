@@ -33,6 +33,7 @@ function BigCalendar(props) {
   const [displayEvent, setDisplayEvent] = useState()
   const [startTime, setStartTime] = useState({hours: "", minutes: ""})
   const [endTime, setEndTime] = useState({hours: "", minutes: ""})
+  const [falseInvites, setFalseInvites] = useState([])
 
   const getEvents = async () => {
     console.log('rerender')
@@ -47,8 +48,19 @@ function BigCalendar(props) {
       else{
         data.event = []
       }
-      setAllEvents(data.event)
       setUserProfile(data)
+      for (let i = 0; i < data.event.length; i++){
+        if (data.event[i].accepted){
+          if (data.event[i].accepted == false){
+            setDisplayEvent(data.event[i])
+            falseInvites.push(data.event[i])
+            setFalseInvites({...falseInvites})
+            deleteEvent(false)
+          }
+        }
+      }
+      setAllEvents(data.event)
+      
     }
   }
 
