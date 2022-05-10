@@ -2,8 +2,8 @@
   background: #D8E2DC;
   position: absolute;
   z-index: 1;
-  bottom: 115px;
-  right: 10px;
+  bottom: 4vh;
+  right: 2.75vw;
   padding: 10px;
   border-radius: 3px;
   width: 120px;
@@ -61,7 +61,20 @@
 }
 
 .map-container{
-  top: 20px;
-  height: 80vh;
+  top: 35px;
+  bottom: 30px;
+  height: 85vh;
+  width: 95vw;
+  text-align: center;
+  margin: auto;
+}
 
+.mapboxgl-ctrl-geocoder{
+  padding-left: 20px;
+}
+
+.map-div{
+  height: 90vh;
+  width: 100vw;
+  background-color: #4B4141;
 }
