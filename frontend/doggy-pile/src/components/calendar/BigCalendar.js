@@ -81,8 +81,6 @@ function BigCalendar(props) {
       setAllEvents(userProfile.event)
     }
   }
-
-  console.log("FALSE INVITES", falseInvites)
   
   useEffect(() => {
     getEvents()
@@ -94,21 +92,46 @@ function BigCalendar(props) {
 
   const clickEvent = (event) => {
     setDisplayEvent(event)
+    startTime.hours = event.start.getHours()
+    startTime.minutes = event.start.getMinutes()
+    endTime.hours = event.end.getHours()
+    endTime.minutes = event.end.getMinutes()
+    setStartTime({...startTime})
+    setEndTime({...endTime})
+    console.log(event)
     setDisplayEditor(true)
   }
 
-  const handleTime = () => {
-    newEvent.start.setHours(startTime.hours)
-    newEvent.start.setMinutes(startTime.minutes)
-    newEvent.end.setHours(endTime.hours)
-    newEvent.end.setMinutes(endTime.minutes)
+  const handleTime = (bool) => {
+    if (startTime.hours == ""){
+      startTime.hours = '8'
+      setStartTime({...startTime})
+    }
+    if (endTime.hours == ""){
+      endTime.hours = '9'
+      setEndTime({...endTime})
+    }
+    console.log(startTime)
+    if (bool){
+      newEvent.start.setHours(startTime.hours)
+      newEvent.start.setMinutes(startTime.minutes)
+      newEvent.end.setHours(endTime.hours)
+      newEvent.end.setMinutes(endTime.minutes)
+    }
+    else {
+      displayEvent.start.setHours(startTime.hours)
+      displayEvent.start.setMinutes(startTime.minutes)
+      displayEvent.end.setHours(endTime.hours)
+      displayEvent.end.setMinutes(endTime.minutes)
+    }
+    console.log("TIME CHANGE:", displayEvent)
   }
 
   const handleAddEvent = async () => {
     if(newEvent.title == '' || newEvent.start == '' || newEvent.end == '') {
       return (setShowMessage(true))
     }
-    handleTime()
+    handleTime(true)
     let highNum = 0
     for (let i = 0; i < userProfile.event.length; i++){
       if (userProfile.event[i].id > highNum){
@@ -126,6 +149,7 @@ function BigCalendar(props) {
     if(displayEvent.title == '' || displayEvent.start == '' || displayEvent.end == '') {
       return (setShowMessage(true))
     }
+    handleTime(false)
     deleteEvent(false)
     userProfile.event.push(displayEvent)
     await DoggyPileAPI.editItems('user_profile', props.username.user_id, userProfile)
@@ -135,6 +159,7 @@ function BigCalendar(props) {
 
   return (
     <div className='container-fluid'>
+      <br/>
       <br/>
       <div className='row'>
         <div className='col' style={{marginLeft: "250px"}}>
@@ -152,13 +177,13 @@ function BigCalendar(props) {
             <input type='text' placeholder='Add Title' value={newEvent.title} onChange={(e) => setNewEvent({...newEvent, title: e.target.value})} />
             <DatePicker placeholderText='Start Date' selected={newEvent.start} onChange={(start) => setNewEvent({...newEvent, start})} />
             {newEvent.start ? <div>
-              <input id='timeInput' placeholder='Hours' value={startTime.hours} onChange={(e) => setStartTime({...startTime, hours: e.target.value})} />
-              <input id='timeInput' placeholder='Mins' value={startTime.minutes} onChange={(e) => setStartTime({...startTime, minutes: e.target.value})}/>
+              <input id='timeInput' placeholder='Hours' onChange={(e) => setStartTime({...startTime, hours: e.target.value})} />
+              <input id='timeInput' placeholder='Mins' onChange={(e) => setStartTime({...startTime, minutes: e.target.value})}/>
             </div> : ""}
             <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setNewEvent({...newEvent, end})} />
             {newEvent.end ? <div>
-              <input id='timeInput' placeholder='Hours' value={endTime.hours} onChange={(e) => setEndTime({...endTime, hours: e.target.value})} />
-              <input id='timeInput' placeholder='Mins' value={endTime.minutes} onChange={(e) => setEndTime({...endTime, minutes: e.target.value})}/>
+              <input id='timeInput' placeholder='Hours' onChange={(e) => setEndTime({...endTime, hours: e.target.value})} />
+              <input id='timeInput' placeholder='Mins' onChange={(e) => setEndTime({...endTime, minutes: e.target.value})}/>
             </div> : ""}
             <Button className='navbar-item signup-btn' style={{color:'#F8F2F2' }} onClick={ handleAddEvent }>Add Event</Button>
             {showMessage ? <div style={{color: 'red'}}>A field was left blank.</div> : ""}
