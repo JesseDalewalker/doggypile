@@ -40,7 +40,6 @@ function CommentRender (props) {
             <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
             <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
-            <hr/>
             </div>)
           } else if (userProfile[k].id.id === comment.user.id) {
             return (<div className="comment" key={comment.id}>
@@ -50,7 +49,6 @@ function CommentRender (props) {
             <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
             <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
-            <hr/>
             </div>)
           }
         } console.log("UserProfile[i]:", userProfile[i].id.id, "comment:", comment.user.id)
