@@ -2,7 +2,7 @@
   background: #D8E2DC;
   position: absolute;
   z-index: 1;
-  bottom: 10px;
+  bottom: 115px;
   right: 10px;
   padding: 10px;
   border-radius: 3px;
@@ -46,25 +46,22 @@
   margin-bottom: 5px;
 }
 
-// .distance-container {
-//   position: absolute;
-//   top: 10px;
-//   left: 10px;
-//   z-index: 1;
-// }
-  
-// .distance-container > * {
-//   background-color: rgba(0, 0, 0, 0.5);
-//   color: #fff;
-//   font-size: 11px;
-//   line-height: 18px;
-//   display: block;
-//   margin: 0;
-//   padding: 5px 10px;
-//   border-radius: 3px;
-// }
-
 .center{
   margin: auto;
   margin-top: 200px;
+}
+
+.mapboxgl-ctrl-bottom-left{
+  bottom: 90px;
+}
+
+.mapbox-form-label {
+  background: #FA9A49;
+  background-color: #FA9A49
+}
+
+.map-container{
+  top: 20px;
+  height: 80vh;
+
 }
