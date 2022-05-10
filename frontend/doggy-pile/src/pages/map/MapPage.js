@@ -619,12 +619,11 @@ function MapPage(props) {
   }
 
   return (
-    <div>
+    <div className="map-div">
       <nav id="menu"> 
         <div id='menu-title'>Filters</div> 
         <hr id='menu-hr'/>
       </nav>
-      <div id="distance" class="distance-container"></div>
       {isLoading && <img className='center' src={loading} alt="Loading"/>}
       <div ref={mapContainer} className="map-container" />
     </div>
