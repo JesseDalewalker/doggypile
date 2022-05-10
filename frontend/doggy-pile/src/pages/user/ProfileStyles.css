@@ -146,3 +146,9 @@ p.location-text {
 .tag-event {
   background-color: #FA9A49;
 }
+
+/* Events sections */
+
+.edit-btn.invite-btn {
+  width: 200px;
+}
