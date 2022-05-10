@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
 import "./ProfileStyles.css"
 import DatePicker from 'react-datepicker'
+import Swal from 'sweetalert2'
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
@@ -31,6 +32,11 @@ function ProfilePage(props) {
     loadPostList()
     getEvents()
   }, [userId])
+
+  useEffect(() => {
+    alertUser()
+  }, [events])
+
 
   const loadPostList = async () => {
     
@@ -171,12 +177,15 @@ function ProfilePage(props) {
         <div className="profile-notifications">
           <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
             { events ? <p>Events: <div className="notifications">{events.length}</div></p> : null }
+            
       </div>
       )
     } else if (props.username.user_id !== userId) {
       return (
         <div>
           <form onSubmit={ submitInvite } id="event-invite-form">
+            {/* <label for="event_sender">Your Name: </label><br/>
+            <input type="text" name="event_sender" /><br/> */}
             <label for="event_start" >Start Date</label><br/>
             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/><br/>
             <label for="event_end" >End Date</label><br/>
@@ -192,7 +201,26 @@ function ProfilePage(props) {
     }
   }
 
+  // alerting the user when a new event arrives
+  const alertUser = () => {
+    if (events && events.length > 0 && props.username.user_id == userId) {
+      // alert(`You have ${events.length} notifications!`)
+      Swal.fire({
+        title: `You have ${events.length} events to view.`,
+        text: "Do you want to add all of them to your calendar? ",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
 
+    }
+  }
 
   
   // onClick function for play date invites
@@ -223,6 +251,9 @@ function ProfilePage(props) {
     inviteData.start = startDate
     inviteData.end = endDate
     inviteData.description = e.target.elements["event_description"].value
+    inviteData.accepted = false
+    // inviteData.sender = e.target.elements["event_sender"].value
+    inviteData.sender = props.username.username
     
     
     
@@ -315,16 +346,19 @@ function ProfilePage(props) {
               { postList ? renderPosts() : null }
             </Tab>
             <Tab eventKey="events" title="Events">
-              { events ? events.map((item, index) => {
+              { events && props.username.user_id == userId ? events.map((item, index) => {
                 return <div className="tag-event">
                   <p>{item.title}</p>
                   <p>{item.id}</p>
                   <p>{item.description}</p>
                   <p>{item.start}</p>
                   <p>{item.end}</p>
+                  <p>{item.sender}</p>
+                  <button >Delete</button>
+                  <button  >Add to Calendar</button>
                   <hr/>
                 </div>
-              }) : null }
+              }) : <h1>None of your beez wax!</h1> }
             </Tab>
           </Tabs>
         </Row>
