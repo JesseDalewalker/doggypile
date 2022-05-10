@@ -347,15 +347,20 @@ function ProfilePage(props) {
   }
 
   // delete event from the event tab
-  const deleteEvent = async (e) => {
-    e.preventDefault()
-    console.log(e)
-    
+  const deleteEvent = async (id) => {
+    console.log(id)
+    console.log(userProfile)
+    let ind = userProfile.event.indexOf(userProfile.event[id - 1])
+    userProfile.event.splice(ind, 1)
+    console.log(userProfile)
+    let data = await DoggyPileAPI.editItems('user_profile', userId, userProfile)
+    setUserProfile(data)
   }
   
-  const addToCalendar = (e) => {
-    e.preventDefault()
-    console.log(e)
+  const addToCalendar = async (id) => {
+    userProfile.event[id - 1].accepted = true
+    let data = await DoggyPileAPI.editItems('user_profile', userId, userProfile)
+    setUserProfile(data)
   }
 
   // Rendering the whole profile details
@@ -404,8 +409,8 @@ function ProfilePage(props) {
                   <p>{item.start}</p>
                   <p>{item.end}</p>
                   <p>{item.sender}</p>
-                  { item.accepted === false ? <button onClick={ addToCalendar } >Add to Calendar</button> : null }
-                  <button onClick={ deleteEvent } >Delete</button>
+                  { item.accepted === false ? <button onClick={ () => addToCalendar(item.id) } >Add to Calendar</button> : null }
+                  <button onClick={ () => deleteEvent(item.id) } >Delete</button>
                   <hr/>
                 </div>
               }) : null }
