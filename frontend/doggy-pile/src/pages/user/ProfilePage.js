@@ -104,10 +104,10 @@ function ProfilePage(props) {
           return (
             <Row>
               <Col xs={4}>
-                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn me-3">Edit</Button></Link>
+                <Link to={`/dog-profile/${dog.id}/edit-profile`}><Button className="edit-btn me-5">Edit</Button></Link>
               </Col>
               <Col xs={1}>
-                <Button onClick={ handleDeleteDog} className="edit-btn">Delete</Button>
+                <Button onClick={ handleDeleteDog} className="edit-btn ms-3">Delete</Button>
               </Col>
             </Row>
           )
@@ -136,10 +136,10 @@ function ProfilePage(props) {
         })
       }
       return <Row className="dog-cont">
-        <Col xs={4}>
+        <Col xs={5}>
           <img src={ dog && dog.profile_pic } alt="Doggo" className="dog-img"/>
         </Col>
-        <Col xs={5} className="dog-details">
+        <Col xs={4} className="dog-details">
           <h4 className="dog-name">{dog && dog.name} { renderGenderSigns() }</h4>
           <span className="dog-field">Breed</span> <span className="dog-text">{capitalizeBreedName(dog && dog.breed)}</span>
           <br />
