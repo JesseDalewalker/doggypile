@@ -23,6 +23,8 @@ function ProfilePage(props) {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [events, setEvents] = useState()
+  const [unacceptedEvents, setUnacceptedEvents] = useState()
+  const [userProfile, setUserProfile] = useState()
   
 
   // effects
@@ -34,8 +36,11 @@ function ProfilePage(props) {
   }, [userId])
 
   useEffect(() => {
-    alertUser()
-  }, [events])
+    if (unacceptedEvents) {
+      console.log("useEffect")
+      alertUser()
+    }
+  }, [unacceptedEvents])
 
 
   const loadPostList = async () => {
@@ -202,11 +207,15 @@ function ProfilePage(props) {
   }
 
   // alerting the user when a new event arrives
-  const alertUser = () => {
-    if (events && events.length > 0 && props.username.user_id == userId) {
+  const alertUser = async () => {
+    console.log("user id", props.username.user_id)
+    console.log("userId", userId)
+    console.log("unacceptedEvents", unacceptedEvents)
+    let arr = []
+    if ( (unacceptedEvents) && (unacceptedEvents.length > 0) && (props.username.user_id == userId)) {
       // alert(`You have ${events.length} notifications!`)
       Swal.fire({
-        title: `You have ${events.length} events to view.`,
+        title: `You have ${unacceptedEvents.length} events that haven't been accepted yet.`,
         text: "Do you want to add all of them to your calendar? ",
         showDenyButton: true,
         showCancelButton: true,
@@ -214,11 +223,28 @@ function ProfilePage(props) {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire('Saved!', '', 'success')
+          for(let i = 0; i < unacceptedEvents.length; i++) {
+            unacceptedEvents[i].accepted = true
+            for (let j = 0; j < events.length; j++) {
+              arr.push(events[j])
+            }
+            arr.push(unacceptedEvents[i])
+            setEvents(arr)
+            console.log(userProfile)
+            if (userProfile.event.id === unacceptedEvents[i].id) {
+              userProfile.event.accepted = true
+              setUserProfile(userProfile)
+            }
+          }
+          setUnacceptedEvents(null)
+          
         } else if (result.isDenied) {
           Swal.fire('Changes are not saved', '', 'info')
-        }
-      })
 
+        }
+        console.log(arr)
+      })
+      let data = await DoggyPileAPI.editItems('user_profile', userId, userProfile)
     }
   }
 
@@ -275,9 +301,27 @@ function ProfilePage(props) {
 
   // get events
   const getEvents = async () => {
+    let arr = []
+    let arr2 = []
     let data = await DoggyPileAPI.getItemById('user_profile', userId)
-    setEvents(data.event)
+    setUserProfile(data)
+    // // setEvents(data.event)
+    // for (let i = 0; i < data.event.length; i++) {
+    //   console.log("data.event before if statement", data.event)
+    //   if (data.event[i].accepted === false) {
+    //     arr.push(data.event[i])
+    //     // setUnacceptedEvents(data.event[i])
+    //     console.log("data.event inside if statement", data.event)
+    //   } else if (data.event[i].accepted !== false) {
+    //     // setEvents(data.event[i])
+    //     arr2.push(data.event[i])
+    //   }
+    // }
+    // setUnacceptedEvents(arr)
+    // setEvents(arr2)
   }
+  console.log("unacceptedEvents", unacceptedEvents)
+  console.log("Events", events)
 
   // Returns all user's post
   const renderPosts = () => {
@@ -308,6 +352,12 @@ function ProfilePage(props) {
       } 
   }
 
+  // delete event from the event tab
+  const deleteEvent = (e) => {
+    e.preventDefault()
+    console.log(e)
+  }
+
   // Rendering the whole profile details
   const renderProfile = () => {
     if (!userDetails) {
@@ -326,7 +376,7 @@ function ProfilePage(props) {
             <p align="left" className="location-text">{userDetails && userDetails.city}, {userDetails && userDetails.state}, US</p>
             </Col>
             <Col align="right">
-             {editProfileBtn()}
+            {editProfileBtn()}
             </Col>
           </Row>
           <p className="about-text" align="left">{userDetails && userDetails.about}</p>
@@ -354,11 +404,10 @@ function ProfilePage(props) {
                   <p>{item.start}</p>
                   <p>{item.end}</p>
                   <p>{item.sender}</p>
-                  <button >Delete</button>
-                  <button  >Add to Calendar</button>
+                  <button onClick={ deleteEvent } >Delete</button>
                   <hr/>
                 </div>
-              }) : <h1>None of your beez wax!</h1> }
+              }) : null }
             </Tab>
           </Tabs>
         </Row>

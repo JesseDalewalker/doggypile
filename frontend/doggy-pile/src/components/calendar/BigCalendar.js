@@ -50,13 +50,15 @@ function BigCalendar(props) {
       }
       setUserProfile(data)
       for (let i = 0; i < data.event.length; i++){
-        if (data.event[i].accepted){
-          if (data.event[i].accepted == false){
+        console.log("outside if statement", data.event[i])
+        // if (data.event[i].accepted){
+          if (data.event[i].accepted === false){
+            console.log("inside if statement", data.event[i])
             setDisplayEvent(data.event[i])
             falseInvites.push(data.event[i])
             setFalseInvites({...falseInvites})
             deleteEvent(false)
-          }
+          // }
         }
       }
       setAllEvents(data.event)
