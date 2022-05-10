@@ -136,22 +136,22 @@ return (
         <div className="content">
           <div className="front" >
         <div className="inner">
+        { showEditAndDeleteButton() }
           { postPicRender() }
           <Link target="_blank" to={`/profile/${props.myPost.user.id}`} className="author-txt">{props.myPost.user.username }</Link>
           <h1 className="headline">{ props.myPost.headline }</h1>
           <p className="post-txt">{ props.myPost.content }</p>                
-          <label htmlFor={ props.myPost.id} className="button-56 mt-5" aria-hidden="true">
+          <label htmlFor={ props.myPost.id} className="button-56 mt-3" aria-hidden="true">
             Go to Comments
           </label>
         </div>
           </div>
           <div className="back">
             <div className="inner">
-              { showEditAndDeleteButton() }
+              
               <div className="description">
                 {/* Rendering existing comments */}
                 { showRemoveCommentButton() } 
-                <hr/>
                 {/* Form to write a comment */}
                 <Form onSubmit={ handleCreateComment }>
                   <Row className="comment-cont">

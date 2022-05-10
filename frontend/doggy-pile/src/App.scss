@@ -111,19 +111,20 @@
   display: flex;
   position: relative;
   text-align: left;
-  left: 0;
+  left: 20px;
   top: 50px;
-  font-size: small;
+  font-size: 18px;
+  border-bottom: 1px solid rgb(107, 107, 107, 0.5);
+  width: 70%;
+  height: 50px;
 }
 
 .comment {
   display: flex;
   position: relative;
   padding: 20px;
-  
-
+  left: 50px;
 }
-
 
 Button.delete-btn {
   display: flex;
@@ -134,7 +135,8 @@ Button.delete-btn {
   text-align: right;
   font-size: 8pt;
   margin-top: 25px;
-  right: 0;
+  right: 200px;
+  top: 10px;
 }
 // This is for the edit button and delete button
 @font-face {
@@ -199,6 +201,9 @@ Button.delete-btn {
   height: 50px;
   width: 50px;
   padding-bottom: 30px;
+  position: absolute;
+  right: 60px;
+  top: 20px;
 }
 
 .btn.see-more-btn:hover {
@@ -245,11 +250,15 @@ Button.delete-btn {
   justify-self: left;
   margin-left: 170px;
   color: black;
- 
+  padding-top: 10px;
 }
 
 .author-txt:hover, .comment-name:hover {
   color: #FA9A49;
+}
+
+.author-txt.content-name {
+  margin-left: 120px;
 }
 
 .headline {
@@ -286,7 +295,7 @@ $accent-color: lightcyan;
 
 .day-card {
   width: 1100px;
-  height: 481px;
+  height: 471px;
   margin: 1em;
   perspective: 1500px;
   .content {
@@ -322,6 +331,7 @@ $accent-color: lightcyan;
     display: grid;
     padding: 1.5em;
     transform: translateZ(80px) scale(0.94);
+    
   }
 }
 
@@ -346,7 +356,7 @@ $accent-color: lightcyan;
     );
   }
   .inner {
-    grid-template-rows: 5fr 1fr 1fr 2fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr 2fr 1fr;
     justify-items: center;
   }
 
@@ -387,6 +397,7 @@ $accent-color: lightcyan;
     font-weight: 60;
     line-height: 1.4em;
     overflow-y: scroll;
+    overflow-x: hidden;
     // color: $accent-color;
     // padding-right: 10px;
   }
@@ -558,8 +569,8 @@ $accent-color: lightcyan;
 
 .button-56.return-btn {
   position: relative;
-  top: 680%;
-  right: 38%;
+  top: 720%;
+  right: 450px;
 }
 
 .author-txt {
@@ -575,6 +586,8 @@ $accent-color: lightcyan;
 }
 
 .row.comment-cont {
+  margin-top: 20px;
+  margin-left: 140px;
   width: 80%;
 }
 
