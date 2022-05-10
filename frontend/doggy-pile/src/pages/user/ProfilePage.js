@@ -4,9 +4,12 @@ import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
 import "./ProfileStyles.css"
+import DatePicker from 'react-datepicker'
+import Swal from 'sweetalert2'
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
+
 
 function ProfilePage(props) {
   // params
@@ -17,22 +20,34 @@ function ProfilePage(props) {
   const [dogList, setDogList] = useState([])
   const [postList, setPostList] = useState([])
   const [loading, setLoading] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [events, setEvents] = useState()
+  
 
   // effects
   useEffect(() => {
     loadUserDetails()
     loadDogList()
     loadPostList()
-  }, [])
+    getEvents()
+  }, [userId])
+
+  useEffect(() => {
+    alertUser()
+  }, [events])
 
 
   const loadPostList = async () => {
     
     const data = await DoggyPileAPI.getAllItems("post")
     const filteredPosts = data.filter((user) => {
+      console.log(">>>>>>>>>>>", user)
+      console.log(">>>>>>>>>>>>>", userId)
         return user.user.id == userId
     })    
     setPostList(filteredPosts ? filteredPosts : [])
+    console.log("fileterfjdslfjd", filteredPosts)
   }
 
   const loadUserDetails = async () => {
@@ -82,6 +97,7 @@ function ProfilePage(props) {
           removeDoggo(dog.id)
         }
       }
+
       // Checks if currently logged in user matches profile. If so, renders the Edit and Delete button
       const showButtons = () => {
         if (props.username.user_id == userId) {
@@ -157,8 +173,112 @@ function ProfilePage(props) {
     if ( !userDetails ) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
-      return <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> }}
+      return (
+        <div className="profile-notifications">
+          <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
+            { events ? <p>Events: <div className="notifications">{events.length}</div></p> : null }
+            
+      </div>
+      )
+    } else if (props.username.user_id !== userId) {
+      return (
+        <div>
+          <form onSubmit={ submitInvite } id="event-invite-form">
+            {/* <label for="event_sender">Your Name: </label><br/>
+            <input type="text" name="event_sender" /><br/> */}
+            <label for="event_start" >Start Date</label><br/>
+            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/><br/>
+            <label for="event_end" >End Date</label><br/>
+            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} /><br/>
+            <label for="event_description" >Description</label><br/>
+            <input type="text" name="event_description" /><br/>
+            <input type="submit" value="submit" />
+            <hr/>
+        </form>
+        <Button className="edit-btn invite-btn" onClick={ playDateInvite }>Invite to play date!</Button>
+        </div>
+        )
+    }
+  }
+
+  // alerting the user when a new event arrives
+  const alertUser = () => {
+    if (events && events.length > 0 && props.username.user_id == userId) {
+      // alert(`You have ${events.length} notifications!`)
+      Swal.fire({
+        title: `You have ${events.length} events to view.`,
+        text: "Do you want to add all of them to your calendar? ",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+
+    }
+  }
+
   
+  // onClick function for play date invites
+  const playDateInvite = () => {
+    const form = document.getElementById('event-invite-form')
+
+    if (form.style.display === 'none') {
+      form.style.display = 'block'
+    } else {
+      form.style.display = 'none'
+    }
+  }
+  
+  const submitInvite = async (e) => {
+    e.preventDefault()
+    let data = await DoggyPileAPI.getItemById('user_profile', userId)
+    let id = 0
+    for (let i = 0; i < data.event.length; i++) {
+      if (data.event.length < 1) {
+        
+      } else if (data.event[i].id > id) {
+        id = data.event[i].id 
+      }
+    }
+    let inviteData = {}
+    inviteData.id = id + 1
+    inviteData.title = "Play Date"
+    inviteData.start = startDate
+    inviteData.end = endDate
+    inviteData.description = e.target.elements["event_description"].value
+    inviteData.accepted = false
+    // inviteData.sender = e.target.elements["event_sender"].value
+    inviteData.sender = props.username.username
+    
+    
+    
+
+    if (data) {
+      console.log(data)
+    }
+    data.event.push(inviteData)
+
+    let otherData = await DoggyPileAPI.editItems('user_profile', userId, data)
+
+    if (otherData) {
+      console.log(otherData)
+    }
+    const form = document.getElementById('event-invite-form')
+
+    form.style.display = 'none'
+  }
+
+  // get events
+  const getEvents = async () => {
+    let data = await DoggyPileAPI.getItemById('user_profile', userId)
+    setEvents(data.event)
+  }
+
   // Returns all user's post
   const renderPosts = () => {
     return postList.map((myPost) => {
@@ -166,12 +286,33 @@ function ProfilePage(props) {
         return <PostView key={ myPost.id } myPost={ myPost } removePost={ removePost } username={ props.username }/>
         })
       }
+  // Render Write Posts to User only
+  const renderWritePost = () => {
+    if (props.username.user_id == userId) {
+      return (
+        <>
+        <Link key={ 100 } to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
+        </>
+      )
+      }
+  }
+
+  //Render Add Dog button or not
+  const renderAddDogButton = () => {
+      if (props.username.user_id == userId) {
+      return (
+        <>
+        <Link key={userId} to={"/dog-profile/create-profile"}><Button className="add-btn mt-3">Add Dog</Button></Link>
+        </>
+      )
+      } 
+  }
 
   // Rendering the whole profile details
   const renderProfile = () => {
     if (!userDetails) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
-
+      console.log(postList)
     return (
     <Container className="profile">
       <Row>
@@ -197,11 +338,27 @@ function ProfilePage(props) {
           <Tabs defaultActiveKey="dogs" id="profile-tabs">
             <Tab eventKey="dogs" title="Dogs">
               { renderDogs() }
-              <Link to="/dog-profile/create-profile"><Button className="add-btn mt-3">Add Dog</Button></Link>
+              
+              { renderAddDogButton () }
             </Tab>
             <Tab eventKey="posts" title="Posts">
-              <Link to={`/post/create-post/`}> <Button className="write-btn profile">Write A Post</Button></Link><br/>
-              { renderPosts() }
+              { postList ? renderWritePost() : null }
+              { postList ? renderPosts() : null }
+            </Tab>
+            <Tab eventKey="events" title="Events">
+              { events && props.username.user_id == userId ? events.map((item, index) => {
+                return <div className="tag-event">
+                  <p>{item.title}</p>
+                  <p>{item.id}</p>
+                  <p>{item.description}</p>
+                  <p>{item.start}</p>
+                  <p>{item.end}</p>
+                  <p>{item.sender}</p>
+                  <button >Delete</button>
+                  <button  >Add to Calendar</button>
+                  <hr/>
+                </div>
+              }) : <h1>None of your beez wax!</h1> }
             </Tab>
           </Tabs>
         </Row>

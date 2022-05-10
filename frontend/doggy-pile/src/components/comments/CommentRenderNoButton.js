@@ -1,6 +1,7 @@
 import DoggyPileAPI from "../../api/DoggyPileAPI";
 import { Row, Col, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function CommentRenderNoButton (props) {
    // states
@@ -29,7 +30,7 @@ function CommentRenderNoButton (props) {
             <div className="comment-pic-container">
             <img className="comment-pic" src={userProfile[i] && userProfile[i].profile_pic} alt="" />
             </div>
-            <h3 className="comment-name">{comment && comment.user.username}</h3>
+            <Link target="_blank" style={{ textDecoration: 'none' }} key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
             
             <hr/>
@@ -39,7 +40,7 @@ function CommentRenderNoButton (props) {
             <div className="comment-pic-container">
             <img className="comment-pic" src={userProfile[k] && userProfile[k].profile_pic} alt="" />
             </div>
-            <h3 className="comment-name">{comment && comment.user.username}</h3>
+            <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
             
             <hr/>

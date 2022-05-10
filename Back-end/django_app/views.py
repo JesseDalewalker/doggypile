@@ -26,12 +26,12 @@ class UserProfileViewset(ModelViewSet):
         if self.request.method == "GET":
             return (permissions.AllowAny(),)
         # elif self.request.method == "POST":
-        #     return(permissions.IsAuthenticated(),)
+        #     return (permissions.AllowAny(),)
         elif self.request.method == "DELETE":
             return (permissions.IsAuthenticated(),)
         elif self.request.method == "PATCH":
             return (permissions.IsAuthenticated(),)
-        return (permissions.IsAuthenticatedOrReadOnly(),)  
+        return (permissions.AllowAny(),)
 
 class DogViewset(ModelViewSet):
     queryset = Dog.objects.all()
@@ -63,3 +63,13 @@ class PostViewset(ModelViewSet):
 class CommentViewset(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+class InviteViewset(ModelViewSet):
+    queryset = Invite.objects.all()
+    serializer_class = InviteSerializer
+    
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return (permissions.AllowAny(),)
+        elif self.request.method == "GET":
+            return (permissions.AllowAny(),)

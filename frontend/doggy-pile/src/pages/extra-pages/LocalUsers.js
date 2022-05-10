@@ -6,8 +6,8 @@ import './Doggy101.scss'
 
 
 function LocalUsers(props) {
-  const [users, setUsers] = useState()
-  const [activeUser, setActiveUser] = useState()
+  const [users, setUsers] = useState([])
+  const [activeUser, setActiveUser] = useState(null)
 
 
   //get lat,long of user
@@ -21,7 +21,7 @@ function LocalUsers(props) {
     let data = await DoggyPileAPI.getAllItems('dogs')
     
     if (data) {
-      setUsers(data)
+      setUsers(data ? data : [])
     }
   }
 
@@ -29,7 +29,7 @@ function LocalUsers(props) {
     let data = await DoggyPileAPI.getItemById('user_profile', props.username.user_id)
     if (data) {
       console.log(">>>>>>>>>>>", data)
-      setActiveUser(data)
+      setActiveUser(data ? data : null)
     }
   }
 
@@ -38,14 +38,14 @@ function LocalUsers(props) {
     return users.map((item, index) => {
       if (item.user_profile.city == activeUser.city)
         return <Carousel.Item>
-            <LocalUserDetails item={item} index={index} id="local-user-details-id"/>
+            <LocalUserDetails key={index} item={item} index={index}/>
           </Carousel.Item>
     })
   }
 
   // console.log("users", users)
-  console.log("username", props.username)
-  console.log("user_id", props.username.user_id)
+  // console.log("username", props.username)
+  // console.log("user_id", props.username.user_id)
 
 
   return (
