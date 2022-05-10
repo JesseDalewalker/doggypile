@@ -32,8 +32,6 @@ function CommentRenderNoButton (props) {
             </div>
             <Link target="_blank" style={{ textDecoration: 'none' }} key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
-            
-            <hr/>
             </div>)
           } else if (userProfile[k].id.id === comment.user.id) {
             return (<div className="comment" key={comment.id}>
@@ -42,8 +40,6 @@ function CommentRenderNoButton (props) {
             </div>
             <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
-            
-            <hr/>
             </div>)
           }
         } console.log("UserProfile[i]:", userProfile[i].id.id, "comment:", comment.user.id)
