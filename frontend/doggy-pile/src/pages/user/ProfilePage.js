@@ -22,8 +22,8 @@ function ProfilePage(props) {
   const [loading, setLoading] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-  const [events, setEvents] = useState()
-  const [unacceptedEvents, setUnacceptedEvents] = useState()
+  // const [events, setEvents] = useState()
+  // const [unacceptedEvents, setUnacceptedEvents] = useState()
   const [userProfile, setUserProfile] = useState()
   
 
@@ -36,11 +36,11 @@ function ProfilePage(props) {
   }, [userId])
 
   useEffect(() => {
-    if (unacceptedEvents) {
+    if (userProfile) {
       console.log("useEffect")
       alertUser()
     }
-  }, [unacceptedEvents])
+  }, [userProfile])
 
 
   const loadPostList = async () => {
@@ -181,7 +181,7 @@ function ProfilePage(props) {
       return (
         <div className="profile-notifications">
           <Link to={`/profile/${ props.username.user_id}/edit-profile`}><Button className="edit-btn">Edit</Button></Link> 
-            { events ? <p>Events: <div className="notifications">{events.length}</div></p> : null }
+            {/* { events ? <p>Events: <div className="notifications">{events.length}</div></p> : null } */}
             
       </div>
       )
@@ -206,12 +206,15 @@ function ProfilePage(props) {
     }
   }
 
+
   // alerting the user when a new event arrives
   const alertUser = async () => {
-    console.log("user id", props.username.user_id)
-    console.log("userId", userId)
-    console.log("unacceptedEvents", unacceptedEvents)
-    let arr = []
+    let unacceptedEvents = []
+    for (let i = 0; i < userProfile.event.length; i++) {
+      if (userProfile.event[i].accepted === false) {
+        unacceptedEvents.push(userProfile.event[i])
+      }
+    }
     if ( (unacceptedEvents) && (unacceptedEvents.length > 0) && (props.username.user_id == userId)) {
       // alert(`You have ${events.length} notifications!`)
       Swal.fire({
@@ -223,30 +226,23 @@ function ProfilePage(props) {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire('Saved!', '', 'success')
+          // console.log("HEY LOOK OVER HERE", userProfile)
           for(let i = 0; i < unacceptedEvents.length; i++) {
             unacceptedEvents[i].accepted = true
-            for (let j = 0; j < events.length; j++) {
-              arr.push(events[j])
-            }
-            arr.push(unacceptedEvents[i])
-            setEvents(arr)
-            console.log(userProfile)
-            if (userProfile.event.id === unacceptedEvents[i].id) {
-              userProfile.event.accepted = true
-              setUserProfile(userProfile)
-            }
           }
-          setUnacceptedEvents(null)
-          
+          // console.log("LOOK HERE DUMMY", userProfile)
+          DoggyPileAPI.editItems('user_profile', userId, userProfile).then((response) => {
+            setUserProfile(response)
+            // console.log(">>>>>>>>>>>>>RESPONSE", response)
+          })
         } else if (result.isDenied) {
           Swal.fire('Changes are not saved', '', 'info')
-
         }
-        console.log(arr)
       })
-      let data = await DoggyPileAPI.editItems('user_profile', userId, userProfile)
+      
     }
   }
+
 
   
   // onClick function for play date invites
@@ -301,8 +297,8 @@ function ProfilePage(props) {
 
   // get events
   const getEvents = async () => {
-    let arr = []
-    let arr2 = []
+    // let arr = []
+    // let arr2 = []
     let data = await DoggyPileAPI.getItemById('user_profile', userId)
     setUserProfile(data)
     // // setEvents(data.event)
@@ -320,8 +316,6 @@ function ProfilePage(props) {
     // setUnacceptedEvents(arr)
     // setEvents(arr2)
   }
-  console.log("unacceptedEvents", unacceptedEvents)
-  console.log("Events", events)
 
   // Returns all user's post
   const renderPosts = () => {
@@ -353,7 +347,13 @@ function ProfilePage(props) {
   }
 
   // delete event from the event tab
-  const deleteEvent = (e) => {
+  const deleteEvent = async (e) => {
+    e.preventDefault()
+    console.log(e)
+    
+  }
+  
+  const addToCalendar = (e) => {
     e.preventDefault()
     console.log(e)
   }
@@ -362,7 +362,7 @@ function ProfilePage(props) {
   const renderProfile = () => {
     if (!userDetails) {
       return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn">Create Profile</Button></Link> }
-      console.log(postList)
+      // console.log(postList)
     return (
     <Container className="profile">
       <Row>
@@ -396,14 +396,15 @@ function ProfilePage(props) {
               { postList ? renderPosts() : null }
             </Tab>
             <Tab eventKey="events" title="Events">
-              { events && props.username.user_id == userId ? events.map((item, index) => {
-                return <div className="tag-event">
+              { userProfile && userProfile.event && props.username.user_id == userId ? userProfile.event.map((item, index) => {
+                return <div className="tag-event" key={ index } >
                   <p>{item.title}</p>
                   <p>{item.id}</p>
                   <p>{item.description}</p>
                   <p>{item.start}</p>
                   <p>{item.end}</p>
                   <p>{item.sender}</p>
+                  { item.accepted === false ? <button onClick={ addToCalendar } >Add to Calendar</button> : null }
                   <button onClick={ deleteEvent } >Delete</button>
                   <hr/>
                 </div>
