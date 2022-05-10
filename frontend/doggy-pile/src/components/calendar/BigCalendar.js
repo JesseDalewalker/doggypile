@@ -36,9 +36,10 @@ function BigCalendar(props) {
   const [falseInvites, setFalseInvites] = useState([])
 
   const getEvents = async () => {
-    console.log('rerender')
+    console.log('GETTING EVENTS')
     const data = await DoggyPileAPI.getItemById('user_profile', props.username.user_id)
     if (data){
+      console.log("DATA:", data)
       if (data.event){
         for (let i = 0; i < data.event.length; i++){
           data.event[i].start = new Date(data.event[i].start)
@@ -49,24 +50,47 @@ function BigCalendar(props) {
         data.event = []
       }
       setUserProfile(data)
-      for (let i = 0; i < data.event.length; i++){
-        if (data.event[i].accepted){
-          if (data.event[i].accepted == false){
-            setDisplayEvent(data.event[i])
-            falseInvites.push(data.event[i])
-            setFalseInvites({...falseInvites})
-            deleteEvent(false)
-          }
-        }
-      }
-      setAllEvents(data.event)
-      
     }
   }
 
+  const deleteEvent = async (bool) => {
+    for (let i = 0; i < userProfile.event.length; i++) {
+      if (userProfile.event[i].id === displayEvent.id){
+        userProfile.event.pop(userProfile.event[i])
+        break
+      }
+    }
+    if (bool){
+      await DoggyPileAPI.editItems('user_profile', props.username.user_id, userProfile)
+      setShowMessage(false)
+      window.location.reload(false)
+    }
+  }
+
+  const setEvents =() => {
+    if (userProfile){
+      console.log("SETTING EVENTS")
+      let inviteList = []
+      for (let i = 0; i < userProfile.event.length; i++){
+        if (userProfile.event[i].accepted == false){
+          inviteList.push(userProfile.event[i])
+          userProfile.event.pop(userProfile.event[i])
+        }
+      }
+      setFalseInvites(inviteList)
+      setAllEvents(userProfile.event)
+    }
+  }
+
+  console.log("FALSE INVITES", falseInvites)
+  
   useEffect(() => {
     getEvents()
   }, [])
+
+  useEffect(() => {
+    setEvents()
+  }, [userProfile])
 
   const clickEvent = (event) => {
     setDisplayEvent(event)
@@ -107,20 +131,6 @@ function BigCalendar(props) {
     await DoggyPileAPI.editItems('user_profile', props.username.user_id, userProfile)
     setShowMessage(false)
     window.location.reload(false)
-  }
-
-  const deleteEvent = async (bool) => {
-    for (let i = 0; i < userProfile.event.length; i++) {
-      if (userProfile.event[i].id === displayEvent.id){
-        userProfile.event.pop(userProfile.event[i])
-        break
-      }
-    }
-    if (bool){
-      await DoggyPileAPI.editItems('user_profile', props.username.user_id, userProfile)
-      setShowMessage(false)
-      window.location.reload(false)
-    }
   }
 
   return (
