@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import DoggyPileAPI from "../../api/DoggyPileAPI";
-import { Form, Button, Row, Col } from "react-bootstrap"
+import { Form, Button, Row, Col, OverlayTrigger, Popover, ListGroup } from "react-bootstrap"
 import CommentRender from "../comments/CommentRender";
 import CommentRenderNoButton from "../comments/CommentRenderNoButton";
+import "./PostFormStyles.scss"
+
+import Edit from '../../images/edit-icon.svg'
+import Delete from '../../images/delete-icon.svg'
 
 function PostView(props) {
 
@@ -73,13 +77,24 @@ function PostView(props) {
   const showEditAndDeleteButton = () => {
     if (props.username.user_id === props.myPost.user.id) {
       return (
-        <div>
-         <Link to={`/post/${props?.myPost?.id}/`}> <button className="btn-update">Edit</button></Link>
-        <button className="btn-delete" onClick={ handleDeletePost }>Delete</button>
-        </div>
+        <OverlayTrigger 
+        trigger="click"
+        key="bottom" 
+        placement="bottom"
+        overlay={
+          <Popover className="more-popover">
+            <ListGroup variant="flush">
+              <ListGroup.Item as={Link} to={`/post/${props?.myPost?.id}/`} className="list-more-item"><img src={Edit} alt="" className="see-more-icons"/> Edit</ListGroup.Item>
+              <ListGroup.Item action onClick={handleDeletePost}className="list-more-item"><img src={Delete} alt="" className="see-more-icons"/> Delete</ListGroup.Item>
+            </ListGroup>
+          </Popover>
+        }>
+         <Button className="d-flex align-items-center justify-content-center see-more-btn">...</Button>
+        </OverlayTrigger>
       )
     }
   }
+
 
   const showRemoveCommentButton = () => {
     if (props.username.user_id === props.myPost.user.id) {

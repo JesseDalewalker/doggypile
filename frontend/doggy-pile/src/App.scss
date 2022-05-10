@@ -179,15 +179,53 @@ Button.delete-btn {
   font-weight: bold;
 }
 
-.btn-delete {
-  width: 110px;
-  color: #746f6c;
+// For the posts
+// .btn-delete {
+//   width: 110px;
+//   color: #746f6c;
+// }
+
+// .btn-update {
+//   width: 100px;
+//   color: #746f6c;
+// }
+
+.btn.see-more-btn {
+  background: rgba(255, 255, 255, 0.0);
+  border: 0;
+  color: #312F2F;
+  font-size: 40px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  padding-bottom: 30px;
 }
 
-.btn-update {
-  width: 100px;
-  color: #746f6c;
+.btn.see-more-btn:hover {
+  background-color: #FCF9F8;
+  color: #312F2F;
 }
+
+.btn-delete.new {
+  background-color: #fff;
+}
+
+.more-popover {
+  width: 100px;
+}
+
+.list-more-item {
+  font-weight: 500;
+}
+
+.list-more-item:hover {
+  background-color: #b9b7b7;
+}
+
+.see-more-icons {
+  width: 20px;
+}
+
 // This is for Posts
 
 .post-image {
