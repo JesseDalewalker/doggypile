@@ -2,7 +2,7 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
+import { Row, Col, Button, Container, Tabs, Tab, Spinner, Form } from "react-bootstrap";
 import "./ProfileStyles.scss"
 import DatePicker from 'react-datepicker'
 import Swal from 'sweetalert2'
@@ -190,15 +190,13 @@ function ProfilePage(props) {
       return (
         <div>
           <form onSubmit={ submitInvite } id="event-invite-form">
-            {/* <label for="event_sender">Your Name: </label><br/>
-            <input type="text" name="event_sender" /><br/> */}
-            <label for="event_start" >Start Date</label><br/>
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/><br/>
-            <label for="event_end" >End Date</label><br/>
-            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} /><br/>
-            <label for="event_description" >Description</label><br/>
-            <input type="text" name="event_description" /><br/>
-            <input type="submit" value="submit" />
+            <label for="event_start" className="datepicker-label">Start Date</label><br/>
+            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className="datepicker"/><br/>
+            <label for="event_end" className="datepicker-label end">End Date</label><br/>
+            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} className="datepicker"/><br/>
+            <label for="event_description" className="datepicker-label description">Description</label><br/>
+            <input type="text" name="event_description" className="datepicker"/><br/>
+            <input type="submit" value="Submit" className="invite-btn"/>
             <hr/>
         </form>
         <Button className="edit-btn invite-btn" onClick={ playDateInvite }>Invite to play date!</Button>
@@ -385,18 +383,20 @@ function ProfilePage(props) {
               { postList ? renderWritePost() : null }
               { postList ? renderPosts() : null }
             </Tab>
-            <Tab eventKey="events" title="Events">
+            <Tab eventKey="events" title="Events" className="events-tab">
               { userProfile && userProfile.event && props.username.user_id == userId ? userProfile.event.map((item, index) => {
-                return <div className="tag-event" key={ index } >
-                  <p>{item.title}</p>
-                  <p>{item.id}</p>
-                  <p>{item.description}</p>
-                  <p>{item.start}</p>
-                  <p>{item.end}</p>
-                  <p>{item.sender}</p>
-                  { item.accepted === false ? <button onClick={ () => addToCalendar(item.id) } >Add to Calendar</button> : null }
-                  <button onClick={ () => deleteEvent(item.id) } >Delete</button>
-                  <hr/>
+                return <div className="d-flex justify-content-center tag-event" key={ index } >
+                  <Row className="event-cont">
+                    <Col sm={7} className="event-details">
+                      <h5 align="left" className="event-title">You have an event called "{item.title}" { item.sender ? `with ${item.sender}` : "" }</h5>
+                      <p align="left" className="event-text">{item.description && `"${item.description}"`}</p>
+                      <p align="left" className="event-date">{new Date(item.start).toLocaleString()} - {new Date(item.end).toLocaleString()}</p>
+                    </Col>
+                    <Col className="d-flex flex-row justify-content-end events-btns">
+                      { item.accepted === false ? <Button onClick={ () => addToCalendar(item.id) } className="edit-btn add-calendar" >Add to Calendar</Button> : null }
+                      <Button onClick={ () => deleteEvent(item.id) } className="navbar-item signup-btn events ms-2" >Delete</Button>
+                    </Col>
+                  </Row>
                 </div>
               }) : null }
             </Tab>

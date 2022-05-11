@@ -156,6 +156,7 @@ p.location-text {
 
 #event-invite-form {
   display: none;
+  width: 195px;
 }
 
 .notifications {
@@ -166,12 +167,100 @@ p.location-text {
   color: white;
 }
 
+.tab-content.events-tab {
+  padding-top: 1%;
+}
+
 .tag-event {
+  /* background-color: #FA9A49; */
+}
+
+// Playdate
+.datepicker {
+  border-radius: 20px;
+  border: 0;
+  height: 30px;
+  padding-left: 10px;
+}
+
+.datepicker-label {
+  margin-right: 105px;
+  font-weight: 500;
+  color: #767070;
+}
+
+.datepicker-label.end {
+  margin-right: 113px;
+}
+
+.datepicker-label.description {
+  margin-right: 95px;
+}
+
+.invite-btn {
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 0;
+  height: 35px;
+  width: 80px;
   background-color: #FA9A49;
+  color: #f5efef;
+  font-weight: 500;
 }
 
 /* Events sections */
 
 .edit-btn.invite-btn {
-  width: 200px;
+  margin-top: 4px;
+  width: 190px;
+  height: 40px;
+}
+
+.event-cont {
+  padding-top: 20px;
+  min-height: 130px;
+  border-bottom: 1px solid rgb(97, 91, 91, 0.3);
+  width: 90%;
+}
+
+.event-details {
+
+}
+
+.event-title {
+  font-size: 18px;
+  color: #3a3f3c;
+  background-color: #D8E2DC;
+  height: 35px;
+  padding-left: 10px;
+  padding-top: 6px;
+  border-radius: 5px;
+}
+
+.event-text {
+  font-size: 17px;
+  font-style: italic;
+  padding-left: 10px;
+}
+
+.event-date {
+  font-weight: 700;
+  color: #888888;
+  padding-left: 10px;
+}
+
+.edit-btn.add-calendar {
+  width: 135px;
+  font-size: 15px;
+  height: 40px;
+}
+
+.events-btns {
+  justify-items: end;
+}
+
+.navbar-item.signup-btn.events {
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
 }

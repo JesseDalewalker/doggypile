@@ -123,6 +123,7 @@
 
 .calendar-font {    // new
   font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .calendar-bg{   //new
@@ -130,20 +131,22 @@
   width: fit-content;
   background-color: white;
   padding: 40px;
-  border-radius: 25px;  
+  border-radius: 25px;
+  margin-top: 5%;  
 }
 
 .event-bg{    //new
   height: fit-content;
-  width: 400px;
+  width: 440px;
   background-color: white;
   padding: 40px;
   border-radius: 25px;
+  margin-top: 5%;
 }
 
 .editor-bg{   //new
-  max-height: 400px;
-  width: 400px;
+  max-height: 420px;
+  width: 440px;
   background-color: white;
   padding-top: 25px;
   padding-bottom: 25px;
@@ -153,17 +156,36 @@
   // padding-right: 35px;
 }
 
+.add-new-field {
+  border-radius: 20px;
+  border: 0;
+  background-color: rgb(241, 237, 237);
+  height: 35px;
+  padding-left: 10px;
+  margin: 10px;
+  width: 250px;
+}
+
 #inputbox{
   width: 250px;
-  height: fit-content;
+  height: 32px;
+  border-radius: 20px;
+  border: 0;
+  background-color: rgb(241, 237, 237);
+  padding-left: 8px;
+  margin-bottom: 7px;
 }
 
 #timeInput{
   width: 100px;
+  border-radius: 10px;
+  border: 1px solid rgb(129, 129, 129, 0.5);
+  padding-left: 8px;
 }
 
 #editInput{
   margin-top: 10px;
+  
 }
 
 .navbar-item.signup-btn {
