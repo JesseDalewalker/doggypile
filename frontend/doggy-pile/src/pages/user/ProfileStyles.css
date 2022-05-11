@@ -143,12 +143,63 @@ p.location-text {
   color: white;
 }
 
+.tab-content.events-tab {
+  padding-top: 1%;
+}
+
 .tag-event {
-  background-color: #FA9A49;
+  /* background-color: #FA9A49; */
 }
 
 /* Events sections */
 
 .edit-btn.invite-btn {
   width: 200px;
+}
+
+.event-cont {
+  padding-top: 20px;
+  min-height: 130px;
+  border-bottom: 1px solid rgb(97, 91, 91, 0.3);
+  width: 90%;
+}
+
+.event-details {
+
+}
+
+.event-title {
+  font-size: 18px;
+  color: #3a3f3c;
+  background-color: #D8E2DC;
+  height: 35px;
+  padding-left: 10px;
+  padding-top: 6px;
+  border-radius: 10px;
+}
+
+.event-text {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.event-date {
+  font-weight: 700;
+  color: #888888;
+}
+
+.edit-btn.add-calendar {
+  width: 135px;
+  font-size: 15px;
+  height: 40px;
+}
+
+.events-btns {
+  justify-items: end;
+}
+
+.navbar-item.signup-btn.events {
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
 }

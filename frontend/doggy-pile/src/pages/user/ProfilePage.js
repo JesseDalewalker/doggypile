@@ -384,18 +384,28 @@ function ProfilePage(props) {
               { postList ? renderWritePost() : null }
               { postList ? renderPosts() : null }
             </Tab>
-            <Tab eventKey="events" title="Events">
+            <Tab eventKey="events" title="Events" className="events-tab">
               { userProfile && userProfile.event && props.username.user_id == userId ? userProfile.event.map((item, index) => {
-                return <div className="tag-event" key={ index } >
-                  <p>{item.title}</p>
+                return <div className="d-flex justify-content-center tag-event" key={ index } >
+                  {/* <p>{item.title}</p>
                   <p>{item.id}</p>
                   <p>{item.description}</p>
                   <p>{item.start}</p>
                   <p>{item.end}</p>
                   <p>{item.sender}</p>
                   { item.accepted === false ? <button onClick={ () => addToCalendar(item.id) } >Add to Calendar</button> : null }
-                  <button onClick={ () => deleteEvent(item.id) } >Delete</button>
-                  <hr/>
+                  <button onClick={ () => deleteEvent(item.id) } >Delete</button> */}
+                  <Row className="event-cont">
+                    <Col sm={7} className="event-details">
+                      <h5 align="left" className="event-title">You have an event called "{item.title}" { item.sender ? `with ${item.sender}` : "" }</h5>
+                      <p align="left" className="event-text">"{item.description}"</p>
+                      <p align="left" className="event-date">{new Date(item.start).toLocaleString()} - {new Date(item.end).toLocaleString()}</p>
+                    </Col>
+                    <Col className="d-flex flex-row justify-content-end events-btns">
+                      { item.accepted === false ? <Button onClick={ () => addToCalendar(item.id) } className="edit-btn add-calendar" >Add to Calendar</Button> : null }
+                      <Button onClick={ () => deleteEvent(item.id) } className="navbar-item signup-btn events ms-2" >Delete</Button>
+                    </Col>
+                  </Row>
                 </div>
               }) : null }
             </Tab>
