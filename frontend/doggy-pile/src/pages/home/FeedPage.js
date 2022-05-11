@@ -67,7 +67,7 @@ function FeedPage(props) {
               <div className="user-div">
                 <h2 align="left" className="user-header">{ props.username.username }<span style={{color: '#3C3434', fontWeight: '600'}}>!</span></h2>
               </div>
-              <Link to={`/post/create-post/`}> <Button className="write-btn">Write A Post</Button></Link><br/>
+              { profileDetails ? <Link to={`/post/create-post/`}> <Button className="write-btn">Write A Post</Button></Link>: <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="write-btn">Create Profile</Button></Link>}
             </Col>
           </Row>
         </div>
@@ -81,3 +81,4 @@ function FeedPage(props) {
 }
 
 export default FeedPage;
+

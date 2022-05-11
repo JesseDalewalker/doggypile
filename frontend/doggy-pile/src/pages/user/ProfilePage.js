@@ -297,24 +297,8 @@ function ProfilePage(props) {
 
   // get events
   const getEvents = async () => {
-    // let arr = []
-    // let arr2 = []
     let data = await DoggyPileAPI.getItemById('user_profile', userId)
     setUserProfile(data)
-    // // setEvents(data.event)
-    // for (let i = 0; i < data.event.length; i++) {
-    //   console.log("data.event before if statement", data.event)
-    //   if (data.event[i].accepted === false) {
-    //     arr.push(data.event[i])
-    //     // setUnacceptedEvents(data.event[i])
-    //     console.log("data.event inside if statement", data.event)
-    //   } else if (data.event[i].accepted !== false) {
-    //     // setEvents(data.event[i])
-    //     arr2.push(data.event[i])
-    //   }
-    // }
-    // setUnacceptedEvents(arr)
-    // setEvents(arr2)
   }
 
   // Returns all user's post

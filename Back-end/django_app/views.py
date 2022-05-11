@@ -12,6 +12,8 @@ class UserViewset(ModelViewSet):
             return (permissions.AllowAny(),)  # this lets unauthorized users make POST request i.e. sign up, login, logout
         elif self.request.method == "PATCH":
             return (permissions.IsAuthenticated(),)
+        elif self.request.method == "GET":
+            return (permissions.AllowAny(),)
         return (permissions.IsAdminUser(),) 
 
 class UserProfileViewset(ModelViewSet):

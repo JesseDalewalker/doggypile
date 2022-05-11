@@ -16,7 +16,7 @@ function LoginPage(props) {
       password: event.target.elements["password"].value
     }
     const data = await DoggyPileAPI.login(loginData)
-
+    
     if (data) {
       localStorage.setItem('username', JSON.stringify(data))
       props.setUsername(data)
