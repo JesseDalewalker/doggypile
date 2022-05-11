@@ -156,6 +156,7 @@ p.location-text {
 
 #event-invite-form {
   display: none;
+  width: 195px;
 }
 
 .notifications {
@@ -174,10 +175,45 @@ p.location-text {
   /* background-color: #FA9A49; */
 }
 
+// Playdate
+.datepicker {
+  border-radius: 20px;
+  border: 0;
+  height: 30px;
+  padding-left: 10px;
+}
+
+.datepicker-label {
+  margin-right: 105px;
+  font-weight: 500;
+  color: #767070;
+}
+
+.datepicker-label.end {
+  margin-right: 113px;
+}
+
+.datepicker-label.description {
+  margin-right: 95px;
+}
+
+.invite-btn {
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 0;
+  height: 35px;
+  width: 80px;
+  background-color: #FA9A49;
+  color: #f5efef;
+  font-weight: 500;
+}
+
 /* Events sections */
 
 .edit-btn.invite-btn {
-  width: 200px;
+  margin-top: 4px;
+  width: 190px;
+  height: 40px;
 }
 
 .event-cont {
@@ -198,17 +234,19 @@ p.location-text {
   height: 35px;
   padding-left: 10px;
   padding-top: 6px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .event-text {
   font-size: 17px;
   font-style: italic;
+  padding-left: 10px;
 }
 
 .event-date {
   font-weight: 700;
   color: #888888;
+  padding-left: 10px;
 }
 
 .edit-btn.add-calendar {

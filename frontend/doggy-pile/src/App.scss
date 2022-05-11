@@ -123,9 +123,10 @@ a:active { text-decoration: none; }
   display: flex;
   position: relative;
   text-align: left;
-  left: 20px;
+  right: 40px;
   top: 50px;
   font-size: 18px;
+  font-weight: 400;
   border-bottom: 1px solid rgb(107, 107, 107, 0.5);
   width: 70%;
   height: 50px;
@@ -269,8 +270,13 @@ Button.delete-btn {
   color: #FA9A49;
 }
 
+.content-name {
+  margin-left: 20px;
+  font-weight: 500;
+}
+
 .author-txt.content-name {
-  margin-left: 120px;
+  margin-left: 140px;
 }
 
 .headline {
@@ -595,6 +601,7 @@ $accent-color: lightcyan;
   padding: 3%;
   width: 100%;
   border-radius: 5px;
+  font-size: 19px;
 }
 
 .row.comment-cont {

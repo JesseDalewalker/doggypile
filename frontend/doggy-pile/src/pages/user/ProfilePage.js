@@ -2,7 +2,7 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button, Container, Tabs, Tab, Spinner, OverlayTrigger, Popover } from "react-bootstrap";
+import { Row, Col, Button, Container, Tabs, Tab, Spinner, Form } from "react-bootstrap";
 import "./ProfileStyles.scss"
 import DatePicker from 'react-datepicker'
 import Swal from 'sweetalert2'
@@ -190,15 +190,13 @@ function ProfilePage(props) {
       return (
         <div>
           <form onSubmit={ submitInvite } id="event-invite-form">
-            {/* <label for="event_sender">Your Name: </label><br/>
-            <input type="text" name="event_sender" /><br/> */}
-            <label for="event_start" >Start Date</label><br/>
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/><br/>
-            <label for="event_end" >End Date</label><br/>
-            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} /><br/>
-            <label for="event_description" >Description</label><br/>
-            <input type="text" name="event_description" /><br/>
-            <input type="submit" value="submit" />
+            <label for="event_start" className="datepicker-label">Start Date</label><br/>
+            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className="datepicker"/><br/>
+            <label for="event_end" className="datepicker-label end">End Date</label><br/>
+            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} className="datepicker"/><br/>
+            <label for="event_description" className="datepicker-label description">Description</label><br/>
+            <input type="text" name="event_description" className="datepicker"/><br/>
+            <input type="submit" value="Submit" className="invite-btn"/>
             <hr/>
         </form>
         <Button className="edit-btn invite-btn" onClick={ playDateInvite }>Invite to play date!</Button>

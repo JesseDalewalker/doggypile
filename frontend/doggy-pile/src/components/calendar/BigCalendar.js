@@ -162,7 +162,7 @@ function BigCalendar(props) {
       <br/>
       <br/>
       <div className='row'>
-        <div className='col' style={{marginLeft: "250px"}}>
+        <div className='col' style={{marginLeft: "180px"}}>
           <div className='calendar-center'>
             <div className='calendar-bg'>
               <h1 className='calendar-font'>Calendar</h1>
@@ -174,18 +174,18 @@ function BigCalendar(props) {
         <div className='col' style={displayEditor ? {marginLeft: '100px'} : {margin: '100px'}}>
           <div className='event-bg'>
             <h3 className='calendar-font'>Add New Event</h3>
-            <input type='text' placeholder='Add Title' value={newEvent.title} onChange={(e) => setNewEvent({...newEvent, title: e.target.value})} />
-            <DatePicker placeholderText='Start Date' selected={newEvent.start} onChange={(start) => setNewEvent({...newEvent, start})} />
+            <input type='text' placeholder='Add Title' value={newEvent.title} onChange={(e) => setNewEvent({...newEvent, title: e.target.value})} className="add-new-field"/>
+            <DatePicker placeholderText='Start Date' selected={newEvent.start} onChange={(start) => setNewEvent({...newEvent, start})} className="add-new-field"/>
             {newEvent.start ? <div>
               <input id='timeInput' placeholder='Hours' onChange={(e) => setStartTime({...startTime, hours: e.target.value})} />
               <input id='timeInput' placeholder='Mins' onChange={(e) => setStartTime({...startTime, minutes: e.target.value})}/>
             </div> : ""}
-            <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setNewEvent({...newEvent, end})} />
+            <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setNewEvent({...newEvent, end})} className="add-new-field"/>
             {newEvent.end ? <div>
               <input id='timeInput' placeholder='Hours' onChange={(e) => setEndTime({...endTime, hours: e.target.value})} />
               <input id='timeInput' placeholder='Mins' onChange={(e) => setEndTime({...endTime, minutes: e.target.value})}/>
             </div> : ""}
-            <Button className='navbar-item signup-btn' style={{color:'#F8F2F2' }} onClick={ handleAddEvent }>Add Event</Button>
+            <Button className='navbar-item signup-btn mt-3' style={{color:'#F8F2F2' }} onClick={ handleAddEvent }>Add Event</Button>
             {showMessage ? <div style={{color: 'red'}}>A field was left blank.</div> : ""}
           </div>
           {displayEditor ? <div className='row' style={{marginTop: '20px'}}><div className='col' id='editor-bg'><div className='editor-bg'><div className='container-fluid'>
@@ -203,17 +203,17 @@ function BigCalendar(props) {
                 <input id='inputbox' type="text" value={displayEvent.title} onChange={(e) => setDisplayEvent({...displayEvent, title: e.target.value})}/>
                 <DatePicker id='inputbox' placeholderText='Start Date' selected={displayEvent.start} onChange={(start) => setDisplayEvent({...displayEvent, start})} />
                 {displayEvent.start ? <div>
-                  <input style={{width: '75px'}} placeholder='Hours' value={startTime.hours} onChange={(e) => setStartTime({...startTime, hours: e.target.value})} />
-                  <input style={{width: '75px'}} placeholder='Mins' value={startTime.minutes} onChange={(e) => setStartTime({...startTime, minutes: e.target.value})}/>
+                  <input id='timeInput' style={{width: '75px'}} placeholder='Hours' value={startTime.hours} onChange={(e) => setStartTime({...startTime, hours: e.target.value})} />
+                  <input id='timeInput' style={{width: '75px'}} placeholder='Mins' value={startTime.minutes} onChange={(e) => setStartTime({...startTime, minutes: e.target.value})}/>
                 </div> : ""}
                 <DatePicker id='inputbox' placeholderText='End Date' selected={displayEvent.end} onChange={(end) => setDisplayEvent({...displayEvent, end})} />
                 {displayEvent.end ? <div>
-                  <input style={{width: '75px'}} placeholder='Hours' value={endTime.hours} onChange={(e) => setEndTime({...endTime, hours: e.target.value})} />
-                  <input style={{width: '75px'}} placeholder='Mins' value={endTime.minutes} onChange={(e) => setEndTime({...endTime, minutes: e.target.value})}/>
+                  <input id='timeInput' style={{width: '75px'}} placeholder='Hours' value={endTime.hours} onChange={(e) => setEndTime({...endTime, hours: e.target.value})} />
+                  <input id='timeInput' style={{width: '75px'}} placeholder='Mins' value={endTime.minutes} onChange={(e) => setEndTime({...endTime, minutes: e.target.value})}/>
                 </div> : ""}
                 <textarea id='inputbox' value={displayEvent.description} onChange={(e) => setDisplayEvent({...displayEvent, description: e.target.value})} style={{maxHeight: '200px'}}><input type="text"/></textarea>
-                <Button className='navbar-item signup-btn' style={{color:'#F8F2F2' }} onClick={ handleEditEvent }>Add Changes</Button>
-                <Button className='navbar-item signup-btn' style={{color:'#F8F2F2' }} onClick={ () => deleteEvent(true) }>Delete</Button>
+                <Button className='navbar-item signup-btn mt-2' style={{color:'#F8F2F2' }} onClick={ handleEditEvent }>Add Changes</Button>
+                <Button className='navbar-item signup-btn mt-2' style={{color:'#F8F2F2' }} onClick={ () => deleteEvent(true) }>Delete</Button>
               </div>
           </div>
           </div></div></div></div> : ""}
