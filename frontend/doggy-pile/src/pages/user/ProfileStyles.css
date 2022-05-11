@@ -175,7 +175,7 @@ p.location-text {
   height: 35px;
   padding-left: 10px;
   padding-top: 6px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .event-text {
@@ -186,6 +186,7 @@ p.location-text {
 .event-date {
   font-weight: 700;
   color: #888888;
+  padding-left: 10px;
 }
 
 .edit-btn.add-calendar {
