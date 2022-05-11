@@ -28,31 +28,53 @@ function CommentRender (props) {
         if (data) {
           props.removeComment(comment.id)
         }
-      }
-      for (let i=0; i < userProfile.length; i++) {
-        for (let k=1; k < userProfile.length; k++) {
-          if (userProfile[i].id.id === comment.user.id) {
+      } 
 
-          return (<div className="comment" key={comment.id}>
+      // create a look up table for easy access
+      const userProfileLookUp = { }
+      for (let i =0; i < userProfile.length; i++) {
+        userProfileLookUp[userProfile[i].id.id] = userProfile[i]
+      }
+
+      for (let i = 0; i < userProfile.length; i++) {
+        const userProfileForComment = userProfileLookUp[comment.user.id]
+        let showButton = (props.currentUserId == props.authorId) || (props.currentUserId == comment.user.id)
+        return (
+          <div className="comment" key={comment.id}>
             <div className="comment-pic-container">
-            <img className="comment-pic" src={userProfile[i] && userProfile[i].profile_pic} alt="" />
+              <img className="comment-pic" src={userProfileForComment && userProfileForComment.profile_pic} alt="" />
             </div>
             <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="content-name">{comment && comment.user.username}</Link>
             <p className="comment-content" >{comment && comment.comment}</p>
-            <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
-            </div>)
-          } else if (userProfile[k].id.id === comment.user.id) {
-            return (<div className="comment" key={comment.id}>
-            <div className="comment-pic-container">
-            <img className="comment-pic" src={userProfile[k] && userProfile[k].profile_pic} alt="" />
-            </div>
-            <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
-            <p className="comment-content" >{comment && comment.comment}</p>
-            <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>
-            </div>)
-          }
-        } console.log("UserProfile[i]:", userProfile[i].id.id, "comment:", comment.user.id)
-      } 
+            {showButton && <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>}
+          </div>
+        )
+      }
+
+      // for (let i=0; i < userProfile.length; i++) {
+      //   for (let k=1; k < userProfile.length; k++) {
+      //     if (userProfile[i].id.id == comment.user.id) {
+      //         let showButton = (props.currentUserId == props.authorId) || (props.currentUserId == comment.user.id)
+      //     return (<div className="comment" key={comment.id}>
+      //       <div className="comment-pic-container">
+      //       <img className="comment-pic" src={userProfile[i] && userProfile[i].profile_pic} alt="" />
+      //       </div>
+      //       <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="content-name">{comment && comment.user.username}</Link>
+      //       <p className="comment-content" >{comment && comment.comment}</p>
+      //       {showButton && <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>}
+      //       </div>)
+      //     } else if (userProfile[k].id.id == comment.user.id) {
+      //       return (<div className="comment" key={comment.id}>
+      //       <div className="comment-pic-container">
+      //       <img className="comment-pic" src={userProfile[k] && userProfile[k].profile_pic} alt="" />
+      //       </div>
+      //       <Link target="_blank" key={comment.id} to={`/profile/${comment.user.id}`} className="author-txt content-name">{comment && comment.user.username}</Link>
+      //       <p className="comment-content" >{comment && comment.comment}</p>
+      //       {showButton && <Button className="delete-btn" onClick={ handleDeleteComment } variant="light">Delete Comment</Button>}
+      //       </div>)
+      //     }
+      //   } console.log("UserProfile[i]:", userProfile[i].id.id, "comment:", comment.user.id)
+      // } 
     })
   }
  

@@ -97,17 +97,18 @@ function PostView(props) {
 
 
   const showRemoveCommentButton = () => {
-    if (props.username.user_id === props.myPost.user.id) {
+    // if (props.username.user_id === props.myPost.user.id) {
+
       return (
         <div>
-        <CommentRender commentsList={commentsList} removeComment={removeComment}/>
+        <CommentRender commentsList={commentsList} authorId={ props.myPost.user.id } currentUserId={ props.username.user_id} removeComment={removeComment}/>
         </div>
       )
-    } return (
-      <div>
-        <CommentRenderNoButton commentsList={commentsList} />
-      </div>
-    )
+    // } return (
+    //   <div>
+    //     {/* <CommentRenderNoButton commentsList={commentsList} /> */}
+    //   </div>
+    // )
   }
 
   const postPicRender = () => {
