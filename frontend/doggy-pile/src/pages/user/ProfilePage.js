@@ -2,7 +2,7 @@ import DoggyPileAPI from "../../api/DoggyPileAPI";
 import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
+import { Row, Col, Button, Container, Tabs, Tab, Spinner, OverlayTrigger, Popover } from "react-bootstrap";
 import "./ProfileStyles.scss"
 import DatePicker from 'react-datepicker'
 import Swal from 'sweetalert2'
@@ -388,18 +388,10 @@ function ProfilePage(props) {
             <Tab eventKey="events" title="Events" className="events-tab">
               { userProfile && userProfile.event && props.username.user_id == userId ? userProfile.event.map((item, index) => {
                 return <div className="d-flex justify-content-center tag-event" key={ index } >
-                  {/* <p>{item.title}</p>
-                  <p>{item.id}</p>
-                  <p>{item.description}</p>
-                  <p>{item.start}</p>
-                  <p>{item.end}</p>
-                  <p>{item.sender}</p>
-                  { item.accepted === false ? <button onClick={ () => addToCalendar(item.id) } >Add to Calendar</button> : null }
-                  <button onClick={ () => deleteEvent(item.id) } >Delete</button> */}
                   <Row className="event-cont">
                     <Col sm={7} className="event-details">
                       <h5 align="left" className="event-title">You have an event called "{item.title}" { item.sender ? `with ${item.sender}` : "" }</h5>
-                      <p align="left" className="event-text">"{item.description}"</p>
+                      <p align="left" className="event-text">{item.description && `"${item.description}"`}</p>
                       <p align="left" className="event-date">{new Date(item.start).toLocaleString()} - {new Date(item.end).toLocaleString()}</p>
                     </Col>
                     <Col className="d-flex flex-row justify-content-end events-btns">

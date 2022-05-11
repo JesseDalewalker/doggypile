@@ -1,0 +1,205 @@
+
+/* Buttons */
+.btn.edit-btn {
+  background-color: #D8E2DC;
+  border: 0;
+  border-radius: 18px;
+  color: #767070;
+  font-weight: 600;
+  font-size: 18px;
+  width: 80px;
+}
+
+.btn.edit-btn.create {
+  margin-top: 80px;
+  margin-bottom: 60px;
+  width: 150px;
+  height: 40px;
+}
+
+.btn.add-btn:hover.create {
+  margin-top: 50%;
+}
+
+.btn.edit-btn:hover {
+  background-color: #393f3b;
+  color: #D8E2DC;
+}
+
+/* User info */
+.user-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 5px solid white;
+  object-fit: cover;
+  margin-left: 60px;
+}
+
+.gender {
+  width: 25px;
+}
+
+.profile.container {
+  margin-top: 3%;
+}
+
+p.location-text {
+  color: #9b9b9b;
+  font-weight: 600;
+}
+
+/* Section for dog profiles */
+.bottom-profile {
+  width: 80%;
+  margin-top: 3%;
+  background-color: #FCF9F8;
+  padding: 2%;
+  border-radius: 3%;
+}
+
+#profile-tabs {
+  background-color: #393f3b;
+}
+
+.tab-content {
+  padding: 5%;
+}
+
+.dog-cont {
+  margin-bottom: 5%;
+  padding-left: 15%;
+}
+
+.dog-img {
+  width: 240px;
+  height: 230px;
+  object-fit: cover;
+  box-shadow: 2px 2px 5px #888888;
+}
+
+.dog-details {
+  text-align: left;
+}
+
+.dog-name {
+  color: #67584B;
+}
+
+.dog-field {
+  font-size: 18px;
+  font-weight: 600;
+  color: #FA9A49;
+}
+
+.dog-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #534848;
+  margin-left: 8px;
+}
+
+.btn.add-btn {
+  background-color: #FA9A49;
+  border: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+.btn.add-btn:hover {
+  background-color: #f3f7f5;
+  color: #FA9A49;
+}
+
+/* Post section */
+.btn.write-btn.profile {
+  background-color: #FA9A49;
+  color: #f5efef;
+  border: 0;
+  border-radius: 30px;
+  width: 170px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  margin: auto 40%;
+}
+
+.btn.write-btn:hover {
+  background-color: #fdfefe;
+  color: #FA9A49;
+}
+
+#event-invite-form {
+  display: none;
+}
+
+.notifications {
+  background-color: red;
+  text-align: center;
+  border-radius: 50%;
+  width: 25px;
+  color: white;
+}
+
+.tab-content.events-tab {
+  padding-top: 1%;
+}
+
+.tag-event {
+  /* background-color: #FA9A49; */
+}
+
+/* Events sections */
+
+.edit-btn.invite-btn {
+  width: 200px;
+}
+
+.event-cont {
+  padding-top: 20px;
+  min-height: 130px;
+  border-bottom: 1px solid rgb(97, 91, 91, 0.3);
+  width: 90%;
+}
+
+.event-details {
+
+}
+
+.event-title {
+  font-size: 18px;
+  color: #3a3f3c;
+  background-color: #ecc993;
+  height: 35px;
+  padding-left: 10px;
+  padding-top: 6px;
+  border-radius: 10px;
+}
+
+.event-text {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.event-date {
+  font-weight: 700;
+  color: #888888;
+}
+
+.edit-btn.add-calendar {
+  width: 135px;
+  font-size: 15px;
+  height: 40px;
+}
+
+.events-btns {
+  justify-items: end;
+}
+
+.navbar-item.signup-btn.events {
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+}
