@@ -3,12 +3,13 @@ import PostView from "../../components/posts/viewposts-deleteposts";
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, Button, Container, Tabs, Tab, Spinner } from "react-bootstrap";
-import "./ProfileStyles.css"
+import "./ProfileStyles.scss"
 import DatePicker from 'react-datepicker'
 import Swal from 'sweetalert2'
 // SVG import
 import maleSign from "../../images/male-sign.svg"
 import femaleSign from "../../images/female-sign.svg"
+
 
 
 function ProfilePage(props) {
@@ -176,7 +177,7 @@ function ProfilePage(props) {
   // Show Edit button if user is logged in
   const editProfileBtn = () => {
     if ( !userDetails ) {
-      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button className="edit-btn create">Create Profile</Button></Link> }
+      return <Link to={`/profile/${ props.username.user_id}/create-profile`}><Button id="jiggle2" className="edit-btn create">Create Profile</Button></Link> }
     else if ( props.username.user_id == userId ) {
       return (
         <div className="profile-notifications">
