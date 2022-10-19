@@ -1,6 +1,6 @@
 # DoggyPile
 
-View our demo on how DoggyPile works on YOUTUBE: https://www.youtube.com/watch?v=7BxDXljvT3A
+View our demo on how DoggyPile works on YOUTUBE: [Doggy_Pile_Demo](https://www.youtube.com/watch?v=7BxDXljvT3A)
 
 DoggyPile is a pet social app made for dog owners that allows users to set up playdates and check in at local parks. Our interactive map will include features such as filtering dog friendly establishments, lost or found pets, and the ability to create markers.
 
