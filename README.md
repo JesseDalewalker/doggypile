@@ -50,7 +50,7 @@ $ pip install -r requirements.txt
 ```
 $ pip3 install -r requirements.txt
 ```
-5. Create a .env file then generate a new SECRET_KEY for Django settings.py.
+5. Create a .env file then generate a new SECRET_KEY for Django settings.py. Ensure you have the appropriate updates and that setting.py will contain the secret key.
 ```
 $ touch .env
 $ python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
