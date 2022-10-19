@@ -17,9 +17,9 @@ DoggyPile is a pet social app made for dog owners that allows users to set up pl
     Trello, Figma 
 
 ## Table of Contents
-* [Backend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#backend-setup)
-* [Frontend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#frontend-setup)
-* [Git Workflow](https://github.com/quebecplatoon/gp_doggy_pile_app#git-workflow)
+* [Backend Setup](https://github.com/JesseDalewalker/doggypile#backend-setup)
+* [Frontend Setup](https://github.com/JesseDalewalker/doggypile#frontend-setup)
+* [Git Workflow](https://github.com/JesseDalewalker/doggypile#git-workflow)
 
 ## Getting Started: Installing The Project
 
@@ -125,4 +125,4 @@ $ git merge <branch-name>
 7. Submit a pull request. GitHub will notify you if there are any conflicts you need to resolve within the files before being able to merge the changes.
 - If there are any issues, run `$ git status` to pinpoint their location.
 
-[Back to top](https://github.com/quebecplatoon/gp_doggy_pile_app#doggypile)
+[Back to top](https://github.com/JesseDalewalker/doggypile#doggypile)
