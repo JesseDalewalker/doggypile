@@ -4,7 +4,17 @@ View how it works on YOUTUBE: https://www.youtube.com/watch?v=7BxDXljvT3A
 
 DoggyPile is a pet social app made for dog owners that allows users to set up playdates and check in at local parks. Our interactive map will include features such as filtering dog friendly establishments, lost or found pets, and the ability to create markers.
 
-Libraries/Frameworks/Languages: IDE: VSCODE; Backend: Django, Python; Frontend: React, JavaScript, HTML, CSS, SASS
+**_Libraries/Frameworks/Languages_**: 
+
+    IDE: VSCODE 
+    
+    Backend: Django, Python, Psycopg2, django-restFramework, django-cors-headers 
+   
+    Frontend: React, JavaScript, HTML, CSS, SASS
+
+**_Collaboration tools_**: 
+
+    Trello, Figma 
 
 ## Table of Contents
 * [Backend Setup](https://github.com/quebecplatoon/gp_doggy_pile_app#backend-setup)
